@@ -33,6 +33,8 @@ CATALOGUE PARFUMERIE DE LA ZAC — PARFUMS DE PARIS
 
 const WHATSAPP = "221769724307";
 const WHATSAPP_DISPLAY = "+221 76 972 43 07";
+const INSTAGRAM = "https://www.instagram.com/parfumerie_de_la_zac";
+const FACEBOOK = "https://www.facebook.com/profile.php?id=61576231477609";
 
 const SYSTEM_PROMPT = `Tu es Matel, conseillère officielle de la Parfumerie de la Zac, boutique de luxe spécialisée en parfums authentiques de Paris. Tu es élégante, chaleureuse et professionnelle.
 
@@ -260,9 +262,21 @@ export default function App() {
                 </div>
               </div>
             ))}
-            <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`, "_blank")} style={{ width: "100%", padding: "16px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "15px", fontWeight: "700", boxShadow: "0 4px 20px #25D36644" }}>
-              💬 Nous contacter sur WhatsApp
-            </button>
+            {/* Social buttons */}
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "13px", fontWeight: "700", boxShadow: "0 4px 20px #25D36644", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <span style={{ fontSize: "22px" }}>💬</span>
+                <span>WhatsApp</span>
+              </button>
+              <button className="tbtn" onClick={() => window.open(INSTAGRAM, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #E1306C, #833ab4)", color: "#fff", fontSize: "13px", fontWeight: "700", boxShadow: "0 4px 20px #E1306C44", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <span style={{ fontSize: "22px" }}>📸</span>
+                <span>Instagram</span>
+              </button>
+              <button className="tbtn" onClick={() => window.open(FACEBOOK, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #1877F2, #0d5bba)", color: "#fff", fontSize: "13px", fontWeight: "700", boxShadow: "0 4px 20px #1877F244", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <span style={{ fontSize: "22px" }}>👥</span>
+                <span>Facebook</span>
+              </button>
+            </div>
             <button className="tbtn" onClick={() => setActivePage("order")} style={{ width: "100%", padding: "14px", borderRadius: "16px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 4px 20px ${gold}44` }}>
               🛍️ Passer une commande
             </button>
