@@ -31,7 +31,7 @@ CATALOGUE PARFUMERIE DE LA ZAC — PARFUMS DE PARIS
 - Parfum de Chambre : 5 000 FCFA (stock: 2)
 `;
 
-const SYSTEM_PROMPT = `Tu es Matel, la conseillère officielle de la Parfumerie de la Zac, boutique de luxe spécialisée en parfums authentiques de Paris. Tu es élégante, chaleureuse et professionnelle. Tu utilises des emojis sobres (✨🖤🌹).
+const SYSTEM_PROMPT = `Tu es Zara, la conseillère officielle de la Parfumerie de la Zac, boutique de luxe spécialisée en parfums authentiques de Paris. Tu es élégante, chaleureuse et professionnelle. Tu utilises des emojis sobres (✨🖤🌹).
 
 ${CATALOGUE}
 
@@ -60,7 +60,7 @@ export default function App() {
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: "Bienvenue à la Parfumerie de la Zac ✨ Je suis Matel, votre conseillère. Nos parfums authentiques de Paris vous attendent. Comment puis-je vous aider ? 🖤",
+      content: "Bienvenue à la Parfumerie de la Zac ✨ Je suis Zara, votre conseillère. Nos parfums authentiques de Paris vous attendent. Comment puis-je vous aider ? 🖤",
     },
   ]);
   const [input, setInput] = useState("");
@@ -176,7 +176,7 @@ export default function App() {
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "5px", marginTop: "2px" }}>
                 <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 6px #4ade80" }} />
-                <span style={{ color: "rgba(255,255,255,0.45)", fontSize: "11px" }}>Matel en ligne • Parfums de Paris</span>
+                <span style={{ color: "rgba(255,255,255,0.45)", fontSize: "11px" }}>Zara en ligne • Parfums de Paris</span>
               </div>
             </div>
           </div>
@@ -318,7 +318,7 @@ export default function App() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send()}
-            placeholder="Votre message à Matel..."
+            placeholder="Votre message à Zara..."
             style={{
               flex: 1, padding: "12px 0",
               background: "transparent", border: "none",
