@@ -1,35 +1,380 @@
-## Parfait ! On ajoute la page Catalogue ! 🚀
+import { useState, useRef, useEffect } from "react";
 
-## Votre nouveau App.jsx est prêt ! 🎉🖤
+const WHATSAPP = "221769724307";
+const WHATSAPP_DISPLAY = "+221 76 972 43 07";
+const INSTAGRAM = "https://www.instagram.com/parfumerie_de_la_zac";
+const FACEBOOK = "https://www.facebook.com/profile.php?id=61576231477609";
 
-### Ce qui a été ajouté
+const PRODUITS = [
+  { id: 1, nom: "Collection Prestige", prix: 25000, stock: 4, cat: "Prestige", emoji: "👑", desc: "Fragrance raffinée et élégante, une empreinte inoubliable." },
+  { id: 2, nom: "Collection Igor", prix: 25000, stock: 1, cat: "Prestige", emoji: "👑", desc: "Création exclusive aux notes envoûtantes. Stock très limité !" },
+  { id: 3, nom: "La Folie du Délice", prix: 25000, stock: 2, cat: "Prestige", emoji: "👑", desc: "Notes gourmandes et sensuelles. Stock limité." },
+  { id: 4, nom: "Collection Kenzi", prix: 20000, stock: 5, cat: "Prestige", emoji: "👑", desc: "Élégance et caractère pour un parfum qui vous ressemble." },
+  { id: 5, nom: "Collection Convivium", prix: 17500, stock: 3, cat: "Prestige", emoji: "👑", desc: "Fragrance chaleureuse, parfaite pour les occasions spéciales." },
+  { id: 6, nom: "Collection Privée", prix: 15000, stock: 10, cat: "Prestige", emoji: "👑", desc: "Collection exclusive pour ceux qui aiment se démarquer." },
+  { id: 7, nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", emoji: "🎁", desc: "Coffret cadeau luxueux. Idéal pour une occasion inoubliable." },
+  { id: 8, nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", emoji: "🎁", desc: "Coffret prestige dans un écrin raffiné. Dernier exemplaire !" },
+  { id: 9, nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Le légendaire Phantom — notes boisées et magnétiques." },
+  { id: 10, nom: "Invictus Victory Paco Rabanne", prix: 65000, stock: 1, cat: "Classique", emoji: "🌹", desc: "La victoire dans un flacon — puissant, frais et inoubliable." },
+  { id: 11, nom: "Red Tobacco", prix: 75000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Notes de tabac rouge envoûtantes. Sensuel et charismatique." },
+  { id: 12, nom: "Atelier des Essences", prix: 45000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Création artisanale aux essences précieuses et raffinées." },
+  { id: 13, nom: "Sugar Oud Fleurs des Délices", prix: 35000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Notes de oud et fleurs sucrées. Oriental et délicat." },
+  { id: 14, nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Version intense, notes boisées profondes et sophistiquées." },
+  { id: 15, nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Notes fruitées et florales pour une élégance absolue." },
+  { id: 16, nom: "Callisto Holliday", prix: 60000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Notes estivales et florales. Festif et léger." },
+  { id: 17, nom: "Musc Tahara", prix: 10000, stock: 8, cat: "Classique", emoji: "🌹", desc: "Musc pur, doux et enveloppant. Longue tenue." },
+  { id: 18, nom: "Déodorant CP Ba Intense", prix: 4000, stock: 3, cat: "Accessoire", emoji: "✨", desc: "Protection longue durée, parfum frais et agréable." },
+  { id: 19, nom: "Parfum de Chambre", prix: 5000, stock: 2, cat: "Accessoire", emoji: "✨", desc: "Parfumez votre intérieur avec élégance et luxe." },
+];
 
-```
-✅ 4 onglets de navigation :
-   💬 Chat      → Matel répond à vos clients
-   📦 Catalogue → NOUVEAU ! Tous vos parfums
-   🛍️ Commander → Formulaire WhatsApp
-   📍 Boutique  → Infos + réseaux sociaux
+const CATALOGUE_TEXT = PRODUITS.map(p =>
+  `- ${p.nom} : ${p.prix.toLocaleString('fr-FR')} FCFA (stock: ${p.stock})`
+).join('\n');
 
-✅ Page Catalogue complète :
-   → Statistiques (19 articles, 48 en stock...)
-   → Filtres par catégorie (Tous / Prestige / Coffret / Classique / Accessoire)
-   → Carte par parfum avec prix, description, stock
-   → Badge stock coloré (vert/orange/rouge)
-   → Bouton "Commander →" sur chaque article
-   → Redirection directe vers la page Commander
-```
+const SYSTEM_PROMPT = `Tu es Matel, la conseillère officielle de la Parfumerie de la Zac, boutique de luxe spécialisée en parfums authentiques de Paris. Tu es élégante, chaleureuse et professionnelle. Tu utilises des emojis sobres (✨🖤🌹).
 
----
+CATALOGUE COMPLET :
+${CATALOGUE_TEXT}
 
-### 📋 Pour déployer
+INFOS BOUTIQUE :
+- Adresse : Zac Mbao, Pikine, Dakar
+- Horaires : Lundi-Dimanche 9h00 à 20h00
+- Livraison : Dakar + Banlieue sous 24h
+- WhatsApp : ${WHATSAPP_DISPLAY}
 
-```bash
-cd ~/Desktop/parfumerie_de_la_zac/chatbot
-cp ~/Downloads/App.jsx src/App.jsx
-git add .
-git commit -m "Ajout page Catalogue complète"
-git push origin main
-```
+Règles :
+- Réponds en 2-3 phrases maximum
+- Pour commander : WhatsApp au ${WHATSAPP_DISPLAY}
+- Suggère selon le budget du client
+- Mentionne toujours que ce sont des parfums authentiques de Paris
+- Ne jamais dépasser le stock indiqué`;
 
-Dites-moi quand c'est pushé ! 🖤🚀
+const platforms = [
+  { id: "whatsapp", label: "WhatsApp", color: "#25D366", icon: "💬" },
+  { id: "instagram", label: "Instagram", color: "#E1306C", icon: "📸" },
+  { id: "facebook", label: "Facebook", color: "#1877F2", icon: "👥" },
+];
+
+const PAGES = [
+  { id: "chat", label: "💬 Chat" },
+  { id: "catalogue", label: "📦 Catalogue" },
+  { id: "order", label: "🛍️ Commander" },
+  { id: "info", label: "📍 Boutique" },
+];
+
+const CATS = ["Tous", "Prestige", "Coffret", "Classique", "Accessoire"];
+const CAT_ICONS = { Prestige: "👑", Coffret: "🎁", Classique: "🌹", Accessoire: "✨" };
+
+export default function App() {
+  const [platform, setPlatform] = useState("whatsapp");
+  const [activePage, setActivePage] = useState("chat");
+  const [messages, setMessages] = useState([{
+    role: "assistant",
+    content: "Bienvenue à la Parfumerie de la Zac ✨ Je suis Matel, votre conseillère. Nos parfums authentiques de Paris vous attendent. Comment puis-je vous aider ? 🖤",
+  }]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [order, setOrder] = useState({ name: "", phone: "", product: "", quartier: "" });
+  const [catFilter, setCatFilter] = useState("Tous");
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const endRef = useRef(null);
+  const cp = platforms.find(p => p.id === platform);
+
+  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
+
+  const send = async (text) => {
+    const msg = text || input.trim();
+    if (!msg || loading) return;
+    setInput("");
+    const next = [...messages, { role: "user", content: msg }];
+    setMessages(next);
+    setLoading(true);
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": process.env.REACT_APP_ANTHROPIC_API_KEY,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          system: SYSTEM_PROMPT,
+          messages: next.map(m => ({ role: m.role, content: m.content })),
+        }),
+      });
+      const data = await res.json();
+      setMessages([...next, { role: "assistant", content: data.content?.[0]?.text || "Désolée, réessayez. ✨" }]);
+    } catch {
+      setMessages([...next, { role: "assistant", content: "Connexion indisponible. Réessayez. 🖤" }]);
+    }
+    setLoading(false);
+  };
+
+  const orderProduct = (product) => {
+    setOrder(o => ({ ...o, product: product.nom }));
+    setActivePage("order");
+  };
+
+  const sendOrder = () => {
+    const msg = `Bonjour Parfumerie De La Zac ! 🖤%0AJe souhaite commander :%0A%0A👤 Nom : ${order.name}%0A📱 Tel : ${order.phone}%0A🌹 Parfum : ${order.product}%0A📍 Quartier : ${order.quartier}%0A%0AMerci ✨`;
+    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
+  };
+
+  const gold = "#C9A84C";
+  const pColor = cp.color;
+  const filteredProducts = catFilter === "Tous" ? PRODUITS : PRODUITS.filter(p => p.cat === catFilter);
+  const canOrder = order.name && order.phone && order.product && order.quartier;
+
+  const Logo = ({ size = 32 }) => (
+    <div style={{ width: size, height: size, borderRadius: "50%", overflow: "hidden", border: `1.5px solid ${gold}55`, flexShrink: 0, background: "#1a1408", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <img src="/logo.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display = "none"; e.target.parentElement.innerHTML = "🖤"; e.target.parentElement.style.fontSize = size / 2 + "px"; }} />
+    </div>
+  );
+
+  return (
+    <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", flexDirection: "column", alignItems: "center", fontFamily: "'SF Pro Display', -apple-system, sans-serif" }}>
+      <style>{`
+        @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes dot{0%,80%,100%{transform:scale(0.6);opacity:0.3}40%{transform:scale(1);opacity:1}}
+        @keyframes glow{0%,100%{box-shadow:0 0 15px #C9A84C33}50%{box-shadow:0 0 30px #C9A84C66}}
+        .msg{animation:fadeUp 0.3s ease forwards}
+        .tbtn{transition:all 0.2s;cursor:pointer;border:none}
+        .tbtn:hover{transform:translateY(-2px);opacity:0.9}
+        .pcard{transition:all 0.2s;cursor:pointer}
+        .pcard:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.5)!important;border-color:rgba(201,168,76,0.5)!important}
+        input:focus{outline:none}
+        ::-webkit-scrollbar{width:0}
+      `}</style>
+
+      {/* HEADER */}
+      <div style={{ width: "100%", maxWidth: "480px", background: "#0a0a0a", padding: "12px 20px 0" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 0 12px", borderBottom: `1px solid ${gold}22` }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+            <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${gold}`, boxShadow: `0 0 16px ${gold}44`, animation: "glow 3s ease-in-out infinite", flexShrink: 0 }}>
+              <img src="/logo.jpg" alt="PDZ" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display = "none"; e.target.parentElement.innerHTML = "🖤"; e.target.parentElement.style.display = "flex"; e.target.parentElement.style.alignItems = "center"; e.target.parentElement.style.justifyContent = "center"; e.target.parentElement.style.fontSize = "20px"; }} />
+            </div>
+            <div>
+              <div style={{ color: gold, fontWeight: "800", fontSize: "15px" }}>Parfumerie de la Zac</div>
+              <div style={{ display: "flex", alignItems: "center", gap: "5px", marginTop: "2px" }}>
+                <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 6px #4ade80" }} />
+                <span style={{ color: "rgba(255,255,255,0.45)", fontSize: "11px" }}>Matel en ligne • Parfums de Paris</span>
+              </div>
+            </div>
+          </div>
+          <div style={{ background: `${gold}15`, border: `1px solid ${gold}33`, borderRadius: "20px", padding: "5px 12px", color: gold, fontSize: "11px", fontWeight: "600" }}>LIVE</div>
+        </div>
+
+        {/* Platforms */}
+        <div style={{ display: "flex", gap: "6px", padding: "12px 0 0" }}>
+          {platforms.map(p => (
+            <button key={p.id} className="tbtn" onClick={() => setPlatform(p.id)} style={{ flex: 1, padding: "8px 6px", borderRadius: "14px", background: platform === p.id ? p.color : "rgba(255,255,255,0.05)", color: platform === p.id ? "#fff" : "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: "700", boxShadow: platform === p.id ? `0 4px 15px ${p.color}44` : "none" }}>
+              {p.icon} {p.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Pages nav */}
+        <div style={{ display: "flex", gap: "4px", padding: "10px 0 0", overflowX: "auto" }}>
+          {PAGES.map(p => (
+            <button key={p.id} className="tbtn" onClick={() => setActivePage(p.id)} style={{ flex: "0 0 auto", padding: "7px 10px", borderRadius: "10px", background: activePage === p.id ? `${gold}22` : "rgba(255,255,255,0.04)", color: activePage === p.id ? gold : "rgba(255,255,255,0.35)", border: `1px solid ${activePage === p.id ? gold + "55" : "rgba(255,255,255,0.08)"}`, fontSize: "11px", fontWeight: "600", whiteSpace: "nowrap" }}>
+              {p.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ===== CHAT ===== */}
+      {activePage === "chat" && (
+        <>
+          <div style={{ width: "100%", maxWidth: "480px", flex: 1, padding: "16px 20px", display: "flex", flexDirection: "column", gap: "14px", overflowY: "auto", minHeight: "350px", maxHeight: "45vh" }}>
+            {messages.map((msg, i) => (
+              <div key={i} className="msg" style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start", alignItems: "flex-end", gap: "8px" }}>
+                {msg.role === "assistant" && <Logo />}
+                <div style={{ maxWidth: "72%", padding: "11px 15px", borderRadius: msg.role === "user" ? "20px 20px 4px 20px" : "20px 20px 20px 4px", background: msg.role === "user" ? `linear-gradient(135deg, ${pColor}, ${pColor}bb)` : "rgba(255,255,255,0.07)", color: msg.role === "user" ? "#fff" : "rgba(255,255,255,0.9)", fontSize: "13.5px", lineHeight: "1.6", border: msg.role === "assistant" ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
+                  {msg.content}
+                </div>
+              </div>
+            ))}
+            {loading && (
+              <div style={{ display: "flex", alignItems: "flex-end", gap: "8px" }}>
+                <Logo />
+                <div style={{ padding: "12px 16px", borderRadius: "20px 20px 20px 4px", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", gap: "4px", alignItems: "center" }}>
+                  {[0,1,2].map(j => <div key={j} style={{ width: "7px", height: "7px", borderRadius: "50%", background: gold, animation: `dot 1.2s ease-in-out ${j*0.15}s infinite` }} />)}
+                </div>
+              </div>
+            )}
+            <div ref={endRef} />
+          </div>
+
+          {/* Quick replies */}
+          <div style={{ width: "100%", maxWidth: "480px", padding: "0 20px 10px", display: "flex", gap: "6px", flexWrap: "wrap" }}>
+            {["Voir le catalogue 📦", "Meilleure vente ⭐", "Offrir un cadeau 🎁", "Commander 🛍️"].map((q, i) => (
+              <button key={i} className="tbtn" onClick={() => q.includes("catalogue") ? setActivePage("catalogue") : send(q)} style={{ padding: "7px 12px", borderRadius: "20px", border: `1px solid ${gold}30`, background: "rgba(201,168,76,0.08)", color: "rgba(255,255,255,0.7)", fontSize: "11px" }}>{q}</button>
+            ))}
+          </div>
+
+          {/* Input */}
+          <div style={{ width: "100%", maxWidth: "480px", padding: "10px 20px 20px", background: "rgba(255,255,255,0.03)", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", gap: "10px", alignItems: "center" }}>
+            <div style={{ flex: 1, display: "flex", alignItems: "center", background: "rgba(255,255,255,0.07)", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.1)", padding: "0 16px", gap: "8px" }}>
+              <span>✍️</span>
+              <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="Votre message à Matel..." style={{ flex: 1, padding: "12px 0", background: "transparent", border: "none", color: "#fff", fontSize: "14px", fontFamily: "inherit" }} />
+            </div>
+            <button className="tbtn" onClick={() => send()} disabled={loading} style={{ width: "48px", height: "48px", borderRadius: "50%", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "18px", fontWeight: "bold", flexShrink: 0, opacity: loading ? 0.5 : 1, boxShadow: `0 4px 20px ${gold}55` }}>➤</button>
+          </div>
+        </>
+      )}
+
+      {/* ===== CATALOGUE ===== */}
+      {activePage === "catalogue" && (
+        <div style={{ width: "100%", maxWidth: "480px", flex: 1, padding: "16px 16px 30px", overflowY: "auto" }}>
+          {/* Stats */}
+          <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
+            {[
+              { val: "19", label: "Articles" },
+              { val: "48", label: "En stock" },
+              { val: "10K", label: "Prix min" },
+              { val: "75K", label: "Prix max" },
+            ].map((s, i) => (
+              <div key={i} style={{ flex: 1, background: "rgba(255,255,255,0.04)", border: `1px solid ${gold}15`, borderRadius: "10px", padding: "10px 6px", textAlign: "center" }}>
+                <div style={{ color: gold, fontSize: "16px", fontWeight: "800" }}>{s.val}</div>
+                <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "9px", letterSpacing: "1px", marginTop: "2px" }}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Filters */}
+          <div style={{ display: "flex", gap: "6px", marginBottom: "16px", overflowX: "auto", paddingBottom: "4px" }}>
+            {CATS.map(cat => (
+              <button key={cat} className="tbtn" onClick={() => setCatFilter(cat)} style={{ flexShrink: 0, padding: "6px 14px", borderRadius: "20px", background: catFilter === cat ? gold : "rgba(255,255,255,0.05)", color: catFilter === cat ? "#0a0a0a" : "rgba(255,255,255,0.5)", border: `1px solid ${catFilter === cat ? gold : "rgba(255,255,255,0.1)"}`, fontSize: "11px", fontWeight: "600" }}>
+                {cat === "Tous" ? "🛍️ Tous" : `${CAT_ICONS[cat]} ${cat}`}
+              </button>
+            ))}
+          </div>
+
+          {/* Products grid */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            {filteredProducts.map(p => (
+              <div key={p.id} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "14px", overflow: "hidden" }}>
+                <div style={{ padding: "14px 16px" }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "8px" }}>
+                    <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${gold}15`, border: `1px solid ${gold}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0 }}>
+                      {p.emoji}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ color: "#fff", fontWeight: "700", fontSize: "13px", lineHeight: "1.3" }}>{p.nom}</div>
+                      <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", marginTop: "2px" }}>{CAT_ICONS[p.cat]} {p.cat}</div>
+                    </div>
+                    <div style={{ textAlign: "right", flexShrink: 0 }}>
+                      <div style={{ color: gold, fontWeight: "800", fontSize: "15px" }}>{p.prix.toLocaleString('fr-FR')}</div>
+                      <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "9px" }}>FCFA</div>
+                    </div>
+                  </div>
+
+                  <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", lineHeight: "1.5", marginBottom: "10px" }}>{p.desc}</div>
+
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div style={{
+                      display: "inline-flex", alignItems: "center", gap: "4px",
+                      padding: "3px 10px", borderRadius: "20px", fontSize: "10px", fontWeight: "600",
+                      background: p.stock <= 1 ? "rgba(192,57,43,0.15)" : p.stock <= 3 ? "rgba(230,126,34,0.15)" : "rgba(39,174,96,0.15)",
+                      color: p.stock <= 1 ? "#e74c3c" : p.stock <= 3 ? "#e67e22" : "#2ecc71",
+                      border: `1px solid ${p.stock <= 1 ? "rgba(192,57,43,0.3)" : p.stock <= 3 ? "rgba(230,126,34,0.3)" : "rgba(39,174,96,0.3)"}`,
+                    }}>
+                      {p.stock <= 1 ? "⚠️ Dernier !" : p.stock <= 3 ? `⚡ ${p.stock} restants` : `✅ ${p.stock} en stock`}
+                    </div>
+
+                    <button className="tbtn" onClick={() => orderProduct(p)} style={{ padding: "6px 14px", borderRadius: "20px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "11px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
+                      Commander →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ===== ORDER ===== */}
+      {activePage === "order" && (
+        <div style={{ width: "100%", maxWidth: "480px", padding: "20px", flex: 1 }}>
+          <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: "20px", border: `1px solid ${gold}22`, padding: "24px" }}>
+            <div style={{ textAlign: "center", marginBottom: "24px" }}>
+              <div style={{ fontSize: "32px", marginBottom: "8px" }}>🛍️</div>
+              <div style={{ color: gold, fontSize: "18px", fontWeight: "800" }}>Commander via WhatsApp</div>
+              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", marginTop: "4px" }}>Remplissez et on vous contacte rapidement !</div>
+            </div>
+            {[
+              { key: "name", label: "👤 Votre nom complet", ph: "Ex: Amadou Diallo" },
+              { key: "phone", label: "📱 Votre numéro WhatsApp", ph: "Ex: +221 77 XXX XX XX" },
+              { key: "product", label: "🌹 Parfum choisi", ph: "Ex: Phantom Paco Rabanne" },
+              { key: "quartier", label: "📍 Votre quartier", ph: "Ex: Pikine, Parcelles, Médina..." },
+            ].map(f => (
+              <div key={f.key} style={{ marginBottom: "16px" }}>
+                <label style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", display: "block", marginBottom: "6px" }}>{f.label}</label>
+                <input value={order[f.key]} onChange={e => setOrder({ ...order, [f.key]: e.target.value })} placeholder={f.ph} style={{ width: "100%", padding: "12px 16px", borderRadius: "12px", border: `1px solid ${gold}25`, background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "13px", fontFamily: "inherit", boxSizing: "border-box" }} />
+              </div>
+            ))}
+            <button className="tbtn" onClick={sendOrder} disabled={!canOrder} style={{ width: "100%", padding: "16px", borderRadius: "16px", background: canOrder ? "linear-gradient(135deg, #25D366, #1a9e4a)" : "rgba(255,255,255,0.1)", color: canOrder ? "#fff" : "rgba(255,255,255,0.3)", fontSize: "15px", fontWeight: "700", boxShadow: canOrder ? "0 4px 20px #25D36644" : "none" }}>
+              💬 Envoyer la commande sur WhatsApp
+            </button>
+            <button className="tbtn" onClick={() => setActivePage("catalogue")} style={{ width: "100%", padding: "12px", borderRadius: "16px", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.5)", fontSize: "13px", marginTop: "10px", border: "1px solid rgba(255,255,255,0.08)" }}>
+              ← Retour au catalogue
+            </button>
+            <div style={{ textAlign: "center", marginTop: "12px", color: `${gold}66`, fontSize: "11px" }}>Livraison Dakar + Banlieue • Réponse sous 2h</div>
+          </div>
+        </div>
+      )}
+
+      {/* ===== INFO ===== */}
+      {activePage === "info" && (
+        <div style={{ width: "100%", maxWidth: "480px", padding: "20px", flex: 1 }}>
+          <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: "20px", border: `1px solid ${gold}22`, padding: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ textAlign: "center", marginBottom: "8px" }}>
+              <div style={{ fontSize: "32px", marginBottom: "8px" }}>🏪</div>
+              <div style={{ color: gold, fontSize: "18px", fontWeight: "800" }}>Parfumerie De La Zac</div>
+              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>Parfums authentiques de Paris</div>
+            </div>
+            {[
+              { icon: "📍", label: "Adresse", value: "Zac Mbao, Pikine, Dakar" },
+              { icon: "🕐", label: "Horaires", value: "Lundi — Dimanche : 9h00 à 20h00" },
+              { icon: "🚚", label: "Livraison", value: "Dakar + Banlieue — Sous 24h" },
+              { icon: "📱", label: "WhatsApp", value: WHATSAPP_DISPLAY },
+            ].map((info, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "center", gap: "14px", padding: "14px 16px", borderRadius: "14px", background: "rgba(255,255,255,0.05)", border: `1px solid ${gold}15` }}>
+                <span style={{ fontSize: "22px", flexShrink: 0 }}>{info.icon}</span>
+                <div>
+                  <div style={{ color: `${gold}99`, fontSize: "11px", marginBottom: "2px" }}>{info.label}</div>
+                  <div style={{ color: "#fff", fontSize: "13px", fontWeight: "600" }}>{info.value}</div>
+                </div>
+              </div>
+            ))}
+
+            {/* 3 social buttons */}
+            <div style={{ display: "flex", gap: "10px" }}>
+              <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #25D36644" }}>
+                <span style={{ fontSize: "20px" }}>💬</span><span>WhatsApp</span>
+              </button>
+              <button className="tbtn" onClick={() => window.open(INSTAGRAM, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #E1306C, #833ab4)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #E1306C44" }}>
+                <span style={{ fontSize: "20px" }}>📸</span><span>Instagram</span>
+              </button>
+              <button className="tbtn" onClick={() => window.open(FACEBOOK, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #1877F2, #0d5bba)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #1877F244" }}>
+                <span style={{ fontSize: "20px" }}>👥</span><span>Facebook</span>
+              </button>
+            </div>
+
+            <button className="tbtn" onClick={() => setActivePage("order")} style={{ width: "100%", padding: "14px", borderRadius: "16px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 4px 20px ${gold}44` }}>
+              🛍️ Passer une commande
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div style={{ width: "100%", maxWidth: "480px", textAlign: "center", padding: "10px", color: "rgba(255,255,255,0.15)", fontSize: "9px", letterSpacing: "2px", textTransform: "uppercase", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+        Parfumerie de la Zac • IA Powered by Claude
+      </div>
+    </div>
+  );
+}
