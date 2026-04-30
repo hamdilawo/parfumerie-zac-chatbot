@@ -240,7 +240,7 @@ export default function App() {
             {filtered.map((p, i) => (
               <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden" }}>
                 <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
-                  <img src={p.img} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  <img src={p.img} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", background: "#0d0d0d" }}
                     onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
                   <div style={{ display: "none", width: "100%", height: "100%", background: "linear-gradient(135deg, #1a1408, #111)", alignItems: "center", justifyContent: "center", fontSize: "48px" }}>🌹</div>
                   <div style={{ position: "absolute", top: "10px", right: "10px", background: p.stock<=1 ? "rgba(192,57,43,0.9)" : p.stock<=3 ? "rgba(230,126,34,0.9)" : "rgba(39,174,96,0.9)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "10px", fontWeight: "700" }}>
