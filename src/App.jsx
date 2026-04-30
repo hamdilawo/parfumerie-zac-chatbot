@@ -6,25 +6,25 @@ const INSTAGRAM = "https://www.instagram.com/parfumerie_de_la_zac";
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61576231477609";
 
 const PRODUITS = [
-  { id: 1, nom: "Collection Prestige", prix: 25000, stock: 4, cat: "Prestige", emoji: "👑", desc: "Fragrance raffinée et élégante, une empreinte inoubliable." },
-  { id: 2, nom: "Collection Igor", prix: 25000, stock: 1, cat: "Prestige", emoji: "👑", desc: "Création exclusive aux notes envoûtantes. Stock très limité !" },
-  { id: 3, nom: "La Folie du Délice", prix: 25000, stock: 2, cat: "Prestige", emoji: "👑", desc: "Notes gourmandes et sensuelles. Stock limité." },
-  { id: 4, nom: "Collection Kenzi", prix: 20000, stock: 5, cat: "Prestige", emoji: "👑", desc: "Élégance et caractère pour un parfum qui vous ressemble." },
-  { id: 5, nom: "Collection Convivium", prix: 17500, stock: 3, cat: "Prestige", emoji: "👑", desc: "Fragrance chaleureuse, parfaite pour les occasions spéciales." },
-  { id: 6, nom: "Collection Privée", prix: 15000, stock: 10, cat: "Prestige", emoji: "👑", desc: "Collection exclusive pour ceux qui aiment se démarquer." },
-  { id: 7, nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", emoji: "🎁", desc: "Coffret cadeau luxueux. Idéal pour une occasion inoubliable." },
-  { id: 8, nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", emoji: "🎁", desc: "Coffret prestige dans un écrin raffiné. Dernier exemplaire !" },
-  { id: 9, nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Le légendaire Phantom — notes boisées et magnétiques." },
-  { id: 10, nom: "Invictus Victory Paco Rabanne", prix: 65000, stock: 1, cat: "Classique", emoji: "🌹", desc: "La victoire dans un flacon — puissant, frais et inoubliable." },
-  { id: 11, nom: "Red Tobacco", prix: 75000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Notes de tabac rouge envoûtantes. Sensuel et charismatique." },
-  { id: 12, nom: "Atelier des Essences", prix: 45000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Création artisanale aux essences précieuses et raffinées." },
-  { id: 13, nom: "Sugar Oud Fleurs des Délices", prix: 35000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Notes de oud et fleurs sucrées. Oriental et délicat." },
-  { id: 14, nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Version intense, notes boisées profondes et sophistiquées." },
-  { id: 15, nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Notes fruitées et florales pour une élégance absolue." },
-  { id: 16, nom: "Callisto Holliday", prix: 60000, stock: 1, cat: "Classique", emoji: "🌹", desc: "Notes estivales et florales. Festif et léger." },
-  { id: 17, nom: "Musc Tahara", prix: 10000, stock: 8, cat: "Classique", emoji: "🌹", desc: "Musc pur, doux et enveloppant. Longue tenue." },
-  { id: 18, nom: "Déodorant CP Ba Intense", prix: 4000, stock: 3, cat: "Accessoire", emoji: "✨", desc: "Protection longue durée, parfum frais et agréable." },
-  { id: 19, nom: "Parfum de Chambre", prix: 5000, stock: 2, cat: "Accessoire", emoji: "✨", desc: "Parfumez votre intérieur avec élégance et luxe." },
+  { nom: "Collection Prestige (Havana)", prix: 25000, stock: 4, cat: "Prestige", img: "/photos/20250521_130732.jpg", desc: "Fragrance raffinée aux notes chaudes et boisées de Havana. Élégante et inoubliable." },
+  { nom: "Collection Igor (Blue Magic)", prix: 25000, stock: 1, cat: "Prestige", img: "/photos/20250521_113939.jpg", desc: "Création exclusive Blue Magic by Igor. Notes envoûtantes et mystérieuses. Stock limité !" },
+  { nom: "La Folie du Délice (Sweet Mango)", prix: 25000, stock: 2, cat: "Prestige", img: "/photos/20250521_114141.jpg", desc: "Notes fruitées de mangue sucrée. Frais et gourmand, authentique de Paris." },
+  { nom: "Collection Kenzi", prix: 20000, stock: 5, cat: "Prestige", img: "/photos/20250521_130732.jpg", desc: "Élégance et caractère pour un parfum qui vous ressemble." },
+  { nom: "Collection Convivium (Sillage Frais)", prix: 17500, stock: 3, cat: "Prestige", img: "/photos/20250521_114947.jpg", desc: "Sillage Frais de Convivium Paris. Notes fraîches et marines." },
+  { nom: "Collection Privée", prix: 15000, stock: 10, cat: "Prestige", img: "/photos/20250521_121713.jpg", desc: "5 fragrances : Musc Blanc, Oud Vanille, Gris, Bakara, Arabie." },
+  { nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", img: "/photos/20250521_113244.jpg", desc: "Coffret 4 parfums luxueux. Le cadeau parfait pour une occasion inoubliable !" },
+  { nom: "Coffret Gris Montaigne (Rouge Absolu)", prix: 50000, stock: 1, cat: "Coffret", img: "/photos/20250521_132240.jpg", desc: "Coffret prestige Gris Montaigne Paris avec Rouge Absolu à l'huile." },
+  { nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "Classique", img: "/photos/20250521_111950.jpg", desc: "Le légendaire Phantom en flacon robot iconique. Notes boisées et magnétiques." },
+  { nom: "Invictus Victory Paco Rabanne", prix: 65000, stock: 1, cat: "Classique", img: "/photos/20250521_112157.jpg", desc: "La victoire dans un flacon trophée noir. Puissant, frais et inoubliable." },
+  { nom: "Red Tobacco Mancera Paris", prix: 75000, stock: 1, cat: "Classique", img: "/photos/20250521_112841.jpg", desc: "Mancera Paris Red Tobacco 120ml. Notes de tabac rouge et épices. Sensuel." },
+  { nom: "Atelier des Essences (Eclat d'Iris)", prix: 45000, stock: 1, cat: "Classique", img: "/photos/20250521_112051.jpg", desc: "Atelier des Essences Paris, Eclat d'Iris. Notes florales raffinées." },
+  { nom: "Sugar Oud Gulf Flowers", prix: 35000, stock: 1, cat: "Classique", img: "/photos/20250521_112942.jpg", desc: "Les Fleurs du Golfe Sugar Oud. Notes de oud et fleurs sucrées. Oriental." },
+  { nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "Classique", img: "/photos/20250521_112523.jpg", desc: "Black Empire de Gris Montaigne Paris. Notes boisées profondes et sophistiquées." },
+  { nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", img: "/photos/20250521_112711.jpg", desc: "Private Club de Mauboussin. Flacon bleu nuit aux notes fruitées et florales." },
+  { nom: "Callisto Holliday Paris", prix: 60000, stock: 1, cat: "Classique", img: "/photos/20250521_112315.jpg", desc: "Callisto Paris. Notes ambrées chaudes et boisées dans un flacon élégant." },
+  { nom: "Musc Tahara", prix: 10000, stock: 8, cat: "Classique", img: "/photos/20250521_113117.jpg", desc: "Musc pur et authentique. Doux, enveloppant, longue tenue." },
+  { nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "Accessoire", img: "/photos/20250521_122352.jpg", desc: "Collection Privée by Birraci — BA Intense Body Spray. Protection longue durée." },
+  { nom: "Parfum de Chambre (Soleil de Zanzibar)", prix: 5000, stock: 2, cat: "Accessoire", img: "/photos/20250521_131005.jpg", desc: "Maïssa Paris — Soleil de Zanzibar 250ml. Parfumez votre intérieur avec luxe." },
 ];
 
 const CATALOGUE_TEXT = PRODUITS.map(p =>
@@ -76,7 +76,6 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState({ name: "", phone: "", product: "", quartier: "" });
   const [catFilter, setCatFilter] = useState("Tous");
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const endRef = useRef(null);
   const cp = platforms.find(p => p.id === platform);
 
@@ -113,8 +112,8 @@ export default function App() {
     setLoading(false);
   };
 
-  const orderProduct = (product) => {
-    setOrder(o => ({ ...o, product: product.nom }));
+  const orderProduct = (p) => {
+    setOrder(o => ({ ...o, product: p.nom }));
     setActivePage("order");
   };
 
@@ -125,12 +124,12 @@ export default function App() {
 
   const gold = "#C9A84C";
   const pColor = cp.color;
-  const filteredProducts = catFilter === "Tous" ? PRODUITS : PRODUITS.filter(p => p.cat === catFilter);
+  const filtered = catFilter === "Tous" ? PRODUITS : PRODUITS.filter(p => p.cat === catFilter);
   const canOrder = order.name && order.phone && order.product && order.quartier;
 
   const Logo = ({ size = 32 }) => (
     <div style={{ width: size, height: size, borderRadius: "50%", overflow: "hidden", border: `1.5px solid ${gold}55`, flexShrink: 0, background: "#1a1408", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <img src="/logo.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display = "none"; e.target.parentElement.innerHTML = "🖤"; e.target.parentElement.style.fontSize = size / 2 + "px"; }} />
+      <img src="/logo.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display = "none"; e.target.parentElement.innerHTML = "🖤"; e.target.parentElement.style.fontSize = size/2+"px"; }} />
     </div>
   );
 
@@ -143,8 +142,8 @@ export default function App() {
         .msg{animation:fadeUp 0.3s ease forwards}
         .tbtn{transition:all 0.2s;cursor:pointer;border:none}
         .tbtn:hover{transform:translateY(-2px);opacity:0.9}
-        .pcard{transition:all 0.2s;cursor:pointer}
-        .pcard:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,0.5)!important;border-color:rgba(201,168,76,0.5)!important}
+        .pcard{transition:all 0.25s;cursor:pointer}
+        .pcard:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,0.6)!important;border-color:rgba(201,168,76,0.5)!important}
         input:focus{outline:none}
         ::-webkit-scrollbar{width:0}
       `}</style>
@@ -154,7 +153,7 @@ export default function App() {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 0 12px", borderBottom: `1px solid ${gold}22` }}>
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${gold}`, boxShadow: `0 0 16px ${gold}44`, animation: "glow 3s ease-in-out infinite", flexShrink: 0 }}>
-              <img src="/logo.jpg" alt="PDZ" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display = "none"; e.target.parentElement.innerHTML = "🖤"; e.target.parentElement.style.display = "flex"; e.target.parentElement.style.alignItems = "center"; e.target.parentElement.style.justifyContent = "center"; e.target.parentElement.style.fontSize = "20px"; }} />
+              <img src="/logo.jpg" alt="PDZ" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display="none"; e.target.parentElement.innerHTML="🖤"; e.target.parentElement.style.display="flex"; e.target.parentElement.style.alignItems="center"; e.target.parentElement.style.justifyContent="center"; e.target.parentElement.style.fontSize="20px"; }} />
             </div>
             <div>
               <div style={{ color: gold, fontWeight: "800", fontSize: "15px" }}>Parfumerie de la Zac</div>
@@ -166,34 +165,30 @@ export default function App() {
           </div>
           <div style={{ background: `${gold}15`, border: `1px solid ${gold}33`, borderRadius: "20px", padding: "5px 12px", color: gold, fontSize: "11px", fontWeight: "600" }}>LIVE</div>
         </div>
-
-        {/* Platforms */}
         <div style={{ display: "flex", gap: "6px", padding: "12px 0 0" }}>
           {platforms.map(p => (
-            <button key={p.id} className="tbtn" onClick={() => setPlatform(p.id)} style={{ flex: 1, padding: "8px 6px", borderRadius: "14px", background: platform === p.id ? p.color : "rgba(255,255,255,0.05)", color: platform === p.id ? "#fff" : "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: "700", boxShadow: platform === p.id ? `0 4px 15px ${p.color}44` : "none" }}>
+            <button key={p.id} className="tbtn" onClick={() => setPlatform(p.id)} style={{ flex: 1, padding: "8px 6px", borderRadius: "14px", background: platform===p.id ? p.color : "rgba(255,255,255,0.05)", color: platform===p.id ? "#fff" : "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: "700", boxShadow: platform===p.id ? `0 4px 15px ${p.color}44` : "none" }}>
               {p.icon} {p.label}
             </button>
           ))}
         </div>
-
-        {/* Pages nav */}
         <div style={{ display: "flex", gap: "4px", padding: "10px 0 0", overflowX: "auto" }}>
           {PAGES.map(p => (
-            <button key={p.id} className="tbtn" onClick={() => setActivePage(p.id)} style={{ flex: "0 0 auto", padding: "7px 10px", borderRadius: "10px", background: activePage === p.id ? `${gold}22` : "rgba(255,255,255,0.04)", color: activePage === p.id ? gold : "rgba(255,255,255,0.35)", border: `1px solid ${activePage === p.id ? gold + "55" : "rgba(255,255,255,0.08)"}`, fontSize: "11px", fontWeight: "600", whiteSpace: "nowrap" }}>
+            <button key={p.id} className="tbtn" onClick={() => setActivePage(p.id)} style={{ flex: "0 0 auto", padding: "7px 10px", borderRadius: "10px", background: activePage===p.id ? `${gold}22` : "rgba(255,255,255,0.04)", color: activePage===p.id ? gold : "rgba(255,255,255,0.35)", border: `1px solid ${activePage===p.id ? gold+"55" : "rgba(255,255,255,0.08)"}`, fontSize: "11px", fontWeight: "600", whiteSpace: "nowrap" }}>
               {p.label}
             </button>
           ))}
         </div>
       </div>
 
-      {/* ===== CHAT ===== */}
+      {/* CHAT */}
       {activePage === "chat" && (
         <>
           <div style={{ width: "100%", maxWidth: "480px", flex: 1, padding: "16px 20px", display: "flex", flexDirection: "column", gap: "14px", overflowY: "auto", minHeight: "350px", maxHeight: "45vh" }}>
             {messages.map((msg, i) => (
-              <div key={i} className="msg" style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start", alignItems: "flex-end", gap: "8px" }}>
+              <div key={i} className="msg" style={{ display: "flex", justifyContent: msg.role==="user" ? "flex-end" : "flex-start", alignItems: "flex-end", gap: "8px" }}>
                 {msg.role === "assistant" && <Logo />}
-                <div style={{ maxWidth: "72%", padding: "11px 15px", borderRadius: msg.role === "user" ? "20px 20px 4px 20px" : "20px 20px 20px 4px", background: msg.role === "user" ? `linear-gradient(135deg, ${pColor}, ${pColor}bb)` : "rgba(255,255,255,0.07)", color: msg.role === "user" ? "#fff" : "rgba(255,255,255,0.9)", fontSize: "13.5px", lineHeight: "1.6", border: msg.role === "assistant" ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
+                <div style={{ maxWidth: "72%", padding: "11px 15px", borderRadius: msg.role==="user" ? "20px 20px 4px 20px" : "20px 20px 20px 4px", background: msg.role==="user" ? `linear-gradient(135deg, ${pColor}, ${pColor}bb)` : "rgba(255,255,255,0.07)", color: msg.role==="user" ? "#fff" : "rgba(255,255,255,0.9)", fontSize: "13.5px", lineHeight: "1.6", border: msg.role==="assistant" ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
                   {msg.content}
                 </div>
               </div>
@@ -208,88 +203,62 @@ export default function App() {
             )}
             <div ref={endRef} />
           </div>
-
-          {/* Quick replies */}
           <div style={{ width: "100%", maxWidth: "480px", padding: "0 20px 10px", display: "flex", gap: "6px", flexWrap: "wrap" }}>
             {["Voir le catalogue 📦", "Meilleure vente ⭐", "Offrir un cadeau 🎁", "Commander 🛍️"].map((q, i) => (
               <button key={i} className="tbtn" onClick={() => q.includes("catalogue") ? setActivePage("catalogue") : send(q)} style={{ padding: "7px 12px", borderRadius: "20px", border: `1px solid ${gold}30`, background: "rgba(201,168,76,0.08)", color: "rgba(255,255,255,0.7)", fontSize: "11px" }}>{q}</button>
             ))}
           </div>
-
-          {/* Input */}
           <div style={{ width: "100%", maxWidth: "480px", padding: "10px 20px 20px", background: "rgba(255,255,255,0.03)", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", gap: "10px", alignItems: "center" }}>
             <div style={{ flex: 1, display: "flex", alignItems: "center", background: "rgba(255,255,255,0.07)", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.1)", padding: "0 16px", gap: "8px" }}>
               <span>✍️</span>
-              <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && send()} placeholder="Votre message à Matel..." style={{ flex: 1, padding: "12px 0", background: "transparent", border: "none", color: "#fff", fontSize: "14px", fontFamily: "inherit" }} />
+              <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key==="Enter" && send()} placeholder="Votre message à Matel..." style={{ flex: 1, padding: "12px 0", background: "transparent", border: "none", color: "#fff", fontSize: "14px", fontFamily: "inherit" }} />
             </div>
             <button className="tbtn" onClick={() => send()} disabled={loading} style={{ width: "48px", height: "48px", borderRadius: "50%", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "18px", fontWeight: "bold", flexShrink: 0, opacity: loading ? 0.5 : 1, boxShadow: `0 4px 20px ${gold}55` }}>➤</button>
           </div>
         </>
       )}
 
-      {/* ===== CATALOGUE ===== */}
+      {/* CATALOGUE */}
       {activePage === "catalogue" && (
         <div style={{ width: "100%", maxWidth: "480px", flex: 1, padding: "16px 16px 30px", overflowY: "auto" }}>
-          {/* Stats */}
           <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
-            {[
-              { val: "19", label: "Articles" },
-              { val: "48", label: "En stock" },
-              { val: "10K", label: "Prix min" },
-              { val: "75K", label: "Prix max" },
-            ].map((s, i) => (
+            {[{val:"19",label:"Articles"},{val:"48",label:"En stock"},{val:"10K",label:"Prix min"},{val:"75K",label:"Prix max"}].map((s,i) => (
               <div key={i} style={{ flex: 1, background: "rgba(255,255,255,0.04)", border: `1px solid ${gold}15`, borderRadius: "10px", padding: "10px 6px", textAlign: "center" }}>
                 <div style={{ color: gold, fontSize: "16px", fontWeight: "800" }}>{s.val}</div>
                 <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "9px", letterSpacing: "1px", marginTop: "2px" }}>{s.label}</div>
               </div>
             ))}
           </div>
-
-          {/* Filters */}
           <div style={{ display: "flex", gap: "6px", marginBottom: "16px", overflowX: "auto", paddingBottom: "4px" }}>
             {CATS.map(cat => (
-              <button key={cat} className="tbtn" onClick={() => setCatFilter(cat)} style={{ flexShrink: 0, padding: "6px 14px", borderRadius: "20px", background: catFilter === cat ? gold : "rgba(255,255,255,0.05)", color: catFilter === cat ? "#0a0a0a" : "rgba(255,255,255,0.5)", border: `1px solid ${catFilter === cat ? gold : "rgba(255,255,255,0.1)"}`, fontSize: "11px", fontWeight: "600" }}>
-                {cat === "Tous" ? "🛍️ Tous" : `${CAT_ICONS[cat]} ${cat}`}
+              <button key={cat} className="tbtn" onClick={() => setCatFilter(cat)} style={{ flexShrink: 0, padding: "6px 14px", borderRadius: "20px", background: catFilter===cat ? gold : "rgba(255,255,255,0.05)", color: catFilter===cat ? "#0a0a0a" : "rgba(255,255,255,0.5)", border: `1px solid ${catFilter===cat ? gold : "rgba(255,255,255,0.1)"}`, fontSize: "11px", fontWeight: "600" }}>
+                {cat==="Tous" ? "🛍️ Tous" : `${CAT_ICONS[cat]} ${cat}`}
               </button>
             ))}
           </div>
-
-          {/* Products grid */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-            {filteredProducts.map(p => (
-              <div key={p.id} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "14px", overflow: "hidden" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            {filtered.map((p, i) => (
+              <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden" }}>
+                <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
+                  <img src={p.img} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
+                  <div style={{ display: "none", width: "100%", height: "100%", background: "linear-gradient(135deg, #1a1408, #111)", alignItems: "center", justifyContent: "center", fontSize: "48px" }}>🌹</div>
+                  <div style={{ position: "absolute", top: "10px", right: "10px", background: p.stock<=1 ? "rgba(192,57,43,0.9)" : p.stock<=3 ? "rgba(230,126,34,0.9)" : "rgba(39,174,96,0.9)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "10px", fontWeight: "700" }}>
+                    {p.stock<=1 ? "⚠️ Dernier !" : p.stock<=3 ? `⚡ ${p.stock} restants` : `✅ ${p.stock} en stock`}
+                  </div>
+                </div>
                 <div style={{ padding: "14px 16px" }}>
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "8px" }}>
-                    <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: `${gold}15`, border: `1px solid ${gold}25`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "18px", flexShrink: 0 }}>
-                      {p.emoji}
-                    </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ color: "#fff", fontWeight: "700", fontSize: "13px", lineHeight: "1.3" }}>{p.nom}</div>
-                      <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px", marginTop: "2px" }}>{CAT_ICONS[p.cat]} {p.cat}</div>
-                    </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
+                    <div style={{ color: "#fff", fontWeight: "700", fontSize: "14px", lineHeight: "1.3", flex: 1, marginRight: "10px" }}>{p.nom}</div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
-                      <div style={{ color: gold, fontWeight: "800", fontSize: "15px" }}>{p.prix.toLocaleString('fr-FR')}</div>
+                      <div style={{ color: gold, fontWeight: "800", fontSize: "16px" }}>{p.prix.toLocaleString('fr-FR')}</div>
                       <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "9px" }}>FCFA</div>
                     </div>
                   </div>
-
-                  <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", lineHeight: "1.5", marginBottom: "10px" }}>{p.desc}</div>
-
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <div style={{
-                      display: "inline-flex", alignItems: "center", gap: "4px",
-                      padding: "3px 10px", borderRadius: "20px", fontSize: "10px", fontWeight: "600",
-                      background: p.stock <= 1 ? "rgba(192,57,43,0.15)" : p.stock <= 3 ? "rgba(230,126,34,0.15)" : "rgba(39,174,96,0.15)",
-                      color: p.stock <= 1 ? "#e74c3c" : p.stock <= 3 ? "#e67e22" : "#2ecc71",
-                      border: `1px solid ${p.stock <= 1 ? "rgba(192,57,43,0.3)" : p.stock <= 3 ? "rgba(230,126,34,0.3)" : "rgba(39,174,96,0.3)"}`,
-                    }}>
-                      {p.stock <= 1 ? "⚠️ Dernier !" : p.stock <= 3 ? `⚡ ${p.stock} restants` : `✅ ${p.stock} en stock`}
-                    </div>
-
-                    <button className="tbtn" onClick={() => orderProduct(p)} style={{ padding: "6px 14px", borderRadius: "20px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "11px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
-                      Commander →
-                    </button>
-                  </div>
+                  <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", lineHeight: "1.5", marginBottom: "12px" }}>{p.desc}</div>
+                  <button className="tbtn" onClick={() => orderProduct(p)} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "12px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
+                    🛍️ Commander ce parfum
+                  </button>
                 </div>
               </div>
             ))}
@@ -297,7 +266,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ===== ORDER ===== */}
+      {/* ORDER */}
       {activePage === "order" && (
         <div style={{ width: "100%", maxWidth: "480px", padding: "20px", flex: 1 }}>
           <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: "20px", border: `1px solid ${gold}22`, padding: "24px" }}>
@@ -314,7 +283,7 @@ export default function App() {
             ].map(f => (
               <div key={f.key} style={{ marginBottom: "16px" }}>
                 <label style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", display: "block", marginBottom: "6px" }}>{f.label}</label>
-                <input value={order[f.key]} onChange={e => setOrder({ ...order, [f.key]: e.target.value })} placeholder={f.ph} style={{ width: "100%", padding: "12px 16px", borderRadius: "12px", border: `1px solid ${gold}25`, background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "13px", fontFamily: "inherit", boxSizing: "border-box" }} />
+                <input value={order[f.key]} onChange={e => setOrder({...order,[f.key]:e.target.value})} placeholder={f.ph} style={{ width: "100%", padding: "12px 16px", borderRadius: "12px", border: `1px solid ${gold}25`, background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "13px", fontFamily: "inherit", boxSizing: "border-box" }} />
               </div>
             ))}
             <button className="tbtn" onClick={sendOrder} disabled={!canOrder} style={{ width: "100%", padding: "16px", borderRadius: "16px", background: canOrder ? "linear-gradient(135deg, #25D366, #1a9e4a)" : "rgba(255,255,255,0.1)", color: canOrder ? "#fff" : "rgba(255,255,255,0.3)", fontSize: "15px", fontWeight: "700", boxShadow: canOrder ? "0 4px 20px #25D36644" : "none" }}>
@@ -328,7 +297,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ===== INFO ===== */}
+      {/* INFO */}
       {activePage === "info" && (
         <div style={{ width: "100%", maxWidth: "480px", padding: "20px", flex: 1 }}>
           <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: "20px", border: `1px solid ${gold}22`, padding: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
@@ -351,20 +320,17 @@ export default function App() {
                 </div>
               </div>
             ))}
-
-            {/* 3 social buttons */}
             <div style={{ display: "flex", gap: "10px" }}>
-              <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #25D36644" }}>
+              <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #25D36644" }}>
                 <span style={{ fontSize: "20px" }}>💬</span><span>WhatsApp</span>
               </button>
-              <button className="tbtn" onClick={() => window.open(INSTAGRAM, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #E1306C, #833ab4)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #E1306C44" }}>
+              <button className="tbtn" onClick={() => window.open(INSTAGRAM,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #E1306C, #833ab4)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #E1306C44" }}>
                 <span style={{ fontSize: "20px" }}>📸</span><span>Instagram</span>
               </button>
-              <button className="tbtn" onClick={() => window.open(FACEBOOK, "_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #1877F2, #0d5bba)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #1877F244" }}>
+              <button className="tbtn" onClick={() => window.open(FACEBOOK,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #1877F2, #0d5bba)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #1877F244" }}>
                 <span style={{ fontSize: "20px" }}>👥</span><span>Facebook</span>
               </button>
             </div>
-
             <button className="tbtn" onClick={() => setActivePage("order")} style={{ width: "100%", padding: "14px", borderRadius: "16px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 4px 20px ${gold}44` }}>
               🛍️ Passer une commande
             </button>
