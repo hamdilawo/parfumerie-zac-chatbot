@@ -156,25 +156,25 @@ export default function App() {
               <img src="/logo.jpg" alt="PDZ" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display="none"; e.target.parentElement.innerHTML="🖤"; e.target.parentElement.style.display="flex"; e.target.parentElement.style.alignItems="center"; e.target.parentElement.style.justifyContent="center"; e.target.parentElement.style.fontSize="20px"; }} />
             </div>
             <div>
-              <div style={{ color: gold, fontWeight: "800", fontSize: "15px" }}>Parfumerie de la Zac</div>
+              <div style={{ color: gold, fontWeight: "800", fontSize: "17px" }}>Parfumerie de la Zac</div>
               <div style={{ display: "flex", alignItems: "center", gap: "5px", marginTop: "2px" }}>
                 <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 6px #4ade80" }} />
-                <span style={{ color: "rgba(255,255,255,0.45)", fontSize: "11px" }}>Matel en ligne • Parfums de Paris</span>
+                <span style={{ color: "rgba(255,255,255,0.45)", fontSize: "13px" }}>Matel en ligne • Parfums de Paris</span>
               </div>
             </div>
           </div>
-          <div style={{ background: `${gold}15`, border: `1px solid ${gold}33`, borderRadius: "20px", padding: "5px 12px", color: gold, fontSize: "11px", fontWeight: "600" }}>LIVE</div>
+          <div style={{ background: `${gold}15`, border: `1px solid ${gold}33`, borderRadius: "20px", padding: "5px 12px", color: gold, fontSize: "13px", fontWeight: "600" }}>LIVE</div>
         </div>
         <div style={{ display: "flex", gap: "6px", padding: "12px 0 0" }}>
           {platforms.map(p => (
-            <button key={p.id} className="tbtn" onClick={() => setPlatform(p.id)} style={{ flex: 1, padding: "8px 6px", borderRadius: "14px", background: platform===p.id ? p.color : "rgba(255,255,255,0.05)", color: platform===p.id ? "#fff" : "rgba(255,255,255,0.35)", fontSize: "11px", fontWeight: "700", boxShadow: platform===p.id ? `0 4px 15px ${p.color}44` : "none" }}>
+            <button key={p.id} className="tbtn" onClick={() => setPlatform(p.id)} style={{ flex: 1, padding: "8px 6px", borderRadius: "14px", background: platform===p.id ? p.color : "rgba(255,255,255,0.05)", color: platform===p.id ? "#fff" : "rgba(255,255,255,0.35)", fontSize: "13px", fontWeight: "700", boxShadow: platform===p.id ? `0 4px 15px ${p.color}44` : "none" }}>
               {p.icon} {p.label}
             </button>
           ))}
         </div>
         <div style={{ display: "flex", gap: "4px", padding: "10px 0 0", overflowX: "auto" }}>
           {PAGES.map(p => (
-            <button key={p.id} className="tbtn" onClick={() => setActivePage(p.id)} style={{ flex: "0 0 auto", padding: "7px 10px", borderRadius: "10px", background: activePage===p.id ? `${gold}22` : "rgba(255,255,255,0.04)", color: activePage===p.id ? gold : "rgba(255,255,255,0.35)", border: `1px solid ${activePage===p.id ? gold+"55" : "rgba(255,255,255,0.08)"}`, fontSize: "11px", fontWeight: "600", whiteSpace: "nowrap" }}>
+            <button key={p.id} className="tbtn" onClick={() => setActivePage(p.id)} style={{ flex: "0 0 auto", padding: "7px 10px", borderRadius: "10px", background: activePage===p.id ? `${gold}22` : "rgba(255,255,255,0.04)", color: activePage===p.id ? gold : "rgba(255,255,255,0.35)", border: `1px solid ${activePage===p.id ? gold+"55" : "rgba(255,255,255,0.08)"}`, fontSize: "13px", fontWeight: "600", whiteSpace: "nowrap" }}>
               {p.label}
             </button>
           ))}
@@ -188,7 +188,7 @@ export default function App() {
             {messages.map((msg, i) => (
               <div key={i} className="msg" style={{ display: "flex", justifyContent: msg.role==="user" ? "flex-end" : "flex-start", alignItems: "flex-end", gap: "8px" }}>
                 {msg.role === "assistant" && <Logo />}
-                <div style={{ maxWidth: "72%", padding: "11px 15px", borderRadius: msg.role==="user" ? "20px 20px 4px 20px" : "20px 20px 20px 4px", background: msg.role==="user" ? `linear-gradient(135deg, ${pColor}, ${pColor}bb)` : "rgba(255,255,255,0.07)", color: msg.role==="user" ? "#fff" : "rgba(255,255,255,0.9)", fontSize: "13.5px", lineHeight: "1.6", border: msg.role==="assistant" ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
+                <div style={{ maxWidth: "72%", padding: "11px 15px", borderRadius: msg.role==="user" ? "20px 20px 4px 20px" : "20px 20px 20px 4px", background: msg.role==="user" ? `linear-gradient(135deg, ${pColor}, ${pColor}bb)` : "rgba(255,255,255,0.07)", color: msg.role==="user" ? "#fff" : "rgba(255,255,255,0.9)", fontSize: "15.5px", lineHeight: "1.6", border: msg.role==="assistant" ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
                   {msg.content}
                 </div>
               </div>
@@ -205,15 +205,15 @@ export default function App() {
           </div>
           <div style={{ width: "100%", maxWidth: "480px", padding: "0 20px 10px", display: "flex", gap: "6px", flexWrap: "wrap" }}>
             {["Voir le catalogue 📦", "Meilleure vente ⭐", "Offrir un cadeau 🎁", "Commander 🛍️"].map((q, i) => (
-              <button key={i} className="tbtn" onClick={() => q.includes("catalogue") ? setActivePage("catalogue") : send(q)} style={{ padding: "7px 12px", borderRadius: "20px", border: `1px solid ${gold}30`, background: "rgba(201,168,76,0.08)", color: "rgba(255,255,255,0.7)", fontSize: "11px" }}>{q}</button>
+              <button key={i} className="tbtn" onClick={() => q.includes("catalogue") ? setActivePage("catalogue") : send(q)} style={{ padding: "7px 12px", borderRadius: "20px", border: `1px solid ${gold}30`, background: "rgba(201,168,76,0.08)", color: "rgba(255,255,255,0.7)", fontSize: "13px" }}>{q}</button>
             ))}
           </div>
           <div style={{ width: "100%", maxWidth: "480px", padding: "10px 20px 20px", background: "rgba(255,255,255,0.03)", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", gap: "10px", alignItems: "center" }}>
             <div style={{ flex: 1, display: "flex", alignItems: "center", background: "rgba(255,255,255,0.07)", borderRadius: "24px", border: "1px solid rgba(255,255,255,0.1)", padding: "0 16px", gap: "8px" }}>
               <span>✍️</span>
-              <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key==="Enter" && send()} placeholder="Votre message à Matel..." style={{ flex: 1, padding: "12px 0", background: "transparent", border: "none", color: "#fff", fontSize: "14px", fontFamily: "inherit" }} />
+              <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key==="Enter" && send()} placeholder="Votre message à Matel..." style={{ flex: 1, padding: "12px 0", background: "transparent", border: "none", color: "#fff", fontSize: "16px", fontFamily: "inherit" }} />
             </div>
-            <button className="tbtn" onClick={() => send()} disabled={loading} style={{ width: "48px", height: "48px", borderRadius: "50%", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "18px", fontWeight: "bold", flexShrink: 0, opacity: loading ? 0.5 : 1, boxShadow: `0 4px 20px ${gold}55` }}>➤</button>
+            <button className="tbtn" onClick={() => send()} disabled={loading} style={{ width: "48px", height: "48px", borderRadius: "50%", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "20px", fontWeight: "bold", flexShrink: 0, opacity: loading ? 0.5 : 1, boxShadow: `0 4px 20px ${gold}55` }}>➤</button>
           </div>
         </>
       )}
@@ -224,14 +224,14 @@ export default function App() {
           <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
             {[{val:"19",label:"Articles"},{val:"48",label:"En stock"},{val:"10K",label:"Prix min"},{val:"75K",label:"Prix max"}].map((s,i) => (
               <div key={i} style={{ flex: 1, background: "rgba(255,255,255,0.04)", border: `1px solid ${gold}15`, borderRadius: "10px", padding: "10px 6px", textAlign: "center" }}>
-                <div style={{ color: gold, fontSize: "16px", fontWeight: "800" }}>{s.val}</div>
-                <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "9px", letterSpacing: "1px", marginTop: "2px" }}>{s.label}</div>
+                <div style={{ color: gold, fontSize: "18px", fontWeight: "800" }}>{s.val}</div>
+                <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", letterSpacing: "1px", marginTop: "2px" }}>{s.label}</div>
               </div>
             ))}
           </div>
           <div style={{ display: "flex", gap: "6px", marginBottom: "16px", overflowX: "auto", paddingBottom: "4px" }}>
             {CATS.map(cat => (
-              <button key={cat} className="tbtn" onClick={() => setCatFilter(cat)} style={{ flexShrink: 0, padding: "6px 14px", borderRadius: "20px", background: catFilter===cat ? gold : "rgba(255,255,255,0.05)", color: catFilter===cat ? "#0a0a0a" : "rgba(255,255,255,0.5)", border: `1px solid ${catFilter===cat ? gold : "rgba(255,255,255,0.1)"}`, fontSize: "11px", fontWeight: "600" }}>
+              <button key={cat} className="tbtn" onClick={() => setCatFilter(cat)} style={{ flexShrink: 0, padding: "6px 14px", borderRadius: "20px", background: catFilter===cat ? gold : "rgba(255,255,255,0.05)", color: catFilter===cat ? "#0a0a0a" : "rgba(255,255,255,0.5)", border: `1px solid ${catFilter===cat ? gold : "rgba(255,255,255,0.1)"}`, fontSize: "13px", fontWeight: "600" }}>
                 {cat==="Tous" ? "🛍️ Tous" : `${CAT_ICONS[cat]} ${cat}`}
               </button>
             ))}
@@ -243,20 +243,20 @@ export default function App() {
                   <img src={p.img} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", background: "#0d0d0d" }}
                     onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
                   <div style={{ display: "none", width: "100%", height: "100%", background: "linear-gradient(135deg, #1a1408, #111)", alignItems: "center", justifyContent: "center", fontSize: "48px" }}>🌹</div>
-                  <div style={{ position: "absolute", top: "10px", right: "10px", background: p.stock<=1 ? "rgba(192,57,43,0.9)" : p.stock<=3 ? "rgba(230,126,34,0.9)" : "rgba(39,174,96,0.9)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "10px", fontWeight: "700" }}>
+                  <div style={{ position: "absolute", top: "10px", right: "10px", background: p.stock<=1 ? "rgba(192,57,43,0.9)" : p.stock<=3 ? "rgba(230,126,34,0.9)" : "rgba(39,174,96,0.9)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "12px", fontWeight: "700" }}>
                     {p.stock<=1 ? "⚠️ Dernier !" : p.stock<=3 ? `⚡ ${p.stock} restants` : `✅ ${p.stock} en stock`}
                   </div>
                 </div>
                 <div style={{ padding: "14px 16px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
-                    <div style={{ color: "#fff", fontWeight: "700", fontSize: "14px", lineHeight: "1.3", flex: 1, marginRight: "10px" }}>{p.nom}</div>
+                    <div style={{ color: "#fff", fontWeight: "700", fontSize: "16px", lineHeight: "1.3", flex: 1, marginRight: "10px" }}>{p.nom}</div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
-                      <div style={{ color: gold, fontWeight: "800", fontSize: "16px" }}>{p.prix.toLocaleString('fr-FR')}</div>
-                      <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "9px" }}>FCFA</div>
+                      <div style={{ color: gold, fontWeight: "800", fontSize: "18px" }}>{p.prix.toLocaleString('fr-FR')}</div>
+                      <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px" }}>FCFA</div>
                     </div>
                   </div>
-                  <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "11px", lineHeight: "1.5", marginBottom: "12px" }}>{p.desc}</div>
-                  <button className="tbtn" onClick={() => orderProduct(p)} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "12px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
+                  <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", lineHeight: "1.5", marginBottom: "12px" }}>{p.desc}</div>
+                  <button className="tbtn" onClick={() => orderProduct(p)} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
                     🛍️ Commander ce parfum
                   </button>
                 </div>
@@ -272,8 +272,8 @@ export default function App() {
           <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: "20px", border: `1px solid ${gold}22`, padding: "24px" }}>
             <div style={{ textAlign: "center", marginBottom: "24px" }}>
               <div style={{ fontSize: "32px", marginBottom: "8px" }}>🛍️</div>
-              <div style={{ color: gold, fontSize: "18px", fontWeight: "800" }}>Commander via WhatsApp</div>
-              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", marginTop: "4px" }}>Remplissez et on vous contacte rapidement !</div>
+              <div style={{ color: gold, fontSize: "20px", fontWeight: "800" }}>Commander via WhatsApp</div>
+              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px", marginTop: "4px" }}>Remplissez et on vous contacte rapidement !</div>
             </div>
             {[
               { key: "name", label: "👤 Votre nom complet", ph: "Ex: Amadou Diallo" },
@@ -282,17 +282,17 @@ export default function App() {
               { key: "quartier", label: "📍 Votre quartier", ph: "Ex: Pikine, Parcelles, Médina..." },
             ].map(f => (
               <div key={f.key} style={{ marginBottom: "16px" }}>
-                <label style={{ color: "rgba(255,255,255,0.6)", fontSize: "12px", display: "block", marginBottom: "6px" }}>{f.label}</label>
-                <input value={order[f.key]} onChange={e => setOrder({...order,[f.key]:e.target.value})} placeholder={f.ph} style={{ width: "100%", padding: "12px 16px", borderRadius: "12px", border: `1px solid ${gold}25`, background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "13px", fontFamily: "inherit", boxSizing: "border-box" }} />
+                <label style={{ color: "rgba(255,255,255,0.6)", fontSize: "14px", display: "block", marginBottom: "6px" }}>{f.label}</label>
+                <input value={order[f.key]} onChange={e => setOrder({...order,[f.key]:e.target.value})} placeholder={f.ph} style={{ width: "100%", padding: "12px 16px", borderRadius: "12px", border: `1px solid ${gold}25`, background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "15px", fontFamily: "inherit", boxSizing: "border-box" }} />
               </div>
             ))}
-            <button className="tbtn" onClick={sendOrder} disabled={!canOrder} style={{ width: "100%", padding: "16px", borderRadius: "16px", background: canOrder ? "linear-gradient(135deg, #25D366, #1a9e4a)" : "rgba(255,255,255,0.1)", color: canOrder ? "#fff" : "rgba(255,255,255,0.3)", fontSize: "15px", fontWeight: "700", boxShadow: canOrder ? "0 4px 20px #25D36644" : "none" }}>
+            <button className="tbtn" onClick={sendOrder} disabled={!canOrder} style={{ width: "100%", padding: "16px", borderRadius: "16px", background: canOrder ? "linear-gradient(135deg, #25D366, #1a9e4a)" : "rgba(255,255,255,0.1)", color: canOrder ? "#fff" : "rgba(255,255,255,0.3)", fontSize: "17px", fontWeight: "700", boxShadow: canOrder ? "0 4px 20px #25D36644" : "none" }}>
               💬 Envoyer la commande sur WhatsApp
             </button>
-            <button className="tbtn" onClick={() => setActivePage("catalogue")} style={{ width: "100%", padding: "12px", borderRadius: "16px", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.5)", fontSize: "13px", marginTop: "10px", border: "1px solid rgba(255,255,255,0.08)" }}>
+            <button className="tbtn" onClick={() => setActivePage("catalogue")} style={{ width: "100%", padding: "12px", borderRadius: "16px", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.5)", fontSize: "15px", marginTop: "10px", border: "1px solid rgba(255,255,255,0.08)" }}>
               ← Retour au catalogue
             </button>
-            <div style={{ textAlign: "center", marginTop: "12px", color: `${gold}66`, fontSize: "11px" }}>Livraison Dakar + Banlieue • Réponse sous 2h</div>
+            <div style={{ textAlign: "center", marginTop: "12px", color: `${gold}66`, fontSize: "13px" }}>Livraison Dakar + Banlieue • Réponse sous 2h</div>
           </div>
         </div>
       )}
@@ -303,8 +303,8 @@ export default function App() {
           <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: "20px", border: `1px solid ${gold}22`, padding: "24px", display: "flex", flexDirection: "column", gap: "16px" }}>
             <div style={{ textAlign: "center", marginBottom: "8px" }}>
               <div style={{ fontSize: "32px", marginBottom: "8px" }}>🏪</div>
-              <div style={{ color: gold, fontSize: "18px", fontWeight: "800" }}>Parfumerie De La Zac</div>
-              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px" }}>Parfums authentiques de Paris</div>
+              <div style={{ color: gold, fontSize: "20px", fontWeight: "800" }}>Parfumerie De La Zac</div>
+              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px" }}>Parfums authentiques de Paris</div>
             </div>
             {[
               { icon: "📍", label: "Adresse", value: "Zac Mbao, Pikine, Dakar" },
@@ -315,32 +315,33 @@ export default function App() {
               <div key={i} style={{ display: "flex", alignItems: "center", gap: "14px", padding: "14px 16px", borderRadius: "14px", background: "rgba(255,255,255,0.05)", border: `1px solid ${gold}15` }}>
                 <span style={{ fontSize: "22px", flexShrink: 0 }}>{info.icon}</span>
                 <div>
-                  <div style={{ color: `${gold}99`, fontSize: "11px", marginBottom: "2px" }}>{info.label}</div>
-                  <div style={{ color: "#fff", fontSize: "13px", fontWeight: "600" }}>{info.value}</div>
+                  <div style={{ color: `${gold}99`, fontSize: "13px", marginBottom: "2px" }}>{info.label}</div>
+                  <div style={{ color: "#fff", fontSize: "15px", fontWeight: "600" }}>{info.value}</div>
                 </div>
               </div>
             ))}
             <div style={{ display: "flex", gap: "10px" }}>
-              <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #25D36644" }}>
+              <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "13px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #25D36644" }}>
                 <span style={{ fontSize: "20px" }}>💬</span><span>WhatsApp</span>
               </button>
-              <button className="tbtn" onClick={() => window.open(INSTAGRAM,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #E1306C, #833ab4)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #E1306C44" }}>
+              <button className="tbtn" onClick={() => window.open(INSTAGRAM,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #E1306C, #833ab4)", color: "#fff", fontSize: "13px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #E1306C44" }}>
                 <span style={{ fontSize: "20px" }}>📸</span><span>Instagram</span>
               </button>
-              <button className="tbtn" onClick={() => window.open(FACEBOOK,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #1877F2, #0d5bba)", color: "#fff", fontSize: "11px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #1877F244" }}>
+              <button className="tbtn" onClick={() => window.open(FACEBOOK,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #1877F2, #0d5bba)", color: "#fff", fontSize: "13px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #1877F244" }}>
                 <span style={{ fontSize: "20px" }}>👥</span><span>Facebook</span>
               </button>
             </div>
-            <button className="tbtn" onClick={() => setActivePage("order")} style={{ width: "100%", padding: "14px", borderRadius: "16px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 4px 20px ${gold}44` }}>
+            <button className="tbtn" onClick={() => setActivePage("order")} style={{ width: "100%", padding: "14px", borderRadius: "16px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "16px", fontWeight: "700", boxShadow: `0 4px 20px ${gold}44` }}>
               🛍️ Passer une commande
             </button>
           </div>
         </div>
       )}
 
-      <div style={{ width: "100%", maxWidth: "480px", textAlign: "center", padding: "10px", color: "rgba(255,255,255,0.15)", fontSize: "9px", letterSpacing: "2px", textTransform: "uppercase", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+      <div style={{ width: "100%", maxWidth: "480px", textAlign: "center", padding: "10px", color: "rgba(255,255,255,0.15)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
         Parfumerie de la Zac • IA Powered by Claude
       </div>
     </div>
   );
 }
+
