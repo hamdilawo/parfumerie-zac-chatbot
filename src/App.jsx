@@ -266,17 +266,17 @@ export default function App() {
 
       {/* CATALOGUE */}
       {activePage === "catalogue" && (
-        <div style={{ width: "100%", maxWidth: "480px", flex: 1, padding: "16px 16px 30px", overflowY: "auto" }}>
-          <div style={{ display: "flex", gap: "6px", marginBottom: "16px", overflowX: "auto", paddingBottom: "4px" }}>
+        <div style={{ width: "100%", maxWidth: "1200px", flex: 1, padding: "16px 16px 30px", overflowY: "auto" }}>
+          <div style={{ display: "flex", gap: "6px", marginBottom: "16px", overflowX: "auto", paddingBottom: "4px", maxWidth: "480px", margin: "0 auto 16px" }}>
             {CATS.map(cat => (
               <button key={cat} className="tbtn" onClick={() => setCatFilter(cat)} style={{ flexShrink: 0, padding: "5px 10px", borderRadius: "20px", background: catFilter===cat ? gold : "rgba(255,255,255,0.05)", color: catFilter===cat ? "#0a0a0a" : "rgba(255,255,255,0.5)", border: `1px solid ${catFilter===cat ? gold : "rgba(255,255,255,0.1)"}`, fontSize: "11px", fontWeight: "600" }}>
                 {cat==="Tous" ? "🛍️ Tous" : `${CAT_ICONS[cat]} ${cat}`}
               </button>
             ))}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "16px" }}>
             {filtered.map((p, i) => (
-              <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden" }}>
+              <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                 <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
                   <img src={p.img} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", background: "#0d0d0d" }}
                     onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
@@ -285,10 +285,10 @@ export default function App() {
                     {p.stock<=1 ? "⚠️ Dernier !" : p.stock<=3 ? `⚡ ${p.stock} restants` : `✅ ${p.stock} en stock`}
                   </div>
                 </div>
-                <div style={{ padding: "14px 16px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
-                    <div style={{ flex: 1, marginRight: "10px" }}>
-                      <div style={{ color: "#fff", fontWeight: "700", fontSize: "16px", lineHeight: "1.3" }}>{p.nom}</div>
+                <div style={{ padding: "14px 16px", display: "flex", flexDirection: "column", flex: 1 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px", gap: "8px" }}>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ color: "#fff", fontWeight: "700", fontSize: "15px", lineHeight: "1.3" }}>{p.nom}</div>
                       {enPromo(p) && (
                         <div style={{ display: "inline-block", marginTop: "6px", background: "linear-gradient(135deg, #c0392b, #8e2419)", color: "#fff", padding: "3px 10px", borderRadius: "12px", fontSize: "10px", fontWeight: "700", letterSpacing: "0.5px" }}>
                           🐏 {PROMO_LABEL}
@@ -297,13 +297,13 @@ export default function App() {
                     </div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
                       {enPromo(p) && (
-                        <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", textDecoration: "line-through", marginBottom: "2px" }}>{p.prix.toLocaleString('fr-FR')}</div>
+                        <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", textDecoration: "line-through", marginBottom: "2px" }}>{p.prix.toLocaleString('fr-FR')}</div>
                       )}
-                      <div style={{ color: gold, fontWeight: "800", fontSize: "18px" }}>{(enPromo(p) ? prixPromo(p) : p.prix).toLocaleString('fr-FR')}</div>
-                      <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px" }}>FCFA</div>
+                      <div style={{ color: gold, fontWeight: "800", fontSize: "17px" }}>{(enPromo(p) ? prixPromo(p) : p.prix).toLocaleString('fr-FR')}</div>
+                      <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px" }}>FCFA</div>
                     </div>
                   </div>
-                  <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", lineHeight: "1.5", marginBottom: "12px" }}>{p.desc}</div>
+                  <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "12px", lineHeight: "1.5", marginBottom: "12px", flex: 1 }}>{p.desc}</div>
                   <button className="tbtn" onClick={() => addToCart(p)} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
                     🛒 Ajouter au panier
                   </button>
