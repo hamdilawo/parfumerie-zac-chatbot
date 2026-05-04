@@ -26,11 +26,24 @@ const PRODUITS = [
   { nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "Accessoire", img: "/photos/20250521_122352.jpg", desc: "Collection Privée by Birraci — BA Intense Body Spray. Protection longue durée." },
 ];
 
-const CATALOGUE_TEXT = PRODUITS.map(p =>
-  `- ${p.nom} : ${p.prix.toLocaleString('fr-FR')} FCFA (stock: ${p.stock})`
-).join('\n');
+// === PROMO TABASKI ===
+const PROMO_ACTIVE = true;
+const PROMO_TAUX = 0.15; // 15%
+const PROMO_LABEL = "TABASKI -15%";
+const PROMO_EXCLUS = ["Déodorant BA Intense CP"];
+const enPromo = (p) => PROMO_ACTIVE && !PROMO_EXCLUS.includes(p.nom);
+const prixPromo = (p) => Math.round(p.prix * (1 - PROMO_TAUX));
+
+const CATALOGUE_TEXT = PRODUITS.map(p => {
+  const ligne = `- ${p.nom} : ${p.prix.toLocaleString('fr-FR')} FCFA (stock: ${p.stock})`;
+  return enPromo(p)
+    ? `${ligne} 🐏 PROMO TABASKI -15% → ${prixPromo(p).toLocaleString('fr-FR')} FCFA`
+    : ligne;
+}).join('\n');
 
 const SYSTEM_PROMPT = `Tu es Matel, la conseillère officielle de la Parfumerie de la Zac, boutique de luxe spécialisée en parfums authentiques de Paris. Tu es élégante, chaleureuse et professionnelle. Tu utilises des emojis sobres (✨🖤🌹).
+
+🐏 PROMOTION TABASKI EN COURS : -15% sur TOUS les produits sauf le Déodorant BA Intense CP. Mets en avant cette promo dans tes recommandations !
 
 CATALOGUE COMPLET :
 ${CATALOGUE_TEXT}
@@ -46,12 +59,11 @@ Règles :
 - Pour commander : WhatsApp au ${WHATSAPP_DISPLAY}
 - Suggère selon le budget du client
 - Mentionne toujours que ce sont des parfums authentiques de Paris
-- Ne jamais dépasser le stock indiqué`;
+- Ne jamais dépasser le stock indiqué
+- Mentionne la promo Tabaski quand pertinent`;
 
 const platforms = [
   { id: "whatsapp", label: "WhatsApp", color: "#25D366", icon: "💬" },
-  { id: "instagram", label: "Instagram", color: "#E1306C", icon: "📸" },
-  { id: "facebook", label: "Facebook", color: "#1877F2", icon: "👥" },
 ];
 
 const PAGES = [
@@ -117,7 +129,11 @@ export default function App() {
   };
 
   const sendOrder = () => {
-    const msg = `Bonjour Parfumerie De La Zac ! 🖤%0AJe souhaite commander :%0A%0A👤 Nom : ${order.name}%0A📱 Tel : ${order.phone}%0A🌹 Parfum : ${order.product}%0A📍 Quartier : ${order.quartier}%0A%0AMerci ✨`;
+    const produitObj = PRODUITS.find(x => x.nom === order.product);
+    const promoLine = produitObj && enPromo(produitObj)
+      ? `%0A🐏 Promo Tabaski : -15%25 (${prixPromo(produitObj).toLocaleString('fr-FR')} FCFA au lieu de ${produitObj.prix.toLocaleString('fr-FR')} FCFA)`
+      : "";
+    const msg = `Bonjour Parfumerie De La Zac ! 🖤%0AJe souhaite commander :%0A%0A👤 Nom : ${order.name}%0A📱 Tel : ${order.phone}%0A🌹 Parfum : ${order.product}${promoLine}%0A📍 Quartier : ${order.quartier}%0A%0AMerci ✨`;
     window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
   };
 
@@ -220,17 +236,9 @@ export default function App() {
       {/* CATALOGUE */}
       {activePage === "catalogue" && (
         <div style={{ width: "100%", maxWidth: "480px", flex: 1, padding: "16px 16px 30px", overflowY: "auto" }}>
-          <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
-            {[{val:"19",label:"Articles"},{val:"48",label:"En stock"},{val:"10K",label:"Prix min"},{val:"75K",label:"Prix max"}].map((s,i) => (
-              <div key={i} style={{ flex: 1, background: "rgba(255,255,255,0.04)", border: `1px solid ${gold}15`, borderRadius: "10px", padding: "10px 6px", textAlign: "center" }}>
-                <div style={{ color: gold, fontSize: "18px", fontWeight: "800" }}>{s.val}</div>
-                <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", letterSpacing: "1px", marginTop: "2px" }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
           <div style={{ display: "flex", gap: "6px", marginBottom: "16px", overflowX: "auto", paddingBottom: "4px" }}>
             {CATS.map(cat => (
-              <button key={cat} className="tbtn" onClick={() => setCatFilter(cat)} style={{ flexShrink: 0, padding: "6px 14px", borderRadius: "20px", background: catFilter===cat ? gold : "rgba(255,255,255,0.05)", color: catFilter===cat ? "#0a0a0a" : "rgba(255,255,255,0.5)", border: `1px solid ${catFilter===cat ? gold : "rgba(255,255,255,0.1)"}`, fontSize: "13px", fontWeight: "600" }}>
+              <button key={cat} className="tbtn" onClick={() => setCatFilter(cat)} style={{ flexShrink: 0, padding: "5px 10px", borderRadius: "20px", background: catFilter===cat ? gold : "rgba(255,255,255,0.05)", color: catFilter===cat ? "#0a0a0a" : "rgba(255,255,255,0.5)", border: `1px solid ${catFilter===cat ? gold : "rgba(255,255,255,0.1)"}`, fontSize: "11px", fontWeight: "600" }}>
                 {cat==="Tous" ? "🛍️ Tous" : `${CAT_ICONS[cat]} ${cat}`}
               </button>
             ))}
@@ -248,9 +256,19 @@ export default function App() {
                 </div>
                 <div style={{ padding: "14px 16px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
-                    <div style={{ color: "#fff", fontWeight: "700", fontSize: "16px", lineHeight: "1.3", flex: 1, marginRight: "10px" }}>{p.nom}</div>
+                    <div style={{ flex: 1, marginRight: "10px" }}>
+                      <div style={{ color: "#fff", fontWeight: "700", fontSize: "16px", lineHeight: "1.3" }}>{p.nom}</div>
+                      {enPromo(p) && (
+                        <div style={{ display: "inline-block", marginTop: "6px", background: "linear-gradient(135deg, #c0392b, #8e2419)", color: "#fff", padding: "3px 10px", borderRadius: "12px", fontSize: "10px", fontWeight: "700", letterSpacing: "0.5px" }}>
+                          🐏 {PROMO_LABEL}
+                        </div>
+                      )}
+                    </div>
                     <div style={{ textAlign: "right", flexShrink: 0 }}>
-                      <div style={{ color: gold, fontWeight: "800", fontSize: "18px" }}>{p.prix.toLocaleString('fr-FR')}</div>
+                      {enPromo(p) && (
+                        <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", textDecoration: "line-through", marginBottom: "2px" }}>{p.prix.toLocaleString('fr-FR')}</div>
+                      )}
+                      <div style={{ color: gold, fontWeight: "800", fontSize: "18px" }}>{(enPromo(p) ? prixPromo(p) : p.prix).toLocaleString('fr-FR')}</div>
                       <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px" }}>FCFA</div>
                     </div>
                   </div>
@@ -320,14 +338,8 @@ export default function App() {
               </div>
             ))}
             <div style={{ display: "flex", gap: "10px" }}>
-              <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "13px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #25D36644" }}>
+              <button className="tbtn" onClick={() => window.open(`https://wa.me/${WHATSAPP}`,"_blank")} style={{ width: "100%", padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #25D366, #1a9e4a)", color: "#fff", fontSize: "13px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #25D36644" }}>
                 <span style={{ fontSize: "20px" }}>💬</span><span>WhatsApp</span>
-              </button>
-              <button className="tbtn" onClick={() => window.open(INSTAGRAM,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #E1306C, #833ab4)", color: "#fff", fontSize: "13px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #E1306C44" }}>
-                <span style={{ fontSize: "20px" }}>📸</span><span>Instagram</span>
-              </button>
-              <button className="tbtn" onClick={() => window.open(FACEBOOK,"_blank")} style={{ flex: 1, padding: "14px 8px", borderRadius: "16px", background: "linear-gradient(135deg, #1877F2, #0d5bba)", color: "#fff", fontSize: "13px", fontWeight: "700", display: "flex", flexDirection: "column", alignItems: "center", gap: "4px", boxShadow: "0 4px 20px #1877F244" }}>
-                <span style={{ fontSize: "20px" }}>👥</span><span>Facebook</span>
               </button>
             </div>
             <button className="tbtn" onClick={() => setActivePage("order")} style={{ width: "100%", padding: "14px", borderRadius: "16px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "16px", fontWeight: "700", boxShadow: `0 4px 20px ${gold}44` }}>
