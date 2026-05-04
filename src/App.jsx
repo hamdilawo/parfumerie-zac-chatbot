@@ -56,21 +56,23 @@ INFOS BOUTIQUE :
 
 Règles :
 - Réponds en 2-3 phrases maximum
-- Pour commander : invite à cliquer sur "🛒 Ajouter au panier" sur les fiches produits, puis "Commander" pour finaliser
+- Pour commander : invite à cliquer sur "🛒 Ajouter au panier" sur les fiches dans la Boutique, puis "Commander" pour finaliser
 - Suggère selon le budget du client
 - Mentionne toujours que ce sont des parfums authentiques de Paris
 - Ne jamais dépasser le stock indiqué
 - Mentionne la promo Tabaski quand pertinent
-- Encourage à ajouter plusieurs articles au panier pour profiter pleinement de la promo`;
+- Encourage à ajouter plusieurs articles au panier pour profiter pleinement de la promo
+- Quand tu parles de l'onglet où voir les produits, dis "Boutique" (et non "Catalogue")
+- Quand tu parles de l'onglet adresse/horaires, dis "Coordonnées" (et non "Boutique")`;
 
 const platforms = [
   { id: "whatsapp", label: "WhatsApp", color: "#25D366", icon: "💬" },
 ];
 
 const PAGES = [
-  { id: "catalogue", label: "📦 Catalogue" },
+  { id: "catalogue", label: "🌹 Boutique" },
   { id: "order", label: "🛍️ Commander" },
-  { id: "info", label: "📍 Boutique" },
+  { id: "info", label: "📞 Coordonnées" },
 ];
 
 const CATS = ["Tous", "Collection", "Coffret", "Classique", "Accessoire"];
@@ -250,8 +252,8 @@ export default function App() {
             <div ref={endRef} />
           </div>
           <div style={{ width: "100%", maxWidth: "480px", padding: "0 20px 10px", display: "flex", gap: "6px", flexWrap: "wrap" }}>
-            {["Voir le catalogue 📦", "Meilleure vente ⭐", "Offrir un cadeau 🎁", "Commander 🛍️"].map((q, i) => (
-              <button key={i} className="tbtn" onClick={() => q.includes("catalogue") ? setActivePage("catalogue") : send(q)} style={{ padding: "7px 12px", borderRadius: "20px", border: `1px solid ${gold}30`, background: "rgba(201,168,76,0.08)", color: "rgba(255,255,255,0.7)", fontSize: "13px" }}>{q}</button>
+            {["Voir la boutique 🌹", "Meilleure vente ⭐", "Offrir un cadeau 🎁", "Commander 🛍️"].map((q, i) => (
+              <button key={i} className="tbtn" onClick={() => q.includes("boutique") ? setActivePage("catalogue") : send(q)} style={{ padding: "7px 12px", borderRadius: "20px", border: `1px solid ${gold}30`, background: "rgba(201,168,76,0.08)", color: "rgba(255,255,255,0.7)", fontSize: "13px" }}>{q}</button>
             ))}
           </div>
           <div style={{ width: "100%", maxWidth: "480px", padding: "10px 20px 20px", background: "rgba(255,255,255,0.03)", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", gap: "10px", alignItems: "center" }}>
@@ -328,7 +330,7 @@ export default function App() {
               <div style={{ textAlign: "center", padding: "30px 0" }}>
                 <div style={{ fontSize: "48px", marginBottom: "12px", opacity: 0.5 }}>🌹</div>
                 <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", marginBottom: "20px" }}>Aucun parfum sélectionné pour le moment.</div>
-                <button className="tbtn" onClick={() => setActivePage("catalogue")} style={{ padding: "12px 24px", borderRadius: "14px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "15px", fontWeight: "700", border: "none" }}>📦 Voir le catalogue</button>
+                <button className="tbtn" onClick={() => setActivePage("catalogue")} style={{ padding: "12px 24px", borderRadius: "14px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "15px", fontWeight: "700", border: "none" }}>🌹 Voir la boutique</button>
               </div>
             ) : (
               <>
