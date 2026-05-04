@@ -9,7 +9,7 @@ const PRODUITS = [
   { nom: "Collection Prestige (Havana)", prix: 25000, stock: 4, cat: "Prestige", img: "/photos/20250521_130732.jpg", desc: "Fragrance raffinée aux notes chaudes et boisées de Havana. Élégante et inoubliable." },
   { nom: "Collection Igor (Blue Magic)", prix: 25000, stock: 1, cat: "Prestige", img: "/photos/20250521_113939.jpg", desc: "Création exclusive Blue Magic by Igor. Notes envoûtantes et mystérieuses. Stock limité !" },
   { nom: "La Folie du Délice (Sweet Mango)", prix: 25000, stock: 2, cat: "Prestige", img: "/photos/20250521_114141.jpg", desc: "Notes fruitées de mangue sucrée. Frais et gourmand, authentique de Paris." },
-  { nom: "Collection Kenzi", prix: 20000, stock: 5, cat: "Prestige", img: "/photos/20250521_130732.jpg", desc: "Élégance et caractère pour un parfum qui vous ressemble." },
+  { nom: "Collection Kenzi (Black Seduction)", prix: 20000, stock: 5, cat: "Prestige", img: "/photos/kenzi_black_seduction.jpg", desc: "Élégance et caractère pour un parfum qui vous ressemble." },
   { nom: "Collection Convivium (Sillage Frais)", prix: 17500, stock: 3, cat: "Prestige", img: "/photos/20250521_114947.jpg", desc: "Sillage Frais de Convivium Paris. Notes fraîches et marines." },
   { nom: "Collection Privée", prix: 15000, stock: 10, cat: "Prestige", img: "/photos/20250521_121713.jpg", desc: "5 fragrances : Musc Blanc, Oud Vanille, Gris, Bakara, Arabie." },
   { nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", img: "/photos/20250521_113244.jpg", desc: "Coffret 4 parfums luxueux. Le cadeau parfait pour une occasion inoubliable !" },
