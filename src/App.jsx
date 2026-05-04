@@ -67,7 +67,6 @@ const platforms = [
 ];
 
 const PAGES = [
-  { id: "chat", label: "💬 Chat" },
   { id: "catalogue", label: "📦 Catalogue" },
   { id: "order", label: "🛍️ Commander" },
   { id: "info", label: "📍 Boutique" },
@@ -166,7 +165,7 @@ export default function App() {
       {/* HEADER */}
       <div style={{ width: "100%", maxWidth: "480px", background: "#0a0a0a", padding: "12px 20px 0" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 0 12px", borderBottom: `1px solid ${gold}22` }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div onClick={() => setActivePage("chat")} title="Retour au chat avec Matel" style={{ display: "flex", alignItems: "center", gap: "12px", cursor: "pointer" }}>
             <div style={{ width: "44px", height: "44px", borderRadius: "50%", overflow: "hidden", border: `2px solid ${gold}`, boxShadow: `0 0 16px ${gold}44`, animation: "glow 3s ease-in-out infinite", flexShrink: 0 }}>
               <img src="/logo.jpg" alt="PDZ" style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display="none"; e.target.parentElement.innerHTML="🖤"; e.target.parentElement.style.display="flex"; e.target.parentElement.style.alignItems="center"; e.target.parentElement.style.justifyContent="center"; e.target.parentElement.style.fontSize="20px"; }} />
             </div>
@@ -179,13 +178,6 @@ export default function App() {
             </div>
           </div>
           <div style={{ background: `${gold}15`, border: `1px solid ${gold}33`, borderRadius: "20px", padding: "5px 12px", color: gold, fontSize: "13px", fontWeight: "600" }}>LIVE</div>
-        </div>
-        <div style={{ display: "flex", gap: "6px", padding: "12px 0 0" }}>
-          {platforms.map(p => (
-            <button key={p.id} className="tbtn" onClick={() => setPlatform(p.id)} style={{ flex: 1, padding: "8px 6px", borderRadius: "14px", background: platform===p.id ? p.color : "rgba(255,255,255,0.05)", color: platform===p.id ? "#fff" : "rgba(255,255,255,0.35)", fontSize: "13px", fontWeight: "700", boxShadow: platform===p.id ? `0 4px 15px ${p.color}44` : "none" }}>
-              {p.icon} {p.label}
-            </button>
-          ))}
         </div>
         <div style={{ display: "flex", gap: "4px", padding: "10px 0 0", overflowX: "auto" }}>
           {PAGES.map(p => (
