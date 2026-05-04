@@ -86,6 +86,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [order, setOrder] = useState({ name: "", phone: "", product: "", quartier: "" });
   const [catFilter, setCatFilter] = useState("Tous");
+  const [chatOverlay, setChatOverlay] = useState(false);
   const endRef = useRef(null);
   const cp = platforms.find(p => p.id === platform);
 
@@ -344,6 +345,62 @@ export default function App() {
       <div style={{ width: "100%", maxWidth: "480px", textAlign: "center", padding: "10px", color: "rgba(255,255,255,0.15)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
         Parfumerie de la Zac • Tous droits réservés 2024
       </div>
+
+      {/* FLOATING CHAT BUTTON — visible sur les pages autres que Chat */}
+      {activePage !== "chat" && !chatOverlay && (
+        <button onClick={() => setChatOverlay(true)} title="Discuter avec Matel" style={{ position: "fixed", bottom: "24px", right: "24px", width: "60px", height: "60px", borderRadius: "50%", background: `linear-gradient(135deg, ${gold}, #a07830)`, border: "none", cursor: "pointer", boxShadow: `0 8px 24px ${gold}66, 0 0 0 4px rgba(201,168,76,0.15)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "26px", zIndex: 999, animation: "glow 2.5s ease-in-out infinite" }}>
+          💬
+        </button>
+      )}
+
+      {/* CHAT OVERLAY — fenêtre flottante de discussion avec Matel */}
+      {chatOverlay && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 1000, display: "flex", alignItems: "flex-end", justifyContent: "center", animation: "fadeUp 0.25s ease forwards" }}>
+          <div style={{ width: "100%", maxWidth: "480px", height: "85vh", background: "#0a0a0a", borderRadius: "20px 20px 0 0", border: `1px solid ${gold}33`, display: "flex", flexDirection: "column", boxShadow: `0 -10px 40px ${gold}33` }}>
+            {/* Header overlay */}
+            <div style={{ padding: "14px 18px", borderBottom: `1px solid ${gold}22`, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <Logo size={36} />
+                <div>
+                  <div style={{ color: gold, fontWeight: "800", fontSize: "15px" }}>Matel</div>
+                  <div style={{ color: "rgba(255,255,255,0.45)", fontSize: "11px" }}>Conseillère en parfums</div>
+                </div>
+              </div>
+              <button onClick={() => setChatOverlay(false)} style={{ width: "36px", height: "36px", borderRadius: "50%", background: "rgba(255,255,255,0.08)", border: "none", color: "#fff", fontSize: "18px", cursor: "pointer" }}>✕</button>
+            </div>
+
+            {/* Messages */}
+            <div style={{ flex: 1, padding: "16px 18px", display: "flex", flexDirection: "column", gap: "12px", overflowY: "auto" }}>
+              {messages.map((msg, i) => (
+                <div key={i} className="msg" style={{ display: "flex", justifyContent: msg.role==="user" ? "flex-end" : "flex-start", alignItems: "flex-end", gap: "8px" }}>
+                  {msg.role === "assistant" && <Logo size={28} />}
+                  <div style={{ maxWidth: "75%", padding: "11px 14px", borderRadius: msg.role==="user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px", background: msg.role==="user" ? `linear-gradient(135deg, ${pColor}, ${pColor}bb)` : "rgba(255,255,255,0.07)", color: msg.role==="user" ? "#fff" : "rgba(255,255,255,0.9)", fontSize: "14px", lineHeight: "1.5", border: msg.role==="assistant" ? "1px solid rgba(255,255,255,0.08)" : "none" }}>
+                    {msg.content}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div style={{ display: "flex", alignItems: "flex-end", gap: "8px" }}>
+                  <Logo size={28} />
+                  <div style={{ padding: "10px 14px", borderRadius: "18px 18px 18px 4px", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.08)", display: "flex", gap: "4px", alignItems: "center" }}>
+                    {[0,1,2].map(j => <div key={j} style={{ width: "6px", height: "6px", borderRadius: "50%", background: gold, animation: `dot 1.2s ease-in-out ${j*0.15}s infinite` }} />)}
+                  </div>
+                </div>
+              )}
+              <div ref={endRef} />
+            </div>
+
+            {/* Input */}
+            <div style={{ padding: "10px 18px 16px", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", gap: "10px", alignItems: "center" }}>
+              <div style={{ flex: 1, display: "flex", alignItems: "center", background: "rgba(255,255,255,0.07)", borderRadius: "22px", border: "1px solid rgba(255,255,255,0.1)", padding: "0 14px", gap: "6px" }}>
+                <span>✍️</span>
+                <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key==="Enter" && send()} placeholder="Votre message à Matel..." style={{ flex: 1, padding: "11px 0", background: "transparent", border: "none", color: "#fff", fontSize: "14px", fontFamily: "inherit" }} />
+              </div>
+              <button className="tbtn" onClick={() => send()} disabled={loading} style={{ width: "44px", height: "44px", borderRadius: "50%", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "18px", fontWeight: "bold", flexShrink: 0, opacity: loading ? 0.5 : 1, boxShadow: `0 4px 14px ${gold}55`, border: "none" }}>➤</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
