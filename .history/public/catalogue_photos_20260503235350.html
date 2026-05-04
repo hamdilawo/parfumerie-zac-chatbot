@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catalogue — Parfumerie De La Zac</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root { --gold: #C9A84C; --gold-dark: #A07830; --black: #0A0A0A; --dark: #111111; --card: #161616; --white: #F5F0E8; --muted: #888878; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--black); color: var(--white); font-family: "Montserrat", sans-serif; }
+.header { background: linear-gradient(135deg, #0A0A0A 0%, #1A1408 50%, #0A0A0A 100%); border-bottom: 2px solid var(--gold); padding: 30px 16px; text-align: center; }
+.header-logo { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--gold); margin: 0 auto 12px; overflow: hidden; box-shadow: 0 0 25px rgba(201,168,76,0.4); }
+.header-logo img { width: 100%; height: 100%; object-fit: cover; }
+.brand { font-family: "Cormorant Garamond", serif; font-size: 28px; font-weight: 700; color: var(--gold); letter-spacing: 3px; }
+.brand-sub { font-size: 10px; letter-spacing: 5px; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
+.contacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; }
+.contact { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); border-radius: 20px; padding: 5px 14px; font-size: 11px; color: var(--gold); }
+.toolbar { background: #111; border-bottom: 1px solid rgba(201,168,76,0.15); padding: 10px 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; }
+.toolbar-title { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; flex: 1; }
+.btn { padding: 7px 16px; border-radius: 20px; border: none; font-family: "Montserrat", sans-serif; font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-outline { background: transparent; border: 1px solid rgba(201,168,76,0.4); color: var(--gold); }
+.filters { padding: 12px 16px; display: flex; gap: 6px; overflow-x: auto; background: #111; border-bottom: 1px solid rgba(201,168,76,0.1); }
+.filter-btn { flex-shrink: 0; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(201,168,76,0.2); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.4); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: "Montserrat", sans-serif; }
+.filter-btn.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
+.main { max-width: 480px; margin: 0 auto; padding: 16px; }
+.cat-title { background: linear-gradient(135deg, #1A1408, #111); border: 1px solid rgba(201,168,76,0.2); border-left: 3px solid var(--gold); border-radius: 8px; padding: 10px 16px; margin: 16px 0 10px; font-family: "Cormorant Garamond", serif; font-size: 18px; color: var(--gold); letter-spacing: 2px; }
+.card { background: var(--card); border: 1px solid rgba(201,168,76,0.12); border-radius: 14px; margin-bottom: 12px; overflow: hidden; transition: all 0.2s; }
+.card:hover { border-color: rgba(201,168,76,0.4); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
+.card-img { width: 100%; height: 220px; object-fit: cover; display: block; background: #1a1a1a; }
+.card-img-err { width: 100%; height: 220px; background: linear-gradient(135deg, #1a1408, #111); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+.card-body { padding: 14px; }
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.card-name { font-family: "Cormorant Garamond", serif; font-size: 18px; font-weight: 600; color: var(--white); line-height: 1.2; flex: 1; }
+.card-price { font-size: 18px; font-weight: 800; color: var(--gold); white-space: nowrap; }
+.card-price-sub { font-size: 9px; color: var(--muted); text-align: right; }
+.card-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 10px; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; }
+.stock { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 600; }
+.stock-ok { background: rgba(39,174,96,0.12); color: #2ecc71; border: 1px solid rgba(39,174,96,0.25); }
+.stock-low { background: rgba(230,126,34,0.12); color: #e67e22; border: 1px solid rgba(230,126,34,0.25); }
+.stock-last { background: rgba(192,57,43,0.12); color: #e74c3c; border: 1px solid rgba(192,57,43,0.25); }
+.order-btn { padding: 7px 16px; border-radius: 20px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--black); font-size: 11px; font-weight: 700; border: none; cursor: pointer; font-family: "Montserrat", sans-serif; transition: all 0.2s; }
+.order-btn:hover { transform: scale(1.05); }
+.footer { background: linear-gradient(135deg, #0A0A0A, #1A1408); border-top: 2px solid var(--gold); padding: 24px 16px; text-align: center; margin-top: 20px; }
+.footer-title { font-family: "Cormorant Garamond", serif; font-size: 20px; color: var(--gold); margin-bottom: 12px; }
+.footer-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.footer-pill { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 6px 16px; font-size: 12px; color: var(--white); }
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 200; align-items: center; justify-content: center; padding: 16px; }
+.modal-overlay.show { display: flex; }
+.modal { background: #161616; border: 1px solid rgba(201,168,76,0.3); border-radius: 20px; padding: 24px; width: 100%; max-width: 420px; }
+.modal-title { font-family: "Cormorant Garamond", serif; font-size: 22px; color: var(--gold); margin-bottom: 6px; }
+.modal-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+.form-field { margin-bottom: 14px; }
+.form-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+.form-input { width: 100%; padding: 11px 14px; border-radius: 10px; border: 1px solid rgba(201,168,76,0.2); background: rgba(255,255,255,0.05); color: #fff; font-size: 13px; font-family: "Montserrat", sans-serif; }
+.form-input:focus { outline: none; border-color: rgba(201,168,76,0.5); }
+.wa-btn { width: 100%; padding: 14px; border-radius: 14px; background: linear-gradient(135deg, #25D366, #1a9e4a); color: #fff; font-size: 14px; font-weight: 700; border: none; cursor: pointer; font-family: "Montserrat", sans-serif; margin-top: 8px; }
+.cancel-btn { width: 100%; padding: 11px; border-radius: 14px; background: transparent; border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.4); font-size: 12px; cursor: pointer; font-family: "Montserrat", sans-serif; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-logo"><img src="/logo.jpg" alt="PDZ" onerror="this.style.display='none'"></div>
+  <div class="brand">Parfumerie De La Zac</div>
+  <div class="brand-sub">Parfums authentiques de Paris</div>
+  <div class="contacts">
+    <div class="contact">📱 +221 76 972 43 07</div>
+    <div class="contact">📍 Zac Mbao, Pikine</div>
+    <div class="contact">🕐 Lun–Dim 9h–20h</div>
+  </div>
+</div>
+<div class="toolbar">
+  <div class="toolbar-title">📦 19 Articles disponibles</div>
+  <button class="btn btn-outline" onclick="window.print()">🖨️</button>
+</div>
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCat('tous',this)">🛍️ Tous</button>
+  <button class="filter-btn" onclick="filterCat('prestige',this)">👑 Prestige</button>
+  <button class="filter-btn" onclick="filterCat('coffret',this)">🎁 Coffrets</button>
+  <button class="filter-btn" onclick="filterCat('classique',this)">🌹 Classiques</button>
+  <button class="filter-btn" onclick="filterCat('accessoire',this)">✨ Accessoires</button>
+</div>
+<div class="main" id="catalogue"></div>
+<div class="footer">
+  <div class="footer-title">🖤 Parfumerie De La Zac</div>
+  <div class="footer-pills">
+    <div class="footer-pill">💬 +221 76 972 43 07</div>
+    <div class="footer-pill">📸 @parfumerie_de_la_zac</div>
+    <div class="footer-pill">🚚 Livraison sous 24h</div>
+  </div>
+</div>
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <div class="modal-title">🛍️ Commander via WhatsApp</div>
+    <div class="modal-sub" id="modalProduct"></div>
+    <div class="form-field"><label class="form-label">👤 Votre nom</label><input class="form-input" id="oName" placeholder="Ex: Amadou Diallo"></div>
+    <div class="form-field"><label class="form-label">📱 WhatsApp</label><input class="form-input" id="oPhone" placeholder="Ex: +221 77 XXX XX XX"></div>
+    <div class="form-field"><label class="form-label">📍 Quartier</label><input class="form-input" id="oQuartier" placeholder="Ex: Pikine, Parcelles, Médina..."></div>
+    <button class="wa-btn" onclick="sendOrder()">💬 Envoyer sur WhatsApp</button>
+    <button class="cancel-btn" onclick="closeModal()">Annuler</button>
+  </div>
+</div>
+<script>
+const WHATSAPP = "221769724307";
+const produits = [
+  { img: "/photos/20250521_130732.jpg", nom: "Collection Prestige (Havana)", prix: 25000, stock: 4, cat: "collection", desc: "Fragrance raffinée aux notes chaudes et boisées de Havana. Élégante et inoubliable." },
+  { img: "/photos/20250521_113939.jpg", nom: "Collection Igor (Blue Magic)", prix: 25000, stock: 1, cat: "collection", desc: "Création exclusive Blue Magic by Igor. Notes envoûtantes et mystérieuses." },
+  { img: "/photos/20250521_114141.jpg", nom: "La Folie du Délice (Sweet Mango)", prix: 25000, stock: 2, cat: "collection", desc: "Notes fruitées de mangue sucrée. Frais et gourmand, authentique de Paris." },
+  { img: "/photos/20250521_114356.jpg", nom: "Collection Kenzi(Black Seduction)", prix: 20000, stock: 5, cat: "collection", desc: "Élégance et caractère. Une fragrance qui vous ressemble, authentique de Paris." },
+  { img: "/photos/20250521_114947.jpg", nom: "Collection Convivium (Sillage Frais)", prix: 17500, stock: 3, cat: "collection", desc: "Sillage Frais de Convivium Paris. Notes fraîches et marines, parfait au quotidien." },
+  { img: "/photos/20250521_121713.jpg", nom: "Collection Privée", prix: 15000, stock: 10, cat: "prestige", desc: "5 fragrances : Musc Blanc, Oud Vanille, Gris, Bakara, Arabie. Style et raffinement." },
+  { img: "/photos/20250521_113244.jpg", nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "coffret", desc: "Coffret 4 parfums : Oud Précieux, Aventure Précieuse, Vanille Précieuse, Gris Magique." },
+  { img: "/photos/20250521_132240.jpg", nom: "Coffret Gris Montaigne (Rouge Absolu)", prix: 50000, stock: 1, cat: "coffret", desc: "Coffret prestige Gris Montaigne Paris avec Rouge Absolu à l'huile. Écrin luxueux." },
+  { img: "/photos/20250521_111950.jpg", nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "classique", desc: "Le légendaire Phantom en flacon robot iconique. Notes boisées et magnétiques." },
+  { img: "/photos/20250521_112157.jpg", nom: "Invictus Victory Paco Rabanne", prix: 65000, stock: 1, cat: "classique", desc: "La victoire dans un flacon trophée noir. Puissant, frais et inoubliable." },
+  { img: "/photos/20250521_112841.jpg", nom: "Red Tobacco Mancera Paris", prix: 75000, stock: 1, cat: "classique", desc: "Mancera Paris Red Tobacco 120ml. Notes de tabac rouge et épices. Sensuel." },
+  { img: "/photos/20250521_112051.jpg", nom: "Atelier des Essences (Eclat d'Iris)", prix: 45000, stock: 1, cat: "classique", desc: "Atelier des Essences Paris, Eclat d'Iris. Notes florales raffinées et artisanales." },
+  { img: "/photos/20250521_112942.jpg", nom: "Sugar Oud Gulf Flowers", prix: 35000, stock: 1, cat: "classique", desc: "Les Fleurs du Golfe Sugar Oud. Notes de oud et fleurs sucrées. Oriental et délicat." },
+  { img: "/photos/20250521_112523.jpg", nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "classique", desc: "Black Empire de Gris Montaigne Paris. Notes boisées profondes et sophistiquées." },
+  { img: "/photos/20250521_112711.jpg", nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "classique", desc: "Private Club de Mauboussin. Flacon bleu nuit aux notes fruitées et florales." },
+  { img: "/photos/20250521_112315.jpg", nom: "Callisto Holliday Paris", prix: 60000, stock: 1, cat: "classique", desc: "Callisto Paris. Notes ambrées chaudes et boisées dans un flacon élégant." },
+  { img: "/photos/20250521_113117.jpg", nom: "Musc Tahara", prix: 10000, stock: 8, cat: "musc", desc: "Musc pur et authentique. Doux, enveloppant, longue tenue. Le parfum du quotidien." },
+  { img: "/photos/20250521_122352.jpg", nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "déodorant", desc: "Collection Privée by Birraci — BA Intense Déodorant Body Spray. Protection longue durée." },
+  { img: "/photos/20250521_131005.jpg", nom: "Parfum de Chambre (Soleil de Zanzibar)", prix: 5000, stock: 2, cat: "déodorant", desc: "Maïssa Paris — Soleil de Zanzibar 250ml. Parfumez votre intérieur avec luxe." },
+];
+let currentProduct = "";
+function getStock(s) {
+  if (s<=1) return '<span class="stock stock-last">⚠️ Dernier exemplaire</span>';
+  if (s<=3) return '<span class="stock stock-low">⚡ '+s+' restants</span>';
+  return '<span class="stock stock-ok">✅ '+s+' en stock</span>';
+}
+function buildCatalogue(filter) {
+  const cats = [
+    {key:"prestige", label:"👑 Collection Prestige"},
+    {key:"coffret", label:"🎁 Coffrets Cadeaux"},
+    {key:"classique", label:"🌹 Classiques & Grandes Marques"},
+    {key:"accessoire", label:"✨ Accessoires"}
+  ];
+  let html = "";
+  cats.forEach(cat => {
+    const items = produits.filter(p => p.cat === cat.key);
+    if (filter !== "tous" && filter !== cat.key) return;
+    if (filter === "tous") html += '<div class="cat-title">'+cat.label+'</div>';
+    items.forEach(p => {
+      html += '<div class="card">'+
+        '<img class="card-img" src="'+p.img+'" alt="'+p.nom+'" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'+
+        '<div class="card-img-err" style="display:none">🌹</div>'+
+        '<div class="card-body">'+
+        '<div class="card-top"><div class="card-name">'+p.nom+'</div>'+
+        '<div><div class="card-price">'+p.prix.toLocaleString("fr-FR")+'</div><div class="card-price-sub">FCFA</div></div></div>'+
+        '<div class="card-desc">'+p.desc+'</div>'+
+        '<div class="card-footer">'+getStock(p.stock)+
+        '<button class="order-btn" onclick="openModal(\''+p.nom.replace(/'/g,"\\'")+'\')" >Commander →</button>'+
+        '</div></div></div>';
+    });
+  });
+  document.getElementById("catalogue").innerHTML = html;
+}
+function filterCat(cat, btn) {
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  buildCatalogue(cat);
+}
+function openModal(nom) {
+  currentProduct = nom;
+  document.getElementById("modalProduct").textContent = "🌹 " + nom;
+  document.getElementById("orderModal").classList.add("show");
+}
+function closeModal() { document.getElementById("orderModal").classList.remove("show"); }
+function sendOrder() {
+  const name = document.getElementById("oName").value;
+  const phone = document.getElementById("oPhone").value;
+  const quartier = document.getElementById("oQuartier").value;
+  if (!name||!phone||!quartier) { alert("Veuillez remplir tous les champs !"); return; }
+  const msg = "Bonjour Parfumerie De La Zac ! 🖤%0AJe souhaite commander :%0A%0A👤 "+name+"%0A📱 "+phone+"%0A🌹 "+currentProduct+"%0A📍 "+quartier+"%0A%0AMerci ✨";
+  window.open("https://wa.me/"+WHATSAPP+"?text="+msg, "_blank");
+  closeModal();
+}
+buildCatalogue("tous");
+</script>
+</body>
+</html>
