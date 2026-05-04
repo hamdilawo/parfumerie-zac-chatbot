@@ -62,8 +62,8 @@ const PAGES = [
   { id: "info", label: "📍 Boutique" },
 ];
 
-const CATS = ["Tous", "Prestige", "Coffret", "Classique", "Accessoire"];
-const CAT_ICONS = { Prestige: "👑", Coffret: "🎁", Classique: "🌹", Accessoire: "✨" };
+const CATS = ["Tous", "Collection", "Coffret", "Classique", "Accessoire"];
+const CAT_ICONS = { Collection: "👑", Coffret: "🎁", Classique: "🌹", Accessoire: "✨" };
 
 export default function App() {
   const [platform, setPlatform] = useState("whatsapp");
