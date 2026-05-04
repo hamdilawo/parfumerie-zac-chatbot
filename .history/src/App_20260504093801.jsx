@@ -6,12 +6,12 @@ const INSTAGRAM = "https://www.instagram.com/parfumerie_de_la_zac";
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61576231477609";
 
 const PRODUITS = [
-  { nom: "Collection Prestige (Havana, Rose Oud, Santal, Noir Absolu)", prix: 25000, stock: 4, cat: "Collection", img: "/photos/20250521_130732.jpg", desc: "Fragrance raffinée aux notes chaudes et boisées de Havana. Élégante et inoubliable." },
+  { nom: "Collection Prestige (Havana)", prix: 25000, stock: 4, cat: "Collection", img: "/photos/20250521_130732.jpg", desc: "Fragrance raffinée aux notes chaudes et boisées de Havana. Élégante et inoubliable." },
   { nom: "Collection Igor (Blue Magic)", prix: 25000, stock: 1, cat: "Collection", img: "/photos/20250521_113939.jpg", desc: "Création exclusive Blue Magic by Igor. Notes envoûtantes et mystérieuses. Stock limité !" },
-  { nom: "Collection La Folie du Délice (Sweet Mango, Dragibus)", prix: 25000, stock: 2, cat: "Collection", img: "/photos/20250521_114141.jpg", desc: "Notes fruitées de mangue sucrée. Frais et gourmand, authentique de Paris." },
-  { nom: "Collection Kenzi (Black Seduction, Legende, Addiction, Elixir, Santal Imperial)", prix: 20000, stock: 5, cat: "Collection", img: "/photos/kenzi_black_seduction.jpg", desc: "Élégance et caractère pour un parfum qui vous ressemble." },
-  { nom: "Collection Convivium (Sillage Frais, Gris Intense)", prix: 17500, stock: 3, cat: "Collection", img: "/photos/20250521_114947.jpg", desc: "Sillage Frais de Convivium Paris. Notes fraîches et marines." },
-  { nom: "Collection Privée (Bakara, Arabie, Gris, Oud Vanille, Musc Blanc, Diament bleu)", prix: 15000, stock: 11, cat: "Collection", img: "/photos/20250521_121713.jpg", desc: "5 fragrances : Musc Blanc, Oud Vanille, Gris, Bakara, Arabie." },
+  { nom: "Collection La Folie du Délice (Sweet Mango)", prix: 25000, stock: 2, cat: "Collection", img: "/photos/20250521_114141.jpg", desc: "Notes fruitées de mangue sucrée. Frais et gourmand, authentique de Paris." },
+  { nom: "Collection Kenzi (Black Seduction)", prix: 20000, stock: 5, cat: "Collection", img: "/photos/kenzi_black_seduction.jpg", desc: "Élégance et caractère pour un parfum qui vous ressemble." },
+  { nom: "Collection Convivium (Sillage Frais)", prix: 17500, stock: 3, cat: "Collection", img: "/photos/20250521_114947.jpg", desc: "Sillage Frais de Convivium Paris. Notes fraîches et marines." },
+  { nom: "Collection Privée", prix: 15000, stock: 10, cat: "Collection", img: "/photos/20250521_121713.jpg", desc: "5 fragrances : Musc Blanc, Oud Vanille, Gris, Bakara, Arabie." },
   { nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", img: "/photos/20250521_113244.jpg", desc: "Coffret 4 parfums luxueux. Le cadeau parfait pour une occasion inoubliable !" },
   { nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", img: "/photos/20250521_113526.jpg", desc: "Coffret prestige Gris Montaigne Paris avec Rouge Absolu à l'huile." },
   { nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "Classique", img: "/photos/20250521_111950.jpg", desc: "Le légendaire Phantom en flacon robot iconique. Notes boisées et magnétiques." },
@@ -22,8 +22,9 @@ const PRODUITS = [
   { nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "Classique", img: "/photos/20250521_112523.jpg", desc: "Black Empire de Gris Montaigne Paris. Notes boisées profondes et sophistiquées." },
   { nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", img: "/photos/20250521_112711.jpg", desc: "Private Club de Mauboussin. Flacon bleu nuit aux notes fruitées et florales." },
   { nom: "Callisto Holliday Paris", prix: 60000, stock: 1, cat: "Classique", img: "/photos/20250521_112315.jpg", desc: "Callisto Paris. Notes ambrées chaudes et boisées dans un flacon élégant." },
-  { nom: "Musc Tahara (Tahara, Oud Cachemire, Barbe à Papa, Rouge )", prix: 10000, stock: 8, cat: "Accessoire", img: "/photos/20250521_132240.jpg", desc: "Musc pur et authentique. Doux, enveloppant, longue tenue." },
+  { nom: "Musc Tahara", prix: 10000, stock: 8, cat: "Accessoire", img: "/photos/20250521_132240.jpg", desc: "Musc pur et authentique. Doux, enveloppant, longue tenue." },
   { nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "Accessoire", img: "/photos/20250521_122352.jpg", desc: "Collection Privée by Birraci — BA Intense Body Spray. Protection longue durée." },
+  { nom: "Parfum de Chambre (Soleil de Zanzibar)", prix: 5000, stock: 2, cat: "Accessoire", img: "/photos/20250521_131005.jpg", desc: "Maïssa Paris — Soleil de Zanzibar 250ml. Parfumez votre intérieur avec luxe." },
 ];
 
 const CATALOGUE_TEXT = PRODUITS.map(p =>
@@ -61,8 +62,8 @@ const PAGES = [
   { id: "info", label: "📍 Boutique" },
 ];
 
-const CATS = ["Tous", "Collection", "Coffret", "Classique", "Accessoire"];
-const CAT_ICONS = { Collection: "👑", Coffret: "🎁", Classique: "🌹", Accessoire: "✨" };
+const CATS = ["Tous", "Prestige", "Coffret", "Classique", "Accessoire"];
+const CAT_ICONS = { Prestige: "👑", Coffret: "🎁", Classique: "🌹", Accessoire: "✨" };
 
 export default function App() {
   const [platform, setPlatform] = useState("whatsapp");
@@ -338,7 +339,7 @@ export default function App() {
       )}
 
       <div style={{ width: "100%", maxWidth: "480px", textAlign: "center", padding: "10px", color: "rgba(255,255,255,0.15)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        Parfumerie de la Zac • Tous droits réservés 2024
+        Parfumerie de la Zac • IA Powered by Claude
       </div>
     </div>
   );
