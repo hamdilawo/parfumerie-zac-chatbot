@@ -56,11 +56,12 @@ INFOS BOUTIQUE :
 
 Règles :
 - Réponds en 2-3 phrases maximum
-- Pour commander : WhatsApp au ${WHATSAPP_DISPLAY}
+- Pour commander : invite à cliquer sur "🛒 Ajouter au panier" sur les fiches produits, puis "Commander" pour finaliser
 - Suggère selon le budget du client
 - Mentionne toujours que ce sont des parfums authentiques de Paris
 - Ne jamais dépasser le stock indiqué
-- Mentionne la promo Tabaski quand pertinent`;
+- Mentionne la promo Tabaski quand pertinent
+- Encourage à ajouter plusieurs articles au panier pour profiter pleinement de la promo`;
 
 const platforms = [
   { id: "whatsapp", label: "WhatsApp", color: "#25D366", icon: "💬" },
@@ -84,10 +85,45 @@ export default function App() {
   }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [order, setOrder] = useState({ name: "", phone: "", product: "", quartier: "" });
+  const [order, setOrder] = useState({ name: "", phone: "", quartier: "" });
   const [catFilter, setCatFilter] = useState("Tous");
   const [chatOverlay, setChatOverlay] = useState(false);
+  const [cart, setCart] = useState(() => {
+    try { return JSON.parse(localStorage.getItem("pdz_cart") || "[]"); } catch { return []; }
+  });
+  const [toast, setToast] = useState("");
   const endRef = useRef(null);
+
+  useEffect(() => {
+    try { localStorage.setItem("pdz_cart", JSON.stringify(cart)); } catch {}
+  }, [cart]);
+
+  const addToCart = (produit) => {
+    setCart(prev => {
+      const existing = prev.find(c => c.nom === produit.nom);
+      if (existing) return prev.map(c => c.nom === produit.nom ? { ...c, qty: Math.min(c.qty + 1, produit.stock) } : c);
+      return [...prev, { nom: produit.nom, prix: produit.prix, qty: 1, stock: produit.stock }];
+    });
+    setToast(`✓ ${produit.nom} ajouté au panier`);
+    setTimeout(() => setToast(""), 2000);
+  };
+
+  const updateQty = (nom, delta) => {
+    setCart(prev => prev.map(c => {
+      if (c.nom !== nom) return c;
+      const newQty = c.qty + delta;
+      return { ...c, qty: Math.max(1, Math.min(newQty, c.stock)) };
+    }));
+  };
+
+  const removeFromCart = (nom) => setCart(prev => prev.filter(c => c.nom !== nom));
+  const clearCart = () => setCart([]);
+  const cartCount = cart.reduce((sum, c) => sum + c.qty, 0);
+  const cartTotal = cart.reduce((sum, c) => {
+    const produit = PRODUITS.find(p => p.nom === c.nom);
+    const prix = produit && enPromo(produit) ? prixPromo(produit) : c.prix;
+    return sum + prix * c.qty;
+  }, 0);
   const cp = platforms.find(p => p.id === platform);
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
@@ -123,24 +159,23 @@ export default function App() {
     setLoading(false);
   };
 
-  const orderProduct = (p) => {
-    setOrder(o => ({ ...o, product: p.nom }));
-    setActivePage("order");
-  };
-
   const sendOrder = () => {
-    const produitObj = PRODUITS.find(x => x.nom === order.product);
-    const promoLine = produitObj && enPromo(produitObj)
-      ? `%0A🐏 Promo Tabaski : -25%25 (${prixPromo(produitObj).toLocaleString('fr-FR')} FCFA au lieu de ${produitObj.prix.toLocaleString('fr-FR')} FCFA)`
-      : "";
-    const msg = `Bonjour Parfumerie De La Zac ! 🖤%0AJe souhaite commander :%0A%0A👤 Nom : ${order.name}%0A📱 Tel : ${order.phone}%0A🌹 Parfum : ${order.product}${promoLine}%0A📍 Quartier : ${order.quartier}%0A%0AMerci ✨`;
+    if (cart.length === 0) return;
+    const lignes = cart.map(item => {
+      const produit = PRODUITS.find(p => p.nom === item.nom);
+      const prixUnit = produit && enPromo(produit) ? prixPromo(produit) : item.prix;
+      const total = (prixUnit * item.qty).toLocaleString('fr-FR');
+      const promoTag = produit && enPromo(produit) ? ` (Promo Tabaski -${Math.round(PROMO_TAUX*100)}%25)` : "";
+      return `• ${item.qty}× ${item.nom} — ${total} FCFA${promoTag}`;
+    }).join('%0A');
+    const msg = `Bonjour Parfumerie De La Zac ! 🖤%0AJe souhaite commander :%0A%0A👤 Nom : ${order.name}%0A📱 Tel : ${order.phone}%0A📍 Quartier : ${order.quartier}%0A%0A🌹 Mes articles :%0A${lignes}%0A%0A💰 Total : ${cartTotal.toLocaleString('fr-FR')} FCFA%0A%0AMerci ✨`;
     window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
   };
 
   const gold = "#C9A84C";
   const pColor = cp.color;
   const filtered = catFilter === "Tous" ? PRODUITS : PRODUITS.filter(p => p.cat === catFilter);
-  const canOrder = order.name && order.phone && order.product && order.quartier;
+  const canOrder = order.name && order.phone && order.quartier && cart.length > 0;
 
   const Logo = ({ size = 32 }) => (
     <div style={{ width: size, height: size, borderRadius: "50%", overflow: "hidden", border: `1.5px solid ${gold}55`, flexShrink: 0, background: "#1a1408", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -182,8 +217,11 @@ export default function App() {
         </div>
         <div style={{ display: "flex", gap: "4px", padding: "10px 0 0", overflowX: "auto" }}>
           {PAGES.map(p => (
-            <button key={p.id} className="tbtn" onClick={() => setActivePage(p.id)} style={{ flex: "0 0 auto", padding: "7px 10px", borderRadius: "10px", background: activePage===p.id ? `${gold}22` : "rgba(255,255,255,0.04)", color: activePage===p.id ? gold : "rgba(255,255,255,0.35)", border: `1px solid ${activePage===p.id ? gold+"55" : "rgba(255,255,255,0.08)"}`, fontSize: "13px", fontWeight: "600", whiteSpace: "nowrap" }}>
+            <button key={p.id} className="tbtn" onClick={() => setActivePage(p.id)} style={{ flex: "0 0 auto", padding: "7px 10px", borderRadius: "10px", background: activePage===p.id ? `${gold}22` : "rgba(255,255,255,0.04)", color: activePage===p.id ? gold : "rgba(255,255,255,0.35)", border: `1px solid ${activePage===p.id ? gold+"55" : "rgba(255,255,255,0.08)"}`, fontSize: "13px", fontWeight: "600", whiteSpace: "nowrap", position: "relative" }}>
               {p.label}
+              {p.id === "order" && cartCount > 0 && (
+                <span style={{ position: "absolute", top: "-6px", right: "-6px", background: "#c0392b", color: "#fff", borderRadius: "50%", minWidth: "20px", height: "20px", padding: "0 5px", fontSize: "11px", fontWeight: "800", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 2px 6px rgba(192,57,43,0.5)" }}>{cartCount}</span>
+              )}
             </button>
           ))}
         </div>
@@ -266,8 +304,8 @@ export default function App() {
                     </div>
                   </div>
                   <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", lineHeight: "1.5", marginBottom: "12px" }}>{p.desc}</div>
-                  <button className="tbtn" onClick={() => orderProduct(p)} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
-                    🛍️ Commander ce parfum
+                  <button className="tbtn" onClick={() => addToCart(p)} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
+                    🛒 Ajouter au panier
                   </button>
                 </div>
               </div>
@@ -280,29 +318,78 @@ export default function App() {
       {activePage === "order" && (
         <div style={{ width: "100%", maxWidth: "480px", padding: "20px", flex: 1 }}>
           <div style={{ background: "rgba(255,255,255,0.04)", borderRadius: "20px", border: `1px solid ${gold}22`, padding: "24px" }}>
-            <div style={{ textAlign: "center", marginBottom: "24px" }}>
-              <div style={{ fontSize: "32px", marginBottom: "8px" }}>🛍️</div>
-              <div style={{ color: gold, fontSize: "20px", fontWeight: "800" }}>Commander via WhatsApp</div>
-              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px", marginTop: "4px" }}>Remplissez et on vous contacte rapidement !</div>
+            <div style={{ textAlign: "center", marginBottom: "20px" }}>
+              <div style={{ fontSize: "32px", marginBottom: "8px" }}>🛒</div>
+              <div style={{ color: gold, fontSize: "20px", fontWeight: "800" }}>Mon panier</div>
+              <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "14px", marginTop: "4px" }}>{cartCount === 0 ? "Votre panier est vide" : `${cartCount} article${cartCount > 1 ? "s" : ""} • Prêt à commander`}</div>
             </div>
-            {[
-              { key: "name", label: "👤 Votre nom complet", ph: "Ex: Amadou Diallo" },
-              { key: "phone", label: "📱 Votre numéro WhatsApp", ph: "Ex: +221 77 XXX XX XX" },
-              { key: "product", label: "🌹 Parfum choisi", ph: "Ex: Phantom Paco Rabanne" },
-              { key: "quartier", label: "📍 Votre quartier", ph: "Ex: Pikine, Parcelles, Médina..." },
-            ].map(f => (
-              <div key={f.key} style={{ marginBottom: "16px" }}>
-                <label style={{ color: "rgba(255,255,255,0.6)", fontSize: "14px", display: "block", marginBottom: "6px" }}>{f.label}</label>
-                <input value={order[f.key]} onChange={e => setOrder({...order,[f.key]:e.target.value})} placeholder={f.ph} style={{ width: "100%", padding: "12px 16px", borderRadius: "12px", border: `1px solid ${gold}25`, background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "15px", fontFamily: "inherit", boxSizing: "border-box" }} />
+
+            {cart.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "30px 0" }}>
+                <div style={{ fontSize: "48px", marginBottom: "12px", opacity: 0.5 }}>🌹</div>
+                <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "14px", marginBottom: "20px" }}>Aucun parfum sélectionné pour le moment.</div>
+                <button className="tbtn" onClick={() => setActivePage("catalogue")} style={{ padding: "12px 24px", borderRadius: "14px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "15px", fontWeight: "700", border: "none" }}>📦 Voir le catalogue</button>
               </div>
-            ))}
-            <button className="tbtn" onClick={sendOrder} disabled={!canOrder} style={{ width: "100%", padding: "16px", borderRadius: "16px", background: canOrder ? "linear-gradient(135deg, #25D366, #1a9e4a)" : "rgba(255,255,255,0.1)", color: canOrder ? "#fff" : "rgba(255,255,255,0.3)", fontSize: "17px", fontWeight: "700", boxShadow: canOrder ? "0 4px 20px #25D36644" : "none" }}>
-              💬 Envoyer la commande sur WhatsApp
-            </button>
-            <button className="tbtn" onClick={() => setActivePage("catalogue")} style={{ width: "100%", padding: "12px", borderRadius: "16px", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.5)", fontSize: "15px", marginTop: "10px", border: "1px solid rgba(255,255,255,0.08)" }}>
-              ← Retour au catalogue
-            </button>
-            <div style={{ textAlign: "center", marginTop: "12px", color: `${gold}66`, fontSize: "13px" }}>Livraison Dakar + Banlieue • Réponse sous 2h</div>
+            ) : (
+              <>
+                <div style={{ marginBottom: "20px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {cart.map(item => {
+                    const produit = PRODUITS.find(p => p.nom === item.nom);
+                    const prixUnit = produit && enPromo(produit) ? prixPromo(produit) : item.prix;
+                    return (
+                      <div key={item.nom} style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${gold}15`, borderRadius: "12px", padding: "12px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
+                          <div style={{ flex: 1, marginRight: "10px" }}>
+                            <div style={{ color: "#fff", fontWeight: "700", fontSize: "13px", lineHeight: "1.3" }}>{item.nom}</div>
+                            {produit && enPromo(produit) && <div style={{ color: "#e74c3c", fontSize: "10px", fontWeight: "700", marginTop: "3px" }}>🐏 Promo Tabaski -15%</div>}
+                          </div>
+                          <button onClick={() => removeFromCart(item.nom)} style={{ background: "rgba(192,57,43,0.15)", border: "1px solid rgba(192,57,43,0.3)", color: "#e74c3c", borderRadius: "8px", padding: "4px 8px", fontSize: "12px", cursor: "pointer" }}>🗑️</button>
+                        </div>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.06)", borderRadius: "10px", padding: "4px" }}>
+                            <button onClick={() => updateQty(item.nom, -1)} disabled={item.qty <= 1} style={{ width: "28px", height: "28px", borderRadius: "8px", border: "none", background: "rgba(255,255,255,0.08)", color: "#fff", fontSize: "16px", cursor: item.qty <= 1 ? "not-allowed" : "pointer", opacity: item.qty <= 1 ? 0.4 : 1 }}>−</button>
+                            <div style={{ minWidth: "24px", textAlign: "center", color: "#fff", fontSize: "14px", fontWeight: "700" }}>{item.qty}</div>
+                            <button onClick={() => updateQty(item.nom, 1)} disabled={item.qty >= item.stock} style={{ width: "28px", height: "28px", borderRadius: "8px", border: "none", background: "rgba(255,255,255,0.08)", color: "#fff", fontSize: "16px", cursor: item.qty >= item.stock ? "not-allowed" : "pointer", opacity: item.qty >= item.stock ? 0.4 : 1 }}>+</button>
+                          </div>
+                          <div style={{ textAlign: "right" }}>
+                            <div style={{ color: gold, fontWeight: "800", fontSize: "15px" }}>{(prixUnit * item.qty).toLocaleString('fr-FR')} <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)" }}>FCFA</span></div>
+                            {item.qty > 1 && <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "10px" }}>{prixUnit.toLocaleString('fr-FR')} × {item.qty}</div>}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div style={{ background: `${gold}15`, border: `1px solid ${gold}44`, borderRadius: "12px", padding: "14px 16px", marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div style={{ color: gold, fontSize: "14px", fontWeight: "700" }}>💰 Total</div>
+                  <div style={{ color: gold, fontSize: "20px", fontWeight: "800" }}>{cartTotal.toLocaleString('fr-FR')} <span style={{ fontSize: "12px" }}>FCFA</span></div>
+                </div>
+
+                <div style={{ height: "1px", background: "rgba(255,255,255,0.08)", margin: "20px 0" }} />
+
+                <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "13px", marginBottom: "14px", fontWeight: "600" }}>Vos coordonnées de livraison</div>
+
+                {[
+                  { key: "name", label: "👤 Votre nom complet", ph: "Ex: Amadou Diallo" },
+                  { key: "phone", label: "📱 Votre numéro WhatsApp", ph: "Ex: +221 77 XXX XX XX" },
+                  { key: "quartier", label: "📍 Votre quartier", ph: "Ex: Pikine, Parcelles, Médina..." },
+                ].map(f => (
+                  <div key={f.key} style={{ marginBottom: "14px" }}>
+                    <label style={{ color: "rgba(255,255,255,0.6)", fontSize: "13px", display: "block", marginBottom: "6px" }}>{f.label}</label>
+                    <input value={order[f.key]} onChange={e => setOrder({...order,[f.key]:e.target.value})} placeholder={f.ph} style={{ width: "100%", padding: "12px 16px", borderRadius: "12px", border: `1px solid ${gold}25`, background: "rgba(255,255,255,0.06)", color: "#fff", fontSize: "14px", fontFamily: "inherit", boxSizing: "border-box" }} />
+                  </div>
+                ))}
+
+                <button className="tbtn" onClick={sendOrder} disabled={!canOrder} style={{ width: "100%", padding: "16px", borderRadius: "16px", background: canOrder ? "linear-gradient(135deg, #25D366, #1a9e4a)" : "rgba(255,255,255,0.1)", color: canOrder ? "#fff" : "rgba(255,255,255,0.3)", fontSize: "16px", fontWeight: "700", boxShadow: canOrder ? "0 4px 20px #25D36644" : "none", border: "none", cursor: canOrder ? "pointer" : "not-allowed" }}>
+                  💬 Finaliser sur WhatsApp
+                </button>
+                <button className="tbtn" onClick={() => setActivePage("catalogue")} style={{ width: "100%", padding: "12px", borderRadius: "16px", background: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.5)", fontSize: "14px", marginTop: "10px", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  ← Continuer mes achats
+                </button>
+                <div style={{ textAlign: "center", marginTop: "12px", color: `${gold}66`, fontSize: "12px" }}>Livraison Dakar + Banlieue • Réponse sous 2h</div>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -345,6 +432,13 @@ export default function App() {
       <div style={{ width: "100%", maxWidth: "480px", textAlign: "center", padding: "10px", color: "rgba(255,255,255,0.15)", fontSize: "11px", letterSpacing: "2px", textTransform: "uppercase", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
         Parfumerie de la Zac • Tous droits réservés 2024
       </div>
+
+      {/* TOAST de confirmation ajout au panier */}
+      {toast && (
+        <div style={{ position: "fixed", bottom: "100px", left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg, #1a9e4a, #25D366)", color: "#fff", padding: "12px 20px", borderRadius: "30px", fontSize: "14px", fontWeight: "600", boxShadow: "0 8px 24px rgba(37,211,102,0.4)", zIndex: 1100, animation: "fadeUp 0.3s ease forwards", maxWidth: "90%", textAlign: "center" }}>
+          {toast}
+        </div>
+      )}
 
       {/* FLOATING CHAT BUTTON — visible sur les pages autres que Chat */}
       {activePage !== "chat" && !chatOverlay && (
