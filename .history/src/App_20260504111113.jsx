@@ -28,8 +28,8 @@ const PRODUITS = [
 
 // === PROMO TABASKI ===
 const PROMO_ACTIVE = true;
-const PROMO_TAUX = 0.25; // 15%
-const PROMO_LABEL = "PROMO TABASKI -25%";
+const PROMO_TAUX = 0.15; // 15%
+const PROMO_LABEL = "PROMO TABASKI -15%";
 const PROMO_EXCLUS = ["Déodorant BA Intense CP"];
 const enPromo = (p) => PROMO_ACTIVE && !PROMO_EXCLUS.includes(p.nom);
 const prixPromo = (p) => Math.round(p.prix * (1 - PROMO_TAUX));
@@ -131,7 +131,7 @@ export default function App() {
   const sendOrder = () => {
     const produitObj = PRODUITS.find(x => x.nom === order.product);
     const promoLine = produitObj && enPromo(produitObj)
-      ? `%0A🐏 Promo Tabaski : -25%25 (${prixPromo(produitObj).toLocaleString('fr-FR')} FCFA au lieu de ${produitObj.prix.toLocaleString('fr-FR')} FCFA)`
+      ? `%0A🐏 Promo Tabaski : -15%25 (${prixPromo(produitObj).toLocaleString('fr-FR')} FCFA au lieu de ${produitObj.prix.toLocaleString('fr-FR')} FCFA)`
       : "";
     const msg = `Bonjour Parfumerie De La Zac ! 🖤%0AJe souhaite commander :%0A%0A👤 Nom : ${order.name}%0A📱 Tel : ${order.phone}%0A🌹 Parfum : ${order.product}${promoLine}%0A📍 Quartier : ${order.quartier}%0A%0AMerci ✨`;
     window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
