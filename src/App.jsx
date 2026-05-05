@@ -271,7 +271,7 @@ export default function App() {
               </button>
             ))}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
             {filtered.map((p, i) => (
               <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden" }}>
                 <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
