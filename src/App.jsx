@@ -68,7 +68,7 @@ const platforms = [
 ];
 
 const PAGES = [
-  { id: "catalogue", label: "📦 Catalogue" },
+  { id: "catalogue", label: "📦 Boutique" },
   { id: "order", label: "🛍️ Commander" },
   { id: "info", label: "📍 Boutique" },
 ];
