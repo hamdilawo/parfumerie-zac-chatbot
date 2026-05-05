@@ -137,11 +137,9 @@ export default function App() {
     setLoading(true);
     try {
       const res = await fetch("/api/chat", {
-
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-
         },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
