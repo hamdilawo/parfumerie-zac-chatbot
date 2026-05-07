@@ -8,7 +8,7 @@ const FACEBOOK = "https://www.facebook.com/profile.php?id=61576231477609";
 const PRODUITS = [
   { nom: "Collection Prestige", prix: 25000, cat: "Collection", volume: 50, desc: "Fragrance raffinée aux notes chaudes et boisées. Élégante et inoubliable.",
     senteurs: [
-      { nom: "Havana", img: "/photos/prestige_havana.jpg", stock: 4 },
+      { nom: "Havana", img: "/photos/prestige_havana.jpg", stock: 1 },
       { nom: "Rose Oud", img: "/photos/prestige_rose_oud.jpg", stock: 1 },
       { nom: "Santal", img: "/photos/prestige_santal.jpg", stock: 1 },
       { nom: "Noir Absolu", img: "/photos/prestige_noir_absolu.jpg", stock: 1 },
@@ -19,12 +19,12 @@ const PRODUITS = [
     ] },
   { nom: "Collection La Folie du Délice", prix: 25000, cat: "Collection", volume: 50, desc: "Fragrances fruitées et gourmandes, authentiques de Paris.",
     senteurs: [
-      { nom: "Sweet Mango", img: "/photos/folie_sweet_mango.jpg", stock: 2 },
+      { nom: "Sweet Mango", img: "/photos/folie_sweet_mango.jpg", stock: 1 },
       { nom: "Dragibus", img: "/photos/folie_dragibus.jpg", stock: 1 },
     ] },
   { nom: "Collection Kenzi", prix: 20000, cat: "Collection", volume: 50, desc: "Élégance et caractère pour un parfum qui vous ressemble.",
     senteurs: [
-      { nom: "Black Seduction", img: "/photos/kenzi_black_seduction.jpg", stock: 5 },
+      { nom: "Black Seduction", img: "/photos/kenzi_black_seduction.jpg", stock: 1 },
       { nom: "Legende", img: "/photos/kenzi_legende.jpg", stock: 1 },
       { nom: "Addiction", img: "/photos/kenzi_addiction.jpg", stock: 1 },
       { nom: "Elixir", img: "/photos/kenzi_elixir.jpg", stock: 1 },
@@ -32,7 +32,7 @@ const PRODUITS = [
     ] },
   { nom: "Collection Convivium", prix: 17500, cat: "Collection", volume: 50, desc: "Convivium Paris. Notes fraîches et marines.",
     senteurs: [
-      { nom: "Sillage Frais", img: "/photos/convivium_sillage_frais.jpg", stock: 3 },
+      { nom: "Sillage Frais", img: "/photos/convivium_sillage_frais.jpg", stock: 1 },
       { nom: "Gris Intense", img: "/photos/convivium_gris_intense.jpg", stock: 1 },
     ] },
   { nom: "Collection Privée", prix: 15000, cat: "Collection", volume: 50, desc: "Six fragrances exclusives : Musc Blanc, Oud Vanille, Gris, Bakara, Arabie, Diament Bleu.",
@@ -44,16 +44,16 @@ const PRODUITS = [
       { nom: "Musc Blanc", img: "/photos/privee_musc_blanc.jpg", stock: 2 },
       { nom: "Diament Bleu", img: "/photos/privee_diament_bleu.jpg", stock: 1 },
     ] },
-  { nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", img: "/photos/20250521_113244.jpg", desc: "Coffret 4 parfums luxueux. Le cadeau parfait pour une occasion inoubliable !" },
-  { nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", img: "/photos/20250521_113526.jpg", desc: "Coffret prestige Gris Montaigne Paris avec Rouge Absolu à l'huile." },
-  { nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "Classique", img: "/photos/20250521_111950.jpg", desc: "Le légendaire Phantom en flacon robot iconique. Notes boisées et magnétiques." },
-  { nom: "Invictus Victory Paco Rabanne", prix: 65000, stock: 1, cat: "Classique", img: "/photos/20250521_112157.jpg", desc: "La victoire dans un flacon trophée noir. Puissant, frais et inoubliable." },
-  { nom: "Red Tobacco Mancera Paris", prix: 75000, stock: 1, cat: "Classique", volume: 125, img: "/photos/20250521_112841.jpg", desc: "Mancera Paris Red Tobacco. Notes de tabac rouge et épices. Sensuel." },
-  { nom: "Atelier des Essences (Eclat d'Iris)", prix: 45000, stock: 1, cat: "Classique", img: "/photos/20250521_112051.jpg", desc: "Atelier des Essences Paris, Eclat d'Iris. Notes florales raffinées." },
-  { nom: "Sugar Oud Gulf Flowers", prix: 35000, stock: 1, cat: "Classique", img: "/photos/20250521_112942.jpg", desc: "Les Fleurs du Golfe Sugar Oud. Notes de oud et fleurs sucrées. Oriental." },
-  { nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "Classique", img: "/photos/20250521_112523.jpg", desc: "Black Empire de Gris Montaigne Paris. Notes boisées profondes et sophistiquées." },
-  { nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", img: "/photos/20250521_112711.jpg", desc: "Private Club de Mauboussin. Flacon bleu nuit aux notes fruitées et florales." },
-  { nom: "Callisto Holliday Paris", prix: 60000, stock: 1, cat: "Classique", img: "/photos/20250521_112315.jpg", desc: "Callisto Paris. Notes ambrées chaudes et boisées dans un flacon élégant." },
+  { nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", img: "/photos/coffret_collection_precieuse.jpg", desc: "Coffret 4 parfums luxueux. Le cadeau parfait pour une occasion inoubliable !" },
+  { nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", img: "/photos/coffret_gris_montaigne.jpg", desc: "Coffret prestige Gris Montaigne Paris avec Rouge Absolu à l'huile." },
+  { nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "Classique", img: "/photos/phantom_paco_rabanne.jpg", desc: "Le légendaire Phantom en flacon robot iconique. Notes boisées et magnétiques." },
+  { nom: "Invictus Victory Paco Rabanne", prix: 65000, stock: 1, cat: "Classique", img: "/photos/invictus_victory.jpg", desc: "La victoire dans un flacon trophée noir. Puissant, frais et inoubliable." },
+  { nom: "Red Tobacco Mancera Paris", prix: 75000, stock: 1, cat: "Classique", volume: 125, img: "/photos/red_tobacco.jpg", desc: "Mancera Paris Red Tobacco. Notes de tabac rouge et épices. Sensuel." },
+  { nom: "Atelier des Essences (Eclat d'Iris)", prix: 45000, stock: 1, cat: "Classique", img: "/photos/atelier_des_essences.jpg", desc: "Atelier des Essences Paris, Eclat d'Iris. Notes florales raffinées." },
+  { nom: "Sugar Oud Gulf Flowers", prix: 35000, stock: 1, cat: "Classique", img: "/photos/sugar_oud.jpg", desc: "Les Fleurs du Golfe Sugar Oud. Notes de oud et fleurs sucrées. Oriental." },
+  { nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "Classique", img: "/photos/black_empire.jpg", desc: "Black Empire de Gris Montaigne Paris. Notes boisées profondes et sophistiquées." },
+  { nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", img: "/photos/mauboussin_privée_club.jpg", desc: "Private Club de Mauboussin. Flacon bleu nuit aux notes fruitées et florales." },
+  { nom: "Callisto Holliday Paris", prix: 60000, stock: 1, cat: "Classique", img: "/photos/callisto_holliday.jpg", desc: "Callisto Paris. Notes ambrées chaudes et boisées dans un flacon élégant." },
   { nom: "Musc Tahara", prix: 10000, cat: "Accessoire", volume: 12, desc: "Musc pur et authentique. Doux, enveloppant, longue tenue.",
     senteurs: [
       { nom: "Tahara", img: "/photos/tahara_tahara.jpg", stock: 3 },
@@ -61,7 +61,7 @@ const PRODUITS = [
       { nom: "Barbe à Papa", img: "/photos/tahara_barbe_a_papa.jpg", stock: 2 },
       { nom: "Rouge", img: "/photos/tahara_rouge.jpg", stock: 1 },
     ] },
-  { nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "Accessoire", img: "/photos/20250521_122352.jpg", desc: "Collection Privée by Birraci — BA Intense Body Spray. Protection longue durée." },
+  { nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "Accessoire", img: "/photos/deodorant_cp_ba_intense.jpg", desc: "Collection Privée by Birraci — BA Intense Body Spray. Protection longue durée." },
 ];
 
 // Helpers pour gérer les produits avec/sans senteurs
