@@ -6,25 +6,67 @@ const INSTAGRAM = "https://www.instagram.com/parfumerie_de_la_zac";
 const FACEBOOK = "https://www.facebook.com/profile.php?id=61576231477609";
 
 const PRODUITS = [
-  { nom: "Collection Prestige (Havana, Rose Oud, Santal, Noir Absolu)", prix: 25000, stock: 4, cat: "Collection", img: "/photos/20250521_130732.jpg", desc: "Fragrance raffinée aux notes chaudes et boisées de Havana. Élégante et inoubliable." },
-  { nom: "Collection Igor (Blue Magic)", prix: 25000, stock: 1, cat: "Collection", img: "/photos/20250521_113939.jpg", desc: "Création exclusive Blue Magic by Igor. Notes envoûtantes et mystérieuses. Stock limité !" },
-  { nom: "Collection La Folie du Délice (Sweet Mango, Dragibus)", prix: 25000, stock: 2, cat: "Collection", img: "/photos/20250521_114141.jpg", desc: "Notes fruitées de mangue sucrée. Frais et gourmand, authentique de Paris." },
-  { nom: "Collection Kenzi (Black Seduction, Legende, Addiction, Elixir, Santal Imperial)", prix: 20000, stock: 5, cat: "Collection", img: "/photos/kenzi_black_seduction.jpg", desc: "Élégance et caractère pour un parfum qui vous ressemble." },
-  { nom: "Collection Convivium (Sillage Frais, Gris Intense)", prix: 17500, stock: 3, cat: "Collection", img: "/photos/20250521_114947.jpg", desc: "Sillage Frais de Convivium Paris. Notes fraîches et marines." },
-  { nom: "Collection Privée (Bakara, Arabie, Gris, Oud Vanille, Musc Blanc, Diament bleu)", prix: 15000, stock: 11, cat: "Collection", img: "/photos/20250521_121713.jpg", desc: "5 fragrances : Musc Blanc, Oud Vanille, Gris, Bakara, Arabie." },
+  { nom: "Collection Prestige", prix: 25000, cat: "Collection", volume: 50, desc: "Fragrance raffinée aux notes chaudes et boisées. Élégante et inoubliable.",
+    senteurs: [
+      { nom: "Havana", img: "/photos/prestige_havana.jpg", stock: 4 },
+      { nom: "Rose Oud", img: "/photos/prestige_rose_oud.jpg", stock: 1 },
+      { nom: "Santal", img: "/photos/prestige_santal.jpg", stock: 1 },
+      { nom: "Noir Absolu", img: "/photos/prestige_noir_absolu.jpg", stock: 1 },
+    ] },
+  { nom: "Collection Igor", prix: 25000, cat: "Collection", volume: 50, desc: "Création exclusive by Igor. Notes envoûtantes et mystérieuses.",
+    senteurs: [
+      { nom: "Blue Magic", img: "/photos/igor_blue_magic.jpg", stock: 1 },
+    ] },
+  { nom: "Collection La Folie du Délice", prix: 25000, cat: "Collection", volume: 50, desc: "Fragrances fruitées et gourmandes, authentiques de Paris.",
+    senteurs: [
+      { nom: "Sweet Mango", img: "/photos/folie_sweet_mango.jpg", stock: 2 },
+      { nom: "Dragibus", img: "/photos/folie_dragibus.jpg", stock: 1 },
+    ] },
+  { nom: "Collection Kenzi", prix: 20000, cat: "Collection", volume: 50, desc: "Élégance et caractère pour un parfum qui vous ressemble.",
+    senteurs: [
+      { nom: "Black Seduction", img: "/photos/kenzi_black_seduction.jpg", stock: 5 },
+      { nom: "Legende", img: "/photos/kenzi_legende.jpg", stock: 1 },
+      { nom: "Addiction", img: "/photos/kenzi_addiction.jpg", stock: 1 },
+      { nom: "Elixir", img: "/photos/kenzi_elixir.jpg", stock: 1 },
+      { nom: "Santal Imperial", img: "/photos/kenzi_santal_imperial.jpg", stock: 1 },
+    ] },
+  { nom: "Collection Convivium", prix: 17500, cat: "Collection", volume: 50, desc: "Convivium Paris. Notes fraîches et marines.",
+    senteurs: [
+      { nom: "Sillage Frais", img: "/photos/convivium_sillage_frais.jpg", stock: 3 },
+      { nom: "Gris Intense", img: "/photos/convivium_gris_intense.jpg", stock: 1 },
+    ] },
+  { nom: "Collection Privée", prix: 15000, cat: "Collection", volume: 50, desc: "Six fragrances exclusives : Musc Blanc, Oud Vanille, Gris, Bakara, Arabie, Diament Bleu.",
+    senteurs: [
+      { nom: "Bakara", img: "/photos/privee_bakara.jpg", stock: 2 },
+      { nom: "Arabie", img: "/photos/privee_arabie.jpg", stock: 2 },
+      { nom: "Gris", img: "/photos/privee_gris.jpg", stock: 2 },
+      { nom: "Oud Vanille", img: "/photos/privee_oud_vanille.jpg", stock: 2 },
+      { nom: "Musc Blanc", img: "/photos/privee_musc_blanc.jpg", stock: 2 },
+      { nom: "Diament Bleu", img: "/photos/privee_diament_bleu.jpg", stock: 1 },
+    ] },
   { nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", img: "/photos/20250521_113244.jpg", desc: "Coffret 4 parfums luxueux. Le cadeau parfait pour une occasion inoubliable !" },
   { nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", img: "/photos/20250521_113526.jpg", desc: "Coffret prestige Gris Montaigne Paris avec Rouge Absolu à l'huile." },
   { nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "Classique", img: "/photos/20250521_111950.jpg", desc: "Le légendaire Phantom en flacon robot iconique. Notes boisées et magnétiques." },
   { nom: "Invictus Victory Paco Rabanne", prix: 65000, stock: 1, cat: "Classique", img: "/photos/20250521_112157.jpg", desc: "La victoire dans un flacon trophée noir. Puissant, frais et inoubliable." },
-  { nom: "Red Tobacco Mancera Paris", prix: 75000, stock: 1, cat: "Classique", img: "/photos/20250521_112841.jpg", desc: "Mancera Paris Red Tobacco 120ml. Notes de tabac rouge et épices. Sensuel." },
+  { nom: "Red Tobacco Mancera Paris", prix: 75000, stock: 1, cat: "Classique", volume: 125, img: "/photos/20250521_112841.jpg", desc: "Mancera Paris Red Tobacco. Notes de tabac rouge et épices. Sensuel." },
   { nom: "Atelier des Essences (Eclat d'Iris)", prix: 45000, stock: 1, cat: "Classique", img: "/photos/20250521_112051.jpg", desc: "Atelier des Essences Paris, Eclat d'Iris. Notes florales raffinées." },
   { nom: "Sugar Oud Gulf Flowers", prix: 35000, stock: 1, cat: "Classique", img: "/photos/20250521_112942.jpg", desc: "Les Fleurs du Golfe Sugar Oud. Notes de oud et fleurs sucrées. Oriental." },
   { nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "Classique", img: "/photos/20250521_112523.jpg", desc: "Black Empire de Gris Montaigne Paris. Notes boisées profondes et sophistiquées." },
   { nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", img: "/photos/20250521_112711.jpg", desc: "Private Club de Mauboussin. Flacon bleu nuit aux notes fruitées et florales." },
   { nom: "Callisto Holliday Paris", prix: 60000, stock: 1, cat: "Classique", img: "/photos/20250521_112315.jpg", desc: "Callisto Paris. Notes ambrées chaudes et boisées dans un flacon élégant." },
-  { nom: "Musc Tahara (Tahara, Oud Cachemire, Barbe à Papa, Rouge )", prix: 10000, stock: 8, cat: "Accessoire", img: "/photos/20250521_132240.jpg", desc: "Musc pur et authentique. Doux, enveloppant, longue tenue." },
+  { nom: "Musc Tahara", prix: 10000, cat: "Accessoire", volume: 12, desc: "Musc pur et authentique. Doux, enveloppant, longue tenue.",
+    senteurs: [
+      { nom: "Tahara", img: "/photos/tahara_tahara.jpg", stock: 3 },
+      { nom: "Oud Cachemire", img: "/photos/tahara_oud_cachemire.jpg", stock: 2 },
+      { nom: "Barbe à Papa", img: "/photos/tahara_barbe_a_papa.jpg", stock: 2 },
+      { nom: "Rouge", img: "/photos/tahara_rouge.jpg", stock: 1 },
+    ] },
   { nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "Accessoire", img: "/photos/20250521_122352.jpg", desc: "Collection Privée by Birraci — BA Intense Body Spray. Protection longue durée." },
 ];
+
+// Helpers pour gérer les produits avec/sans senteurs
+const isMultiSenteur = (p) => Array.isArray(p.senteurs) && p.senteurs.length > 1;
+const stockTotal = (p) => Array.isArray(p.senteurs) ? p.senteurs.reduce((sum, s) => sum + s.stock, 0) : (p.stock || 0);
 
 // === PROMO TABASKI ===
 const PROMO_ACTIVE = true;
@@ -35,10 +77,13 @@ const enPromo = (p) => PROMO_ACTIVE && !PROMO_EXCLUS.includes(p.nom);
 const prixPromo = (p) => Math.round(p.prix * (1 - PROMO_TAUX));
 
 const CATALOGUE_TEXT = PRODUITS.map(p => {
-  const ligne = `- ${p.nom} : ${p.prix.toLocaleString('fr-FR')} FCFA (stock: ${p.stock})`;
-  return enPromo(p)
-    ? `${ligne} 🐏 PROMO TABASKI -15% → ${prixPromo(p).toLocaleString('fr-FR')} FCFA`
-    : ligne;
+  const stockTotalProd = Array.isArray(p.senteurs) ? p.senteurs.reduce((s, x) => s + x.stock, 0) : (p.stock || 0);
+  const volumeTag = p.volume ? ` ${p.volume}ml` : "";
+  const senteursTag = Array.isArray(p.senteurs)
+    ? ` — Senteurs: ${p.senteurs.map(s => `${s.nom} (stock: ${s.stock})`).join(", ")}`
+    : "";
+  const promoTag = enPromo(p) ? ` 🐏 PROMO TABASKI -15% → ${prixPromo(p).toLocaleString('fr-FR')} FCFA` : "";
+  return `- ${p.nom}${volumeTag} : ${p.prix.toLocaleString('fr-FR')} FCFA (stock total: ${stockTotalProd})${senteursTag}${promoTag}`;
 }).join('\n');
 
 const SYSTEM_PROMPT = `Tu es Matel, la conseillère officielle de la Parfumerie de la Zac, boutique de luxe spécialisée en parfums authentiques de Paris. Tu es élégante, chaleureuse et professionnelle. Tu utilises des emojis sobres (✨🖤🌹).
@@ -92,31 +137,55 @@ export default function App() {
     try { return JSON.parse(localStorage.getItem("pdz_cart") || "[]"); } catch { return []; }
   });
   const [toast, setToast] = useState("");
+  const [senteurIdx, setSenteurIdx] = useState({}); // index de la senteur active par produit
   const endRef = useRef(null);
 
   useEffect(() => {
     try { localStorage.setItem("pdz_cart", JSON.stringify(cart)); } catch {}
   }, [cart]);
 
-  const addToCart = (produit) => {
+  // Ajouter au panier — gère les produits avec ou sans senteurs
+  const addToCart = (produit, senteurChoisie = null) => {
+    const senteur = senteurChoisie || (Array.isArray(produit.senteurs) ? produit.senteurs[0] : null);
+    const cleUnique = senteur ? `${produit.nom}__${senteur.nom}` : produit.nom;
+    const stockDispo = senteur ? senteur.stock : (produit.stock || 0);
+    const labelToast = senteur ? `${produit.nom} - ${senteur.nom}` : produit.nom;
+
+    if (stockDispo === 0) {
+      setToast(`⚠️ Rupture de stock pour ${labelToast}`);
+      setTimeout(() => setToast(""), 2200);
+      return;
+    }
+
     setCart(prev => {
-      const existing = prev.find(c => c.nom === produit.nom);
-      if (existing) return prev.map(c => c.nom === produit.nom ? { ...c, qty: Math.min(c.qty + 1, produit.stock) } : c);
-      return [...prev, { nom: produit.nom, prix: produit.prix, qty: 1, stock: produit.stock }];
+      const existing = prev.find(c => c.cle === cleUnique);
+      if (existing) {
+        return prev.map(c => c.cle === cleUnique ? { ...c, qty: Math.min(c.qty + 1, stockDispo) } : c);
+      }
+      return [...prev, {
+        cle: cleUnique,
+        nom: produit.nom,
+        senteur: senteur ? senteur.nom : null,
+        prix: produit.prix,
+        volume: produit.volume || null,
+        qty: 1,
+        stock: stockDispo,
+        img: senteur ? senteur.img : (produit.img || null),
+      }];
     });
-    setToast(`✓ ${produit.nom} ajouté au panier`);
+    setToast(`✓ ${labelToast} ajouté au panier`);
     setTimeout(() => setToast(""), 2000);
   };
 
-  const updateQty = (nom, delta) => {
+  const updateQty = (cle, delta) => {
     setCart(prev => prev.map(c => {
-      if (c.nom !== nom) return c;
+      if (c.cle !== cle) return c;
       const newQty = c.qty + delta;
       return { ...c, qty: Math.max(1, Math.min(newQty, c.stock)) };
     }));
   };
 
-  const removeFromCart = (nom) => setCart(prev => prev.filter(c => c.nom !== nom));
+  const removeFromCart = (cle) => setCart(prev => prev.filter(c => c.cle !== cle));
   const clearCart = () => setCart([]);
   const cartCount = cart.reduce((sum, c) => sum + c.qty, 0);
   const cartTotal = cart.reduce((sum, c) => {
@@ -163,7 +232,9 @@ export default function App() {
       const prixUnit = produit && enPromo(produit) ? prixPromo(produit) : item.prix;
       const total = (prixUnit * item.qty).toLocaleString('fr-FR');
       const promoTag = produit && enPromo(produit) ? ` (Promo Tabaski -${Math.round(PROMO_TAUX*100)}%25)` : "";
-      return `• ${item.qty}× ${item.nom} — ${total} FCFA${promoTag}`;
+      const labelArticle = item.senteur ? `${item.nom} - ${item.senteur}` : item.nom;
+      const volumeTag = item.volume ? ` ${item.volume}ml` : "";
+      return `• ${item.qty}× ${labelArticle}${volumeTag} — ${total} FCFA${promoTag}`;
     }).join('%0A');
     const msg = `Bonjour Parfumerie De La Zac ! 🖤%0AJe souhaite commander :%0A%0A👤 Nom : ${order.name}%0A📱 Tel : ${order.phone}%0A📍 Quartier : ${order.quartier}%0A%0A🌹 Mes articles :%0A${lignes}%0A%0A💰 Total : ${cartTotal.toLocaleString('fr-FR')} FCFA%0A%0AMerci ✨`;
     window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
@@ -272,41 +343,84 @@ export default function App() {
             ))}
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-            {filtered.map((p, i) => (
-              <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden" }}>
-                <div style={{ position: "relative", height: "200px", overflow: "hidden" }}>
-                  <img src={p.img} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", background: "#0d0d0d" }}
-                    onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
-                  <div style={{ display: "none", width: "100%", height: "100%", background: "linear-gradient(135deg, #1a1408, #111)", alignItems: "center", justifyContent: "center", fontSize: "48px" }}>🌹</div>
-                  <div style={{ position: "absolute", top: "10px", right: "10px", background: p.stock<=1 ? "rgba(192,57,43,0.9)" : p.stock<=3 ? "rgba(230,126,34,0.9)" : "rgba(39,174,96,0.9)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "12px", fontWeight: "700" }}>
-                    {p.stock<=1 ? "⚠️ Dernier !" : p.stock<=3 ? `⚡ ${p.stock} restants` : `✅ ${p.stock} en stock`}
+            {filtered.map((p, i) => {
+              const senteurs = Array.isArray(p.senteurs) ? p.senteurs : null;
+              const idx = senteurIdx[p.nom] || 0;
+              const senteurActive = senteurs ? senteurs[idx] : null;
+              const imgAffichee = senteurActive ? senteurActive.img : p.img;
+              const stockAffiche = senteurActive ? senteurActive.stock : (p.stock || 0);
+              const goPrev = (e) => { e.stopPropagation(); setSenteurIdx(prev => ({ ...prev, [p.nom]: idx === 0 ? senteurs.length - 1 : idx - 1 })); };
+              const goNext = (e) => { e.stopPropagation(); setSenteurIdx(prev => ({ ...prev, [p.nom]: (idx + 1) % senteurs.length })); };
+
+              return (
+                <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+                  {/* IMAGE / CARROUSEL */}
+                  <div style={{ position: "relative", height: "210px", overflow: "hidden", background: "#0d0d0d" }}>
+                    <img src={imgAffichee} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", transition: "opacity 0.25s" }}
+                      onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
+                    <div style={{ display: "none", width: "100%", height: "100%", background: "linear-gradient(135deg, #1a1408, #111)", alignItems: "center", justifyContent: "center", fontSize: "48px", flexDirection: "column", gap: "8px" }}>
+                      <span>🌹</span>
+                      {senteurActive && <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "1px" }}>{senteurActive.nom}</span>}
+                    </div>
+
+                    {/* Flèches carrousel (visibles si plusieurs senteurs) */}
+                    {senteurs && senteurs.length > 1 && (
+                      <>
+                        <button onClick={goPrev} aria-label="Senteur précédente" style={{ position: "absolute", left: "8px", top: "50%", transform: "translateY(-50%)", width: "34px", height: "34px", borderRadius: "50%", background: "rgba(0,0,0,0.6)", border: `1px solid ${gold}55`, color: gold, fontSize: "18px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
+                        <button onClick={goNext} aria-label="Senteur suivante" style={{ position: "absolute", right: "8px", top: "50%", transform: "translateY(-50%)", width: "34px", height: "34px", borderRadius: "50%", background: "rgba(0,0,0,0.6)", border: `1px solid ${gold}55`, color: gold, fontSize: "18px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>›</button>
+                      </>
+                    )}
+
+                    {/* Badge de stock */}
+                    <div style={{ position: "absolute", top: "10px", right: "10px", background: stockAffiche<=1 ? (stockAffiche === 0 ? "rgba(80,80,80,0.9)" : "rgba(192,57,43,0.9)") : stockAffiche<=3 ? "rgba(230,126,34,0.9)" : "rgba(39,174,96,0.9)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "11px", fontWeight: "700" }}>
+                      {stockAffiche === 0 ? "❌ Rupture" : stockAffiche<=1 ? "⚠️ Dernier !" : stockAffiche<=3 ? `⚡ ${stockAffiche} restants` : `✅ ${stockAffiche} en stock`}
+                    </div>
+
+                    {/* Badge volume */}
+                    {p.volume && (
+                      <div style={{ position: "absolute", top: "10px", left: "10px", background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "11px", fontWeight: "700", border: `1px solid ${gold}55` }}>
+                        {p.volume}ml
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Indicateurs (points) sous l'image — uniquement si plusieurs senteurs */}
+                  {senteurs && senteurs.length > 1 && (
+                    <div style={{ display: "flex", justifyContent: "center", gap: "5px", padding: "8px 0 4px", background: "#0d0d0d" }}>
+                      {senteurs.map((_, j) => (
+                        <button key={j} onClick={() => setSenteurIdx(prev => ({ ...prev, [p.nom]: j }))} style={{ width: idx === j ? "20px" : "6px", height: "6px", borderRadius: "3px", border: "none", background: idx === j ? gold : "rgba(255,255,255,0.2)", cursor: "pointer", transition: "all 0.25s", padding: 0 }} />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* INFO PRODUIT */}
+                  <div style={{ padding: "12px 14px", display: "flex", flexDirection: "column", flex: 1 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px", gap: "8px" }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ color: "#fff", fontWeight: "700", fontSize: "15px", lineHeight: "1.3" }}>{p.nom}</div>
+                        {senteurActive && <div style={{ color: gold, fontWeight: "600", fontSize: "12px", marginTop: "3px", letterSpacing: "0.3px" }}>✨ {senteurActive.nom}</div>}
+                        {enPromo(p) && (
+                          <div style={{ display: "inline-block", marginTop: "6px", background: "linear-gradient(135deg, #c0392b, #8e2419)", color: "#fff", padding: "3px 10px", borderRadius: "12px", fontSize: "10px", fontWeight: "700", letterSpacing: "0.5px" }}>
+                            🐏 {PROMO_LABEL}
+                          </div>
+                        )}
+                      </div>
+                      <div style={{ textAlign: "right", flexShrink: 0 }}>
+                        {enPromo(p) && (
+                          <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", textDecoration: "line-through", marginBottom: "2px" }}>{p.prix.toLocaleString('fr-FR')}</div>
+                        )}
+                        <div style={{ color: gold, fontWeight: "800", fontSize: "17px" }}>{(enPromo(p) ? prixPromo(p) : p.prix).toLocaleString('fr-FR')}</div>
+                        <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px" }}>FCFA</div>
+                      </div>
+                    </div>
+                    <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "12px", lineHeight: "1.5", marginBottom: "12px", flex: 1 }}>{p.desc}</div>
+                    <button className="tbtn" onClick={() => addToCart(p, senteurActive)} disabled={stockAffiche === 0} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: stockAffiche === 0 ? "rgba(255,255,255,0.08)" : `linear-gradient(135deg, ${gold}, #a07830)`, color: stockAffiche === 0 ? "rgba(255,255,255,0.3)" : "#0a0a0a", fontSize: "13px", fontWeight: "700", boxShadow: stockAffiche === 0 ? "none" : `0 3px 10px ${gold}44`, border: "none", cursor: stockAffiche === 0 ? "not-allowed" : "pointer" }}>
+                      {stockAffiche === 0 ? "❌ Rupture de stock" : "🛒 Ajouter au panier"}
+                    </button>
                   </div>
                 </div>
-                <div style={{ padding: "14px 16px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px" }}>
-                    <div style={{ flex: 1, marginRight: "10px" }}>
-                      <div style={{ color: "#fff", fontWeight: "700", fontSize: "16px", lineHeight: "1.3" }}>{p.nom}</div>
-                      {enPromo(p) && (
-                        <div style={{ display: "inline-block", marginTop: "6px", background: "linear-gradient(135deg, #c0392b, #8e2419)", color: "#fff", padding: "3px 10px", borderRadius: "12px", fontSize: "10px", fontWeight: "700", letterSpacing: "0.5px" }}>
-                          🐏 {PROMO_LABEL}
-                        </div>
-                      )}
-                    </div>
-                    <div style={{ textAlign: "right", flexShrink: 0 }}>
-                      {enPromo(p) && (
-                        <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", textDecoration: "line-through", marginBottom: "2px" }}>{p.prix.toLocaleString('fr-FR')}</div>
-                      )}
-                      <div style={{ color: gold, fontWeight: "800", fontSize: "18px" }}>{(enPromo(p) ? prixPromo(p) : p.prix).toLocaleString('fr-FR')}</div>
-                      <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "11px" }}>FCFA</div>
-                    </div>
-                  </div>
-                  <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", lineHeight: "1.5", marginBottom: "12px" }}>{p.desc}</div>
-                  <button className="tbtn" onClick={() => addToCart(p)} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: `linear-gradient(135deg, ${gold}, #a07830)`, color: "#0a0a0a", fontSize: "14px", fontWeight: "700", boxShadow: `0 3px 10px ${gold}44` }}>
-                    🛒 Ajouter au panier
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -334,19 +448,23 @@ export default function App() {
                     const produit = PRODUITS.find(p => p.nom === item.nom);
                     const prixUnit = produit && enPromo(produit) ? prixPromo(produit) : item.prix;
                     return (
-                      <div key={item.nom} style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${gold}15`, borderRadius: "12px", padding: "12px" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
-                          <div style={{ flex: 1, marginRight: "10px" }}>
+                      <div key={item.cle} style={{ background: "rgba(255,255,255,0.04)", border: `1px solid ${gold}15`, borderRadius: "12px", padding: "12px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px", gap: "10px" }}>
+                          {item.img && (
+                            <img src={item.img} alt="" style={{ width: "44px", height: "44px", borderRadius: "8px", objectFit: "cover", flexShrink: 0, background: "#0d0d0d" }} onError={e => { e.target.style.display="none"; }} />
+                          )}
+                          <div style={{ flex: 1 }}>
                             <div style={{ color: "#fff", fontWeight: "700", fontSize: "13px", lineHeight: "1.3" }}>{item.nom}</div>
-                            {produit && enPromo(produit) && <div style={{ color: "#e74c3c", fontSize: "10px", fontWeight: "700", marginTop: "3px" }}>🐏 Promo Tabaski -15%</div>}
+                            {item.senteur && <div style={{ color: gold, fontSize: "11px", fontWeight: "600", marginTop: "2px" }}>✨ {item.senteur}{item.volume ? ` • ${item.volume}ml` : ""}</div>}
+                            {produit && enPromo(produit) && <div style={{ color: "#e74c3c", fontSize: "10px", fontWeight: "700", marginTop: "3px" }}>🐏 Promo Tabaski -{Math.round(PROMO_TAUX*100)}%</div>}
                           </div>
-                          <button onClick={() => removeFromCart(item.nom)} style={{ background: "rgba(192,57,43,0.15)", border: "1px solid rgba(192,57,43,0.3)", color: "#e74c3c", borderRadius: "8px", padding: "4px 8px", fontSize: "12px", cursor: "pointer" }}>🗑️</button>
+                          <button onClick={() => removeFromCart(item.cle)} style={{ background: "rgba(192,57,43,0.15)", border: "1px solid rgba(192,57,43,0.3)", color: "#e74c3c", borderRadius: "8px", padding: "4px 8px", fontSize: "12px", cursor: "pointer" }}>🗑️</button>
                         </div>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                           <div style={{ display: "flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.06)", borderRadius: "10px", padding: "4px" }}>
-                            <button onClick={() => updateQty(item.nom, -1)} disabled={item.qty <= 1} style={{ width: "28px", height: "28px", borderRadius: "8px", border: "none", background: "rgba(255,255,255,0.08)", color: "#fff", fontSize: "16px", cursor: item.qty <= 1 ? "not-allowed" : "pointer", opacity: item.qty <= 1 ? 0.4 : 1 }}>−</button>
+                            <button onClick={() => updateQty(item.cle, -1)} disabled={item.qty <= 1} style={{ width: "28px", height: "28px", borderRadius: "8px", border: "none", background: "rgba(255,255,255,0.08)", color: "#fff", fontSize: "16px", cursor: item.qty <= 1 ? "not-allowed" : "pointer", opacity: item.qty <= 1 ? 0.4 : 1 }}>−</button>
                             <div style={{ minWidth: "24px", textAlign: "center", color: "#fff", fontSize: "14px", fontWeight: "700" }}>{item.qty}</div>
-                            <button onClick={() => updateQty(item.nom, 1)} disabled={item.qty >= item.stock} style={{ width: "28px", height: "28px", borderRadius: "8px", border: "none", background: "rgba(255,255,255,0.08)", color: "#fff", fontSize: "16px", cursor: item.qty >= item.stock ? "not-allowed" : "pointer", opacity: item.qty >= item.stock ? 0.4 : 1 }}>+</button>
+                            <button onClick={() => updateQty(item.cle, 1)} disabled={item.qty >= item.stock} style={{ width: "28px", height: "28px", borderRadius: "8px", border: "none", background: "rgba(255,255,255,0.08)", color: "#fff", fontSize: "16px", cursor: item.qty >= item.stock ? "not-allowed" : "pointer", opacity: item.qty >= item.stock ? 0.4 : 1 }}>+</button>
                           </div>
                           <div style={{ textAlign: "right" }}>
                             <div style={{ color: gold, fontWeight: "800", fontSize: "15px" }}>{(prixUnit * item.qty).toLocaleString('fr-FR')} <span style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)" }}>FCFA</span></div>
