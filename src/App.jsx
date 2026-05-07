@@ -392,7 +392,9 @@ export default function App() {
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px", gap: "8px" }}>
                       <div style={{ flex: 1 }}>
                         {/* Nom du produit */}
-                        <div style={{ color: "#fff", fontWeight: "700", fontSize: "14px", lineHeight: "1.3" }}>{p.nom}</div>
+                        <div style={{ color: "#fff", fontWeight: "700", fontSize: "12px", lineHeight: "1.3", overflow: "hidden", display: "-webkit-box",
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: "vertical" }}>{p.nom}</div>
 
                         {/* Senteur active + volume inline juste après */}
                         {senteurActive && (
