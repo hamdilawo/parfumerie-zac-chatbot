@@ -57,7 +57,7 @@ const PRODUITS = [
   { nom: "Musc Tahara", prix: 10000, cat: "Accessoire", volume: 12, desc: "Musc pur et authentique. Doux, enveloppant, longue tenue.",
     senteurs: [
       { nom: "Tahara", img: "/photos/tahara_tahara.jpg", stock: 3 },
-      { nom: "Oud Cachemire", img: "/photos/tahara_oud_cachemire.webp", stock: 2 },
+      { nom: "Oud Cachemire", img: "/photos/tahara_oud_cachemire.jpg", stock: 2 },
       { nom: "Barbe à Papa", img: "/photos/tahara_barbe_a_papa.jpg", stock: 2 },
       { nom: "Rouge", img: "/photos/tahara_rouge.jpg", stock: 1 },
     ] },
