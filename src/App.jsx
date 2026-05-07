@@ -64,13 +64,11 @@ const PRODUITS = [
   { nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "Accessoire", img: "/photos/deodorant_cp_ba_intense.jpg", desc: "Collection Privée by Birraci — BA Intense Body Spray. Protection longue durée." },
 ];
 
-// Helpers pour gérer les produits avec/sans senteurs
 const isMultiSenteur = (p) => Array.isArray(p.senteurs) && p.senteurs.length > 1;
 const stockTotal = (p) => Array.isArray(p.senteurs) ? p.senteurs.reduce((sum, s) => sum + s.stock, 0) : (p.stock || 0);
 
-// === PROMO TABASKI ===
 const PROMO_ACTIVE = true;
-const PROMO_TAUX = 0.25; // 15%
+const PROMO_TAUX = 0.25;
 const PROMO_LABEL = "PROMO TABASKI -25%";
 const PROMO_EXCLUS = ["Déodorant BA Intense CP"];
 const enPromo = (p) => PROMO_ACTIVE && !PROMO_EXCLUS.includes(p.nom);
@@ -82,13 +80,13 @@ const CATALOGUE_TEXT = PRODUITS.map(p => {
   const senteursTag = Array.isArray(p.senteurs)
     ? ` — Senteurs: ${p.senteurs.map(s => `${s.nom} (stock: ${s.stock})`).join(", ")}`
     : "";
-  const promoTag = enPromo(p) ? ` 🐏 PROMO TABASKI -15% → ${prixPromo(p).toLocaleString('fr-FR')} FCFA` : "";
+  const promoTag = enPromo(p) ? ` 🐏 PROMO TABASKI -25% → ${prixPromo(p).toLocaleString('fr-FR')} FCFA` : "";
   return `- ${p.nom}${volumeTag} : ${p.prix.toLocaleString('fr-FR')} FCFA (stock total: ${stockTotalProd})${senteursTag}${promoTag}`;
 }).join('\n');
 
 const SYSTEM_PROMPT = `Tu es Matel, la conseillère officielle de la Parfumerie de la Zac, boutique de luxe spécialisée en parfums authentiques de Paris. Tu es élégante, chaleureuse et professionnelle. Tu utilises des emojis sobres (✨🖤🌹).
 
-🐏 PROMOTION TABASKI EN COURS : -15% sur TOUS les produits sauf le Déodorant BA Intense CP. Mets en avant cette promo dans tes recommandations !
+🐏 PROMOTION TABASKI EN COURS : -25% sur TOUS les produits sauf le Déodorant BA Intense CP. Mets en avant cette promo dans tes recommandations !
 
 CATALOGUE COMPLET :
 ${CATALOGUE_TEXT}
@@ -137,14 +135,13 @@ export default function App() {
     try { return JSON.parse(localStorage.getItem("pdz_cart") || "[]"); } catch { return []; }
   });
   const [toast, setToast] = useState("");
-  const [senteurIdx, setSenteurIdx] = useState({}); // index de la senteur active par produit
+  const [senteurIdx, setSenteurIdx] = useState({});
   const endRef = useRef(null);
 
   useEffect(() => {
     try { localStorage.setItem("pdz_cart", JSON.stringify(cart)); } catch {}
   }, [cart]);
 
-  // Ajouter au panier — gère les produits avec ou sans senteurs
   const addToCart = (produit, senteurChoisie = null) => {
     const senteur = senteurChoisie || (Array.isArray(produit.senteurs) ? produit.senteurs[0] : null);
     const cleUnique = senteur ? `${produit.nom}__${senteur.nom}` : produit.nom;
@@ -207,9 +204,7 @@ export default function App() {
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
@@ -354,16 +349,21 @@ export default function App() {
 
               return (
                 <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
+
                   {/* IMAGE / CARROUSEL */}
                   <div style={{ position: "relative", height: "160px", overflow: "hidden", background: "#0d0d0d" }}>
-                    <img src={imgAffichee} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", transition: "opacity 0.25s" }}
-                      onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
+                    <img
+                      src={imgAffichee}
+                      alt={p.nom}
+                      style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", transition: "opacity 0.25s" }}
+                      onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }}
+                    />
                     <div style={{ display: "none", width: "100%", height: "100%", background: "linear-gradient(135deg, #1a1408, #111)", alignItems: "center", justifyContent: "center", fontSize: "48px", flexDirection: "column", gap: "8px" }}>
                       <span>🌹</span>
                       {senteurActive && <span style={{ fontSize: "12px", color: "rgba(255,255,255,0.4)", letterSpacing: "1px" }}>{senteurActive.nom}</span>}
                     </div>
 
-                    {/* Flèches carrousel (visibles si plusieurs senteurs) */}
+                    {/* Flèches carrousel */}
                     {senteurs && senteurs.length > 1 && (
                       <>
                         <button onClick={goPrev} aria-label="Senteur précédente" style={{ position: "absolute", left: "8px", top: "50%", transform: "translateY(-50%)", width: "34px", height: "34px", borderRadius: "50%", background: "rgba(0,0,0,0.6)", border: `1px solid ${gold}55`, color: gold, fontSize: "18px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>‹</button>
@@ -371,14 +371,16 @@ export default function App() {
                       </>
                     )}
 
-                    {/* Badge de stock */}
+                    {/* Badge stock */}
                     <div style={{ position: "absolute", top: "10px", right: "10px", background: stockAffiche<=1 ? (stockAffiche === 0 ? "rgba(80,80,80,0.9)" : "rgba(192,57,43,0.9)") : stockAffiche<=3 ? "rgba(230,126,34,0.9)" : "rgba(39,174,96,0.9)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "11px", fontWeight: "700" }}>
                       {stockAffiche === 0 ? "❌ Rupture" : stockAffiche<=1 ? "⚠️ Dernier !" : stockAffiche<=3 ? `⚡ ${stockAffiche} restants` : `✅ ${stockAffiche} en stock`}
                     </div>
+                  </div>
+                  {/* FIN bloc image */}
 
-                  {/* Indicateurs (points) sous l'image — uniquement si plusieurs senteurs */}
+                  {/* Indicateurs points — uniquement si plusieurs senteurs */}
                   {senteurs && senteurs.length > 1 && (
-                    <div style={{ display: "flex", justifyContent: "center", gap: "5px", padding: "8px 0 4px", background: "#0d0d0d" }}>
+                    <div style={{ display: "flex", justifyContent: "center", gap: "5px", padding: "6px 0 4px", background: "#0d0d0d" }}>
                       {senteurs.map((_, j) => (
                         <button key={j} onClick={() => setSenteurIdx(prev => ({ ...prev, [p.nom]: j }))} style={{ width: idx === j ? "20px" : "6px", height: "6px", borderRadius: "3px", border: "none", background: idx === j ? gold : "rgba(255,255,255,0.2)", cursor: "pointer", transition: "all 0.25s", padding: 0 }} />
                       ))}
@@ -389,21 +391,37 @@ export default function App() {
                   <div style={{ padding: "12px 14px", display: "flex", flexDirection: "column", flex: 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px", gap: "8px" }}>
                       <div style={{ flex: 1 }}>
-                      <div style={{ color: "#fff", fontWeight: "700", fontSize: "14px", lineHeight: "1.3" }}>{p.nom}</div>
-{senteurActive && (
-  <div style={{ color: gold, fontWeight: "600", fontSize: "12px", marginTop: "3px", letterSpacing: "0.3px" }}>
-    ✨ {senteurActive.nom}{p.volume ? <span style={{ color: "rgba(255,255,255,0.4)", fontWeight: "500", marginLeft: "5px" }}>{p.volume}ml</span> : null}
-  </div>
-)}
-{!senteurActive && p.volume && (
-  <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", marginTop: "2px" }}>{p.volume}ml</div>
-)} 
+                        {/* Nom du produit */}
+                        <div style={{ color: "#fff", fontWeight: "700", fontSize: "14px", lineHeight: "1.3" }}>{p.nom}</div>
+
+                        {/* Senteur active + volume inline juste après */}
+                        {senteurActive && (
+                          <div style={{ color: gold, fontWeight: "600", fontSize: "12px", marginTop: "3px", letterSpacing: "0.3px" }}>
+                            ✨ {senteurActive.nom}
+                            {p.volume && (
+                              <span style={{ color: "rgba(255,255,255,0.4)", fontWeight: "500", marginLeft: "5px" }}>
+                                {p.volume}ml
+                              </span>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Volume seul si pas de senteur active */}
+                        {!senteurActive && p.volume && (
+                          <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", marginTop: "2px" }}>
+                            {p.volume}ml
+                          </div>
+                        )}
+
+                        {/* Badge promo compact */}
                         {enPromo(p) && (
-                      <div style={{ display: "inline-block", marginTop: "4px", background: "linear-gradient(135deg, #c0392b, #8e2419)", color: "#fff", padding: "2px 7px", borderRadius: "10px", fontSize: "9px", fontWeight: "700", letterSpacing: "0.3px" }}>
-  🐏 -25%
-</div>
+                          <div style={{ display: "inline-block", marginTop: "4px", background: "linear-gradient(135deg, #c0392b, #8e2419)", color: "#fff", padding: "2px 7px", borderRadius: "10px", fontSize: "9px", fontWeight: "700", letterSpacing: "0.3px" }}>
+                            🐏 -25%
+                          </div>
                         )}
                       </div>
+
+                      {/* Prix */}
                       <div style={{ textAlign: "right", flexShrink: 0 }}>
                         {enPromo(p) && (
                           <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px", textDecoration: "line-through", marginBottom: "2px" }}>{p.prix.toLocaleString('fr-FR')}</div>
@@ -412,7 +430,9 @@ export default function App() {
                         <div style={{ color: "rgba(255,255,255,0.3)", fontSize: "10px" }}>FCFA</div>
                       </div>
                     </div>
+
                     <div style={{ color: "rgba(255,255,255,0.5)", fontSize: "12px", lineHeight: "1.5", marginBottom: "12px", flex: 1 }}>{p.desc}</div>
+
                     <button className="tbtn" onClick={() => addToCart(p, senteurActive)} disabled={stockAffiche === 0} style={{ width: "100%", padding: "10px", borderRadius: "12px", background: stockAffiche === 0 ? "rgba(255,255,255,0.08)" : `linear-gradient(135deg, ${gold}, #a07830)`, color: stockAffiche === 0 ? "rgba(255,255,255,0.3)" : "#0a0a0a", fontSize: "13px", fontWeight: "700", boxShadow: stockAffiche === 0 ? "none" : `0 3px 10px ${gold}44`, border: "none", cursor: stockAffiche === 0 ? "not-allowed" : "pointer" }}>
                       {stockAffiche === 0 ? "❌ Rupture de stock" : "🛒 Ajouter au panier"}
                     </button>
@@ -547,25 +567,24 @@ export default function App() {
         Parfumerie de la Zac • Tous droits réservés 2024
       </div>
 
-      {/* TOAST de confirmation ajout au panier */}
+      {/* TOAST */}
       {toast && (
         <div style={{ position: "fixed", bottom: "100px", left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg, #1a9e4a, #25D366)", color: "#fff", padding: "12px 20px", borderRadius: "30px", fontSize: "14px", fontWeight: "600", boxShadow: "0 8px 24px rgba(37,211,102,0.4)", zIndex: 1100, animation: "fadeUp 0.3s ease forwards", maxWidth: "90%", textAlign: "center" }}>
           {toast}
         </div>
       )}
 
-      {/* FLOATING CHAT BUTTON — visible sur les pages autres que Chat */}
+      {/* FLOATING CHAT BUTTON */}
       {activePage !== "chat" && !chatOverlay && (
         <button onClick={() => setChatOverlay(true)} title="Discuter avec Matel" style={{ position: "fixed", bottom: "24px", right: "24px", width: "60px", height: "60px", borderRadius: "50%", background: `linear-gradient(135deg, ${gold}, #a07830)`, border: "none", cursor: "pointer", boxShadow: `0 8px 24px ${gold}66, 0 0 0 4px rgba(201,168,76,0.15)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "26px", zIndex: 999, animation: "glow 2.5s ease-in-out infinite" }}>
           💬
         </button>
       )}
 
-      {/* CHAT OVERLAY — fenêtre flottante de discussion avec Matel */}
+      {/* CHAT OVERLAY */}
       {chatOverlay && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.6)", zIndex: 1000, display: "flex", alignItems: "flex-end", justifyContent: "center", animation: "fadeUp 0.25s ease forwards" }}>
           <div style={{ width: "100%", maxWidth: "480px", height: "85vh", background: "#0a0a0a", borderRadius: "20px 20px 0 0", border: `1px solid ${gold}33`, display: "flex", flexDirection: "column", boxShadow: `0 -10px 40px ${gold}33` }}>
-            {/* Header overlay */}
             <div style={{ padding: "14px 18px", borderBottom: `1px solid ${gold}22`, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <Logo size={36} />
@@ -576,8 +595,6 @@ export default function App() {
               </div>
               <button onClick={() => setChatOverlay(false)} style={{ width: "36px", height: "36px", borderRadius: "50%", background: "rgba(255,255,255,0.08)", border: "none", color: "#fff", fontSize: "18px", cursor: "pointer" }}>✕</button>
             </div>
-
-            {/* Messages */}
             <div style={{ flex: 1, padding: "16px 18px", display: "flex", flexDirection: "column", gap: "12px", overflowY: "auto" }}>
               {messages.map((msg, i) => (
                 <div key={i} className="msg" style={{ display: "flex", justifyContent: msg.role==="user" ? "flex-end" : "flex-start", alignItems: "flex-end", gap: "8px" }}>
@@ -597,8 +614,6 @@ export default function App() {
               )}
               <div ref={endRef} />
             </div>
-
-            {/* Input */}
             <div style={{ padding: "10px 18px 16px", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", gap: "10px", alignItems: "center" }}>
               <div style={{ flex: 1, display: "flex", alignItems: "center", background: "rgba(255,255,255,0.07)", borderRadius: "22px", border: "1px solid rgba(255,255,255,0.1)", padding: "0 14px", gap: "6px" }}>
                 <span>✍️</span>
@@ -612,4 +627,3 @@ export default function App() {
     </div>
   );
 }
-
