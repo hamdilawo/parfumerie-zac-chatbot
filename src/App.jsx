@@ -355,7 +355,7 @@ export default function App() {
               return (
                 <div key={i} className="pcard" style={{ background: "#161616", border: `1px solid ${gold}18`, borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                   {/* IMAGE / CARROUSEL */}
-                  <div style={{ position: "relative", height: "210px", overflow: "hidden", background: "#0d0d0d" }}>
+                  <div style={{ position: "relative", height: "160px", overflow: "hidden", background: "#0d0d0d" }}>
                     <img src={imgAffichee} alt={p.nom} style={{ width: "100%", height: "100%", objectFit: "contain", display: "block", transition: "opacity 0.25s" }}
                       onError={e => { e.target.style.display="none"; e.target.nextSibling.style.display="flex"; }} />
                     <div style={{ display: "none", width: "100%", height: "100%", background: "linear-gradient(135deg, #1a1408, #111)", alignItems: "center", justifyContent: "center", fontSize: "48px", flexDirection: "column", gap: "8px" }}>
@@ -376,14 +376,6 @@ export default function App() {
                       {stockAffiche === 0 ? "❌ Rupture" : stockAffiche<=1 ? "⚠️ Dernier !" : stockAffiche<=3 ? `⚡ ${stockAffiche} restants` : `✅ ${stockAffiche} en stock`}
                     </div>
 
-                    {/* Badge volume */}
-                    {p.volume && (
-                      <div style={{ position: "absolute", top: "10px", left: "10px", background: "rgba(0,0,0,0.7)", color: "#fff", padding: "4px 10px", borderRadius: "20px", fontSize: "11px", fontWeight: "700", border: `1px solid ${gold}55` }}>
-                        {p.volume}ml
-                      </div>
-                    )}
-                  </div>
-
                   {/* Indicateurs (points) sous l'image — uniquement si plusieurs senteurs */}
                   {senteurs && senteurs.length > 1 && (
                     <div style={{ display: "flex", justifyContent: "center", gap: "5px", padding: "8px 0 4px", background: "#0d0d0d" }}>
@@ -397,12 +389,19 @@ export default function App() {
                   <div style={{ padding: "12px 14px", display: "flex", flexDirection: "column", flex: 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "6px", gap: "8px" }}>
                       <div style={{ flex: 1 }}>
-                        <div style={{ color: "#fff", fontWeight: "700", fontSize: "15px", lineHeight: "1.3" }}>{p.nom}</div>
-                        {senteurActive && <div style={{ color: gold, fontWeight: "600", fontSize: "12px", marginTop: "3px", letterSpacing: "0.3px" }}>✨ {senteurActive.nom}</div>}
+                      <div style={{ color: "#fff", fontWeight: "700", fontSize: "14px", lineHeight: "1.3" }}>{p.nom}</div>
+{senteurActive && (
+  <div style={{ color: gold, fontWeight: "600", fontSize: "12px", marginTop: "3px", letterSpacing: "0.3px" }}>
+    ✨ {senteurActive.nom}{p.volume ? <span style={{ color: "rgba(255,255,255,0.4)", fontWeight: "500", marginLeft: "5px" }}>{p.volume}ml</span> : null}
+  </div>
+)}
+{!senteurActive && p.volume && (
+  <div style={{ color: "rgba(255,255,255,0.4)", fontSize: "12px", marginTop: "2px" }}>{p.volume}ml</div>
+)} 
                         {enPromo(p) && (
-                          <div style={{ display: "inline-block", marginTop: "6px", background: "linear-gradient(135deg, #c0392b, #8e2419)", color: "#fff", padding: "3px 10px", borderRadius: "12px", fontSize: "10px", fontWeight: "700", letterSpacing: "0.5px" }}>
-                            🐏 {PROMO_LABEL}
-                          </div>
+                      <div style={{ display: "inline-block", marginTop: "4px", background: "linear-gradient(135deg, #c0392b, #8e2419)", color: "#fff", padding: "2px 7px", borderRadius: "10px", fontSize: "9px", fontWeight: "700", letterSpacing: "0.3px" }}>
+  🐏 -25%
+</div>
                         )}
                       </div>
                       <div style={{ textAlign: "right", flexShrink: 0 }}>
