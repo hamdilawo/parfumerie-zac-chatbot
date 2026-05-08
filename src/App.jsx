@@ -45,7 +45,7 @@ const PRODUITS = [
       { nom: "Diament Bleu", img: "/photos/privee_diament_bleu.jpg", stock: 1 },
     ] },
   { nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", img: "/photos/coffret_collection_precieuse.jpg", desc: "Coffret 4 parfums luxueux. Le cadeau parfait pour une occasion inoubliable !" },
-  { nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", img: "/photos/coffret_gris_montaigne.jpg", desc: "Coffret prestige Gris Montaigne Paris" },
+  { nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", img: "/photos/coffret_gris_montaigne.jpg", desc: "Coffret Gris Montaigne Paris" },
   { nom: "Phantom Paco Rabanne", prix: 75000, stock: 1, cat: "Classique", img: "/photos/phantom_paco_rabanne.jpg", desc: "Le légendaire Phantom en flacon robot iconique. Notes boisées et magnétiques." },
   { nom: "Invictus Victory Paco Rabanne", prix: 65000, stock: 1, cat: "Classique", img: "/photos/invictus_victory.jpg", desc: "La victoire dans un flacon trophée noir. Puissant, frais et inoubliable." },
   { nom: "Red Tobacco Mancera Paris", prix: 75000, stock: 1, cat: "Classique", volume: 125, img: "/photos/red_tobacco.jpg", desc: "Mancera Paris Red Tobacco. Notes de tabac rouge et épices. Sensuel." },
