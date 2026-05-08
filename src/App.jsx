@@ -58,8 +58,8 @@ const PRODUITS = [
     senteurs: [
       { nom: "Tahara", img: "/photos/tahara_tahara.jpg", stock: 3 },
       { nom: "Oud Cachemire", img: "/photos/tahara_oud_cachemire.webp", stock: 2 },
-      { nom: "Barbe à Papa", img: "/photos/tahara_barbe_a_papa.jpg", stock: 2 },
-      { nom: "Rouge", img: "/photos/tahara_rouge.jpg", stock: 1 },
+      { nom: "Barbe à Papa", img: "/photos/tahara_barbe_a_papa.jpeg", stock: 2 },
+      { nom: "Rouge", img: "/photos/tahara_rouge_absolue.jpeg", stock: 1 },
     ] },
   { nom: "Déodorant BA Intense CP", prix: 4000, stock: 3, cat: "Accessoire", img: "/photos/deodorant_cp_ba_intense.jpg", desc: "Collection Privée by Birraci — BA Intense Body Spray. Protection longue durée." },
 ];
