@@ -39,10 +39,10 @@ const PRODUITS = [
     senteurs: [
       { nom: "Bakara", img: "/photos/privee_bakara.png", stock: 2 },
       { nom: "Arabie", img: "/photos/privee_arabie.jpeg", stock: 2 },
-      { nom: "Gris", img: "/photos/privee_gris.jpg", stock: 2 },
+      { nom: "Gris", img: "/photos/privee_gris.jpeg", stock: 2 },
       { nom: "Oud Vanille", img: "/photos/privee_oud_vanille.jpeg", stock: 2 },
       { nom: "Musc Blanc", img: "/photos/privee_musc_blanc.jpeg", stock: 2 },
-      { nom: "Diament Bleu", img: "/photos/privee_diament_bleu.jpg", stock: 1 },
+      { nom: "Diament Bleu", img: "/photos/privee_diament_bleu.jpeg", stock: 1 },
     ] },
   { nom: "Coffret Collection Précieuse", prix: 65000, stock: 1, cat: "Coffret", img: "/photos/coffret_collection_precieuse.jpg", desc: "Coffret 4 parfums luxueux. Le cadeau parfait pour une occasion inoubliable !" },
   { nom: "Coffret Gris Montaigne", prix: 50000, stock: 1, cat: "Coffret", img: "/photos/coffret_gris_montaigne.jpg", desc: "Coffret Gris Montaigne Paris" },
