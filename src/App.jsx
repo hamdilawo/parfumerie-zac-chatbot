@@ -52,7 +52,7 @@ const PRODUITS = [
   { nom: "Atelier des Essences (Eclat d'Iris)", prix: 45000, stock: 1, cat: "Classique", img: "/photos/atelier_des_essences.jpg", desc: "Atelier des Essences Paris, Eclat d'Iris. Notes florales raffinées." },
   { nom: "Sugar Oud Gulf Flowers", prix: 35000, stock: 1, cat: "Classique", img: "/photos/sugar_oud.jpg", desc: "Les Fleurs du Golfe Sugar Oud. Notes de oud et fleurs sucrées. Oriental." },
   { nom: "Gris Montaigne Black Empire", prix: 35000, stock: 1, cat: "Classique", img: "/photos/black_empire.jpg", desc: "Black Empire de Gris Montaigne Paris. Notes boisées profondes et sophistiquées." },
-  { nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", img: "/mauboussin_private_club.jpg", desc: "Private Club de Mauboussin. Flacon bleu nuit aux notes fruitées et florales." },
+  { nom: "Mauboussin Privée Club", prix: 40000, stock: 1, cat: "Classique", img: "/photos/mauboussin_private_club.jpg", desc: "Private Club de Mauboussin. Flacon bleu nuit aux notes fruitées et florales." },
   { nom: "Callisto Holliday Paris", prix: 60000, stock: 1, cat: "Classique", img: "/photos/callisto_holliday.jpg", desc: "Callisto Paris. Notes ambrées chaudes et boisées dans un flacon élégant." },
   { nom: "Musc Tahara", prix: 10000, cat: "Accessoire", volume: 12, desc: "Musc pur et authentique. Doux, enveloppant, longue tenue.",
     senteurs: [
