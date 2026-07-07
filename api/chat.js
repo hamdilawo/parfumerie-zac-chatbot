@@ -1,14 +1,28 @@
 export default async function handler(req, res) {
-  // Autoriser seulement les requêtes POST
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // Récupérer les messages depuis le body
   const { messages, system } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({ error: "Messages invalides" });
+  }
+
+  // Nettoyer : Anthropic exige que le 1er message soit "user"
+  // On retire tout message assistant au début (message de bienvenue)
+  let cleanMessages = [...messages];
+  while (cleanMessages.length > 0 && cleanMessages[0].role !== "user") {
+    cleanMessages.shift();
+  }
+
+  // Filtrer les messages vides
+  cleanMessages = cleanMessages.filter(
+    m => m.content && m.content.trim().length > 0
+  );
+
+  if (cleanMessages.length === 0) {
+    return res.status(400).json({ error: "Aucun message valide" });
   }
 
   try {
@@ -16,14 +30,14 @@ export default async function handler(req, res) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.REACT_APP_ANTHROPIC_API_KEY,
+        "x-api-key": process.env.ANTHROPIC_API_KEY,
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-6",
         max_tokens: 1000,
         system: system,
-        messages: messages,
+        messages: cleanMessages,
       }),
     });
 
